@@ -26,9 +26,9 @@ export class FormDialogComponent {
 
   public debug: boolean = false;
 
-  public minAllowedDate = new Date(EARLIEST_POSSIBLE_DATE);
-  public maxAllowedDate = new Date(LATEST_POSSIBLE_DATE);
-  public midsommarDate = new Date(MIDSOMMAR_DATE);
+  public minAllowedDate = EARLIEST_POSSIBLE_DATE;
+  public maxAllowedDate = LATEST_POSSIBLE_DATE;
+  public midsommarDate = MIDSOMMAR_DATE;
 
 
   public constructor(
@@ -66,7 +66,7 @@ export class FormDialogComponent {
     // Only highligh dates inside the month view.
     if (view === 'month') {
       // Highlight the 1st and 20th day of each month.
-      return cellDate.getDate() === new Date(MIDSOMMAR_DATE).getDate() ? 'highlighted-date' : '';
+      return cellDate.getDate() === MIDSOMMAR_DATE.getDate() ? 'highlighted-date' : '';
     }
 
     return '';
