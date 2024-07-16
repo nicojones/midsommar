@@ -23,6 +23,16 @@ body {
 }
 
 @layer utilities {
+  input[type="date"]::-webkit-inner-spin-button,
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+  }
+}
+
+.highlighted-date {
+  background-color: orange !important;
+  border-radius: 100%;
 }
 
 @layer components {

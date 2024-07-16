@@ -10,11 +10,11 @@ export interface IAtendee<DateType extends string | Date = Date> {
   /**
    * The date when they arrive (YYYY-MM-DD String)
    */
-  arrival: string;
+  arrival: DateType;
   /**
    * The date when they leave (YYYY-MM-DD String)
    */
-  departure: string;
+  departure: DateType;
   /**
    * True if they own and bring a car
    */

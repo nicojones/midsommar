@@ -11,6 +11,8 @@ import {
 import { MaterialModule } from "@/app/material.module";
 import { CommonModule } from "@angular/common";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { EARLIEST_POSSIBLE_DATE, LATEST_POSSIBLE_DATE, MIDSOMMAR_DATE } from "@/definitions";
+import { MatCalendarCellClassFunction } from "@angular/material/datepicker";
 
 @Component({
   selector: 'app-form-dialog',
@@ -23,6 +25,10 @@ export class FormDialogComponent {
   @Output() public submit = new EventEmitter();
 
   public debug: boolean = false;
+
+  public minAllowedDate = new Date(EARLIEST_POSSIBLE_DATE);
+  public maxAllowedDate = new Date(LATEST_POSSIBLE_DATE);
+  public midsommarDate = new Date(MIDSOMMAR_DATE);
 
 
   public constructor(
@@ -55,4 +61,14 @@ export class FormDialogComponent {
   public hasError (key: keyof Pick<IAtendee, "arrival" | "departure">, error: IDateLimitError): boolean {
     return this.userRegistrationForm.get(key)?.errors?.[error] ?? false;
   }
+
+   public dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
+    // Only highligh dates inside the month view.
+    if (view === 'month') {
+      // Highlight the 1st and 20th day of each month.
+      return cellDate.getDate() === new Date(MIDSOMMAR_DATE).getDate() ? 'highlighted-date' : '';
+    }
+
+    return '';
+  };
 }
