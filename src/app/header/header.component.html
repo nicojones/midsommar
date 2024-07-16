@@ -1,8 +1,9 @@
-<nav class="fixed top-0 h-12 w-screen bg-amber-200 drop-shadow-2xl py-3">
+<nav class="fixed top-0 h-12 w-screen bg-gray-300 drop-shadow-2xl py-3">
   <div class="flex flex-row items-center justify-between container mx-auto">
 
     <!-- LEFT SIDE -->
     <div>
+      <!-- TODO -- find a better title -->
       <a routerLink="/">Midsommar</a>
     </div>
 
@@ -11,7 +12,12 @@
 
     <!-- RIGHT SIDE -->
     <div class="fric-2">
-      <span class="cursor-help" [title]="ss.stats$.value?.attending + ' people coming so far'">({{ss.stats$.value?.attending}})</span>
+      <!-- TODO -- make it clearer that these are the people, or remove altogether -->
+      <span class="cursor-help"
+        [title]="ss.stats$.value?.attending + ' people coming so far'">({{ss.stats$.value?.attending}})</span>
+
+      <!-- TODO -- add an icon -->
+      <!-- TODO -- only show if the user is logged in -->
       <a class="ml-auto" role="button" (click)="signOut()">sign out</a>
     </div>
 

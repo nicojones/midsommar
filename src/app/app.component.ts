@@ -9,7 +9,6 @@ import { STORAGE_KEY } from "@/definitions";
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  public title = 'sweden';
   public pass = new FormControl<string>("");
 
   constructor() {
