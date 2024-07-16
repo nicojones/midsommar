@@ -11,6 +11,7 @@ import {
 import { MaterialModule } from "@/app/material.module";
 import { CommonModule } from "@angular/common";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { EARLIEST_POSSIBLE_DATE, LATEST_POSSIBLE_DATE, MIDSOMMAR_DATE } from "@/definitions";
 
 @Component({
   selector: 'app-form-dialog',
@@ -23,6 +24,10 @@ export class FormDialogComponent {
   @Output() public submit = new EventEmitter();
 
   public debug: boolean = false;
+
+  public minAllowedDate = new Date(EARLIEST_POSSIBLE_DATE);
+  public maxAllowedDate = new Date(LATEST_POSSIBLE_DATE);
+  public midsommarDate = new Date(MIDSOMMAR_DATE);
 
 
   public constructor(
@@ -55,4 +60,10 @@ export class FormDialogComponent {
   public hasError (key: keyof Pick<IAtendee, "arrival" | "departure">, error: IDateLimitError): boolean {
     return this.userRegistrationForm.get(key)?.errors?.[error] ?? false;
   }
+
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date()).getDay();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6;
+  };
 }

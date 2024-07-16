@@ -113,6 +113,7 @@ export class HomeComponent implements OnDestroy {
 
 
     const value: IAtendee<Date> = this.userRegistrationForm.getRawValue();
+    console.log("vaule" ,value);
     const valueParsed: IAtendee<string> = isoDatesToAtendee(value);
 
     await update(dbRef(`/people/${this.auth.user.uid}`), valueParsed);

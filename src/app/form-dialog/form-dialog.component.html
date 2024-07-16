@@ -7,9 +7,9 @@
     <small>form saves automatically</small>
   </ng-template>
 
-  <br/>
+  <br />
   <hr>
-  <br/>
+  <br />
 
   <form (submit)="submitFunction($event)" class="flex flex-col space-y-4">
     <mat-checkbox [checked]="userRegistrationForm.controls.attending.value"
@@ -36,7 +36,8 @@
 
     <div class="flex flex-col space-y-2 md:fric-2 items-baseline justify-stretch w-full">
       <mat-checkbox [checked]="userRegistrationForm.controls.hasTent.value"
-        (change)="toggleCheckbox('hasTent', $event.checked)">Can you bring sleep arrangements (tent ⛺️, van 🚐, ...)?</mat-checkbox>
+        (change)="toggleCheckbox('hasTent', $event.checked)">Can you bring sleep arrangements (tent ⛺️, van 🚐,
+        ...)?</mat-checkbox>
       <mat-checkbox *ngIf="userRegistrationForm.controls.hasTent.value"
         [checked]="userRegistrationForm.controls.sleepsInTent.value"
         (change)="toggleCheckbox('sleepsInTent', $event.checked)">
@@ -55,26 +56,74 @@
       </mat-form-field>
     </div>
 
+
     <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full">
       <mat-form-field class="basis-1/2">
-        <mat-label>arrival date</mat-label>
-        <input placeholder="when are you arriving?" matInput type="date"
-          [formControl]="userRegistrationForm.controls.arrival" />
+        <input placeholder="when are you arriving?" matInput [min]="minAllowedDate" [max]="midsommarDate"
+          [matDatepicker]="arrivalPicker"  [formControl]="userRegistrationForm.controls.arrival" />
+        <mat-hint>arrival date</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="arrivalPicker"></mat-datepicker-toggle>
+        <mat-datepicker #arrivalPicker></mat-datepicker>
         <mat-error *ngIf="hasError('arrival', 'arrivalTooEarly')">invalid date... if you want to arrive earlier, write
           us</mat-error>
         <mat-error *ngIf="hasError('arrival', 'collision')">invalid date. Must be earlier than departure</mat-error>
       </mat-form-field>
 
       <mat-form-field class="basis-1/2">
-        <mat-label>departure date</mat-label>
-        <input placeholder="when are you leaving?" matInput type="date"
-          [formControl]="userRegistrationForm.controls.departure" />
+        <input placeholder="when are you leaving?" matInput [min]="midsommarDate" [max]="maxAllowedDate"
+          [matDatepicker]="departurePicker" [formControl]="userRegistrationForm.controls.departure" />
+        <mat-hint>departure date</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="departurePicker"></mat-datepicker-toggle>
+        <mat-datepicker #departurePicker></mat-datepicker>
         <mat-error *ngIf="hasError('departure', 'collision')">invalid date. Must be later than arrival</mat-error>
         <mat-error *ngIf="hasError('departure', 'departureTooLate')">invalid date... if you want to leave later, write
           us</mat-error>
       </mat-form-field>
-
     </div>
+
+    <!-- <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full">
+      <mat-form-field class="basis-1/2">
+        <input placeholder="when are you arriving?" matInput type="date"
+        [min]="minAllowedDate" [max]="midsommarDate"
+          [formControl]="userRegistrationForm.controls.arrival" />
+        <mat-hint>arrival date</mat-hint>
+        <mat-error *ngIf="hasError('arrival', 'arrivalTooEarly')">invalid date... if you want to arrive earlier, write
+          us</mat-error>
+        <mat-error *ngIf="hasError('arrival', 'collision')">invalid date. Must be earlier than departure</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="basis-1/2">
+        <input placeholder="when are you leaving?" matInput type="date"
+        [min]="midsommarDate" [max]="maxAllowedDate"
+          [formControl]="userRegistrationForm.controls.departure" />
+        <mat-hint>departure date</mat-hint>
+        <mat-error *ngIf="hasError('departure', 'collision')">invalid date. Must be later than arrival</mat-error>
+        <mat-error *ngIf="hasError('departure', 'departureTooLate')">invalid date... if you want to leave later, write
+          us</mat-error>
+      </mat-form-field>
+    </div> -->
+
+    <!-- <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full">
+      <mat-form-field>
+        <mat-date-range-input [rangePicker]="picker" [formGroup]="userRegistrationForm">
+          <input placeholder="when are you arriving?" [min]="minAllowedDate" [max]="midsommarDate" matInput matStartDate formControlName="arrival" />
+          <input placeholder="when are you leaving?" [min]="midsommarDate" [max]="maxAllowedDate" matInput matEndDate formControlName="departure" />
+        </mat-date-range-input>
+        <mat-hint>DD.MM.YYYY - DD.MM.YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker touchUi #picker></mat-date-range-picker>
+
+        <mat-hint *ngIf="hasError('arrival', 'arrivalTooEarly')">invalid date... if you want to arrive earlier, write
+          us</mat-hint>
+        <mat-hint *ngIf="hasError('arrival', 'collision')">invalid date. Must be earlier than departure</mat-hint>
+        <mat-hint *ngIf="hasError('departure', 'collision')">invalid date. Must be later than arrival</mat-hint>
+        <mat-hint *ngIf="hasError('departure', 'departureTooLate')">invalid date... if you want to leave later, write
+          us</mat-hint>
+      </mat-form-field>
+
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </div> -->
+
     <mat-form-field>
       <mat-label>comments?</mat-label>
       <textarea matInput [formControl]="userRegistrationForm.controls.comments" cdkTextareaAutosize></textarea>
@@ -95,10 +144,13 @@
 
     <button type="submit" class="fixed -l-[1000rem]"></button>
 
-    <small role="button" class="opacity-20 hover:opacity-100 transition-opacity absolute right-1 bottom-1" (click)="debug = !debug">debug</small>
+    <small role="button" class="opacity-20 hover:opacity-100 transition-opacity absolute right-1 bottom-1"
+      (click)="debug = !debug">debug</small>
     <ng-container *ngIf="debug">
       <hr />
-      <small><pre>{{userRegistrationForm.value | json}}</pre></small>
+      <small>
+        <pre>{{userRegistrationForm.value | json}}</pre>
+      </small>
     </ng-container>
   </form>
 </mat-dialog-content>

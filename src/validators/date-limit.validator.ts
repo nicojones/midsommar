@@ -9,9 +9,10 @@ export class DateLimitValidator {
     // @ts-expect-error mismatching types
     return (control: FormGroup<Record<keyof IAtendee<Date>, FormControl>>): any => {
       const collision = control.controls.departure.value <= control.controls.arrival.value;
-      const arrivalTooEarly = control.controls.arrival.value <= EARLIEST_POSSIBLE_DATE;
-      const departureTooLate = control.controls.departure.value >= LATEST_POSSIBLE_DATE;
+      const arrivalTooEarly = control.controls.arrival.value <= new Date(EARLIEST_POSSIBLE_DATE);
+      const departureTooLate = control.controls.departure.value >= new Date(LATEST_POSSIBLE_DATE);
 
+      console.log({collision, arrivalTooEarly, departureTooLate});
       if (arrivalTooEarly || departureTooLate || collision) {
         if (arrivalTooEarly || collision) {
           control.controls.arrival.markAsTouched();
