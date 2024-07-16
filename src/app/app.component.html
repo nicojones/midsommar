@@ -1,0 +1,16 @@
+<div *ngIf="!isAuthed" class="grid place-items-center place-content-center h-screen">
+  Welcome to our new Swedish midsommar thing thing
+  <form (submit)="handlePassSubmit($event)">
+    <mat-form-field floatLabel="always" hintLabel="the password is on the whatsapp message" class="!w-96">
+      <input placeholder="password" matInput [formControl]="pass" type="text"/>
+    </mat-form-field>
+  </form>
+</div>
+
+<ng-content *ngIf="isAuthed">
+
+  <app-header></app-header>
+
+  <router-outlet></router-outlet>
+
+</ng-content>
