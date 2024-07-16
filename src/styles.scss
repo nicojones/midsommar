@@ -1,24 +1,44 @@
+@use "@angular/material" as mat;
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import "@angular/material/prebuilt-themes/indigo-pink.css";
+$theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette
+    )
+  )
+);
 
-html, body {
+html,
+body {
+  @include mat.all-component-themes($theme);
   min-width: 100vw;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
 @layer utilities {
-
 }
 
 @layer components {
   .text-secondary {
-    @apply opacity-30;
+    @apply opacity-0;
   }
   .center-page {
     @apply grid place-items-center place-content-center h-screen w-screen;
   }
+  .fric {
+    @apply flex flex-row;
+  }
+  .fric-2 {
+    @apply fric space-x-2 space-y-0;
+  }
 }
+
+@include mat.core();
+@include mat.color-variants-backwards-compatibility($theme);

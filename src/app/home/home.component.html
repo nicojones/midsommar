@@ -8,3 +8,18 @@
     Yes, it's a bit early for that! This website is a way to track who's coming and update you on the progress.
   </p>
 </div>
+
+
+<div class="container mx-auto">
+  <ng-container *ngIf="(ss.stats$ | async) as stats">
+    <h3 class="text-lg">Attendees ({{stats.attending}})</h3>
+    <ul>
+      <ng-container *ngFor="let p of stats.people">
+        <li>
+          {{p.name}}
+          <button mat-raised-button (click)="openAtendeeForm()" *ngIf="p.uid === auth.userId">EDIT</button>
+        </li>
+      </ng-container>
+    </ul>
+  </ng-container>
+</div>

@@ -5,12 +5,12 @@ import { Router } from "@angular/router";
 import { User } from "firebase/auth";
 
 @Injectable({ providedIn: "root" })
-export class AuthService {
+export class AuthService<UserType extends User | null = User> {
 
   /**
    * The logged in user
    */
-  public user: User | null = null;
+  public user: UserType = null as unknown as UserType;
 
   public constructor(
     private router: Router,
@@ -21,8 +21,15 @@ export class AuthService {
       } else {
         localStorage.removeItem(STORAGE_KEY.loggedIn);
       }
-      console.log("USER?", user);
-      this.user = user;
+      /**
+       * Trick to make sure `user` is still typed as User.
+       * In those pages where `user` is null, we don't access it, and if we do,
+       * we can construct the service as:
+       * public construct(private auth: AuthService<User | null>) {}
+       * and it will be properly typed
+       */
+      this.user = user as UserType;
+      console.log("User", user);
     });
   }
 
@@ -32,13 +39,25 @@ export class AuthService {
     });
   }
 
+  public get userId(): string | undefined {
+    return this.user?.uid;
+  }
 
   public get isAuthed(): boolean {
     return !!localStorage.getItem(STORAGE_KEY.loggedIn);
   }
 
-  public signOut(): void {
-    fbAuth.signOut();
-    this.router.navigateByUrl("/");
+  public get identifier(): string {
+    return (
+      this.user?.email ??
+      this.user?.phoneNumber ??
+      this.user?.displayName ??
+      `ID: ${this.user?.uid ?? "No idea who"}`
+    );
+  }
+
+  public async signOut(): Promise<void> {
+    await fbAuth.signOut();
+    window.location.reload();
   }
 }

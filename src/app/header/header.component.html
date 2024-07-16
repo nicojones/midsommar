@@ -1,7 +1,23 @@
-<nav class="fixed top-0 h-12 w-screen bg-slate-500 flex flex-row items-center drop-shadow-md p-4">
-  <span>Midsommar</span>
-  <a class="ml-auto" role="button" (click)="signOut()">sign out</a>
+<nav class="fixed top-0 h-12 w-screen bg-amber-200 drop-shadow-2xl p-4">
+  <div class="flex flex-row items-center justify-between container mx-auto">
+
+    <!-- LEFT SIDE -->
+    <div>
+      <a routerLink="/">Midsommar</a>
+    </div>
+
+    <!-- CENTERED -->
+    <div></div>
+
+    <!-- RIGHT SIDE -->
+    <div class="fric-2">
+      <span class="cursor-help" [title]="ss.stats$.value?.attending + ' people coming so far'">({{ss.stats$.value?.attending}})</span>
+      <a class="ml-auto" role="button" (click)="signOut()">sign out</a>
+    </div>
+
+  </div>
 </nav>
+
 <nav class="top-0 h-12 w-screen mb-6">
   <!-- placeholder for the header, so the content inside starts at the right place -->
 </nav>

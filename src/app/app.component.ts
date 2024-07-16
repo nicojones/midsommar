@@ -9,29 +9,29 @@ import { STORAGE_KEY } from "@/definitions";
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  public isAuthed: boolean = false;
   public title = 'sweden';
   public pass = new FormControl<string>("");
 
   constructor() {
-    this.setIsAuthed();
+  }
+
+  public get isAuthed (): boolean {
+    return isValidAppPassword();
   }
 
   public setPassword(pass: string) {
     localStorage.setItem(STORAGE_KEY.pass, pass);
-    if (!this.setIsAuthed()) {
+    if (!this.isAuthed) {
       alert("Invalid password. Please double-check!");
     }
-  }
-
-  public setIsAuthed(): boolean {
-    this.isAuthed = isValidAppPassword();;
-    return this.isAuthed;
   }
 
   public handlePassSubmit(e: PDefault): void {
     e.preventDefault();
     e.stopPropagation();
     this.setPassword(this.pass.value ?? "");
+    if (this.isAuthed) {
+      window.location.reload();
+    }
   }
 }

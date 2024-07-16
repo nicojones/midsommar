@@ -8,7 +8,7 @@ export default [
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
-  { ignores: ["tailwind.config.js", ".angular/*", "**/*.{js}"] },
+  { ignores: ["tailwind.config.js", ".angular/*", "**/*.{js}", "functions/lib"] },
   {
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
@@ -48,6 +48,6 @@ export default [
             ],
           },
         ],
-    }
-  }
+    },
+  },
 ];
