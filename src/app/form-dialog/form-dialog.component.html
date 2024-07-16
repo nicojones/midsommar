@@ -1,0 +1,104 @@
+<h2 mat-dialog-title>So... coming?</h2>
+<mat-dialog-content class="mat-typography">
+  <ng-container *ngIf="userRegistrationForm.controls.addedOn.value; else userHasRegistered">
+    <small>you can always edit this form later</small>
+  </ng-container>
+  <ng-template #userHasRegistered>
+    <small>form saves automatically</small>
+  </ng-template>
+
+  <br/>
+  <hr>
+  <br/>
+
+  <form (submit)="submitFunction($event)" class="flex flex-col space-y-4">
+    <mat-checkbox [checked]="userRegistrationForm.controls.attending.value"
+      (change)="toggleCheckbox('attending', $event.checked)">
+      {{
+      userRegistrationForm.controls.attending.value
+      ? "Coming!? 🤩"
+      : "Oh, not coming... 😔"
+      }}
+    </mat-checkbox>
+
+    <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full">
+      <mat-form-field class="basis-1/2">
+        <mat-label>full name</mat-label>
+        <input placeholder="e.g. Céline" matInput type="text" [formControl]="userRegistrationForm.controls.name" />
+      </mat-form-field>
+
+      <mat-form-field class="basis-1/2">
+        <mat-label>email</mat-label>
+        <input placeholder="Email address" matInput type="email" [formControl]="userRegistrationForm.controls.email" />
+      </mat-form-field>
+    </div>
+
+
+    <div class="flex flex-col space-y-2 md:fric-2 items-baseline justify-stretch w-full">
+      <mat-checkbox [checked]="userRegistrationForm.controls.hasTent.value"
+        (change)="toggleCheckbox('hasTent', $event.checked)">Can you bring sleep arrangements (tent ⛺️, van 🚐, ...)?</mat-checkbox>
+      <mat-checkbox *ngIf="userRegistrationForm.controls.hasTent.value"
+        [checked]="userRegistrationForm.controls.sleepsInTent.value"
+        (change)="toggleCheckbox('sleepsInTent', $event.checked)">
+        Will you sleep in it? 🌝
+      </mat-checkbox>
+    </div>
+
+    <div class="flex flex-col space-y-2 md:fric-2 items-baseline justify-stretch w-full">
+      <mat-checkbox [checked]="userRegistrationForm.controls.hasCar.value"
+        (change)="toggleCheckbox('hasCar', $event.checked)">Do
+        you come by car? 🚙</mat-checkbox>
+      <mat-form-field *ngIf="userRegistrationForm.controls.hasCar.value">
+        <mat-label>number of <b>free</b> car seats</mat-label>
+        <input placeholder="e.g. 2" matInput type="number" [min]="0" [max]="5"
+          [formControl]="userRegistrationForm.controls.freeCarSeats" />
+      </mat-form-field>
+    </div>
+
+    <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full">
+      <mat-form-field class="basis-1/2">
+        <mat-label>arrival date</mat-label>
+        <input placeholder="when are you arriving?" matInput type="date"
+          [formControl]="userRegistrationForm.controls.arrival" />
+        <mat-error *ngIf="hasError('arrival', 'arrivalTooEarly')">invalid date... if you want to arrive earlier, write
+          us</mat-error>
+        <mat-error *ngIf="hasError('arrival', 'collision')">invalid date. Must be earlier than departure</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="basis-1/2">
+        <mat-label>departure date</mat-label>
+        <input placeholder="when are you leaving?" matInput type="date"
+          [formControl]="userRegistrationForm.controls.departure" />
+        <mat-error *ngIf="hasError('departure', 'collision')">invalid date. Must be later than arrival</mat-error>
+        <mat-error *ngIf="hasError('departure', 'departureTooLate')">invalid date... if you want to leave later, write
+          us</mat-error>
+      </mat-form-field>
+
+    </div>
+    <mat-form-field>
+      <mat-label>comments?</mat-label>
+      <textarea matInput [formControl]="userRegistrationForm.controls.comments" cdkTextareaAutosize></textarea>
+    </mat-form-field>
+
+
+    <mat-checkbox [checked]="userRegistrationForm.controls.iWillBringNoDeadAnimals.value"
+      (change)="toggleCheckbox('iWillBringNoDeadAnimals', $event.checked)">
+      I confirm that i will bring <b>no dead animals</b> (meat, fish, chicken, seafood, etc.) with me.
+      <br />
+      The house is in harmony with nature and, while we tolerate vegetarian products, we do not want any corpses
+      in the house (except the one I buried in the garden 🤫)
+    </mat-checkbox>
+    <mat-error
+      *ngIf="userRegistrationForm.controls.iWillBringNoDeadAnimals.touched && userRegistrationForm.controls.iWillBringNoDeadAnimals.errors">this
+      is important</mat-error>
+
+
+    <button type="submit" class="fixed -l-[1000rem]"></button>
+
+    <small role="button" class="opacity-20 hover:opacity-100 transition-opacity absolute right-1 bottom-1" (click)="debug = !debug">debug</small>
+    <ng-container *ngIf="debug">
+      <hr />
+      <small><pre>{{userRegistrationForm.value | json}}</pre></small>
+    </ng-container>
+  </form>
+</mat-dialog-content>
