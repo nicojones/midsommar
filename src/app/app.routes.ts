@@ -14,6 +14,14 @@ export const APP_ROUTES: Routes = [
       isLoggedInGuard(true),
     ],
     children: [
+      // {
+      //   path: "gallery",
+      //   component: // TODO -- create gallery page
+      // },
+      // {
+      //   path: "activities",
+      //   component: // TODO - create activities page
+      // }
     ],
   },
   {
