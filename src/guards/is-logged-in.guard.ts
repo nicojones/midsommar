@@ -10,7 +10,6 @@ export const isLoggedInGuard = (mustBeLoggedIn: boolean): CanActivateFn =>
     const authService = inject(AuthService);
     const router = inject(Router);
     return authService.isAuthed$.then(loggedIn => {
-      console.log("STATE", {loggedIn, mustBeLoggedIn});
       if (mustBeLoggedIn) {
         if (!loggedIn) {
           console.log("Redirecting to /login");

@@ -29,7 +29,6 @@ export class AuthService<UserType extends User | null = User> {
        * and it will be properly typed
        */
       this.user = user as UserType;
-      console.log("User", user);
     });
   }
 

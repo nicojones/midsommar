@@ -15,7 +15,7 @@ export class StoreService {
   ) {
     onValue(query(dbRef("/stats")), v => {
       const _stats: IStats = v.val();
-      console.log("new data!", _stats.attending, _stats);
+      // console.log("new data!", _stats.attending, _stats);
       const _id = v.key;
       this.stats$.next(_stats);
     });

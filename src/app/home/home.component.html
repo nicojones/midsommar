@@ -1,25 +1,47 @@
-<div class="flex flex-col container mx-auto">
-  <h1 class="text-6xl">Welcome!</h1>
-  <p>
-    As you know, we would love to spend together a wonderful <a href="https://en.wikipedia.org/wiki/Midsummer"
-      target="_blank" rel="noreferrer">Midsommar</a> in 2025
-  </p>
-  <p>
-    Yes, it's a bit early for that! This website is a way to track who's coming and update you on the progress.
-  </p>
-</div>
+<section class="flex flex-col space-y-8">
+
+  <div class="flex flex-col container mx-auto">
+    <h1 class="text-6xl">Welcome!</h1>
+    <p>
+      As you know, we would love to spend together a wonderful <a href="https://en.wikipedia.org/wiki/Midsummer"
+        target="_blank" rel="noreferrer">Midsommar</a> in 2025
+    </p>
+    <p>
+      Yes, it's a bit early for that! This website is a way to track who's coming and update you on the progress.
+    </p>
+  </div>
 
 
-<div class="container mx-auto">
-  <ng-container *ngIf="(ss.stats$ | async) as stats">
-    <h3 class="text-lg">Attendees ({{stats.attending}})</h3>
-    <ul>
-      <ng-container *ngFor="let p of stats.people">
-        <li>
-          {{p.name}}
-          <button mat-raised-button (click)="openAtendeeForm()" *ngIf="p.uid === auth.userId">EDIT</button>
-        </li>
-      </ng-container>
-    </ul>
-  </ng-container>
-</div>
+  <div class="container mx-auto">
+    <ng-container *ngIf="(ss.stats$ | async) as stats">
+      <mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Attendees ({{stats.attending}}) </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ul>
+            <ng-container *ngFor="let p of stats.people">
+              <li>
+                {{p.name}}
+                <small *ngIf="p.uid === auth.userId">
+                  (me)
+                </small>
+              </li>
+            </ng-container>
+          </ul>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </ng-container>
+  </div>
+
+  <div class="container mx-auto flex flex-col items-center space-y-2">
+    <h1 class="text-xl">my status</h1>
+    <button [class]="'mx-auto mat-elevation-z4 w-64 h-64 ' + (userIsComing ? 'bg-green-200' : 'bg-red-200')" role="button"
+      (click)="toggleCheckbox('attending', !userIsComing)" matRipple [matRippleCentered]="false"
+      [matRippleColor]="(userIsComing ? 'rgb(254, 202, 202, 0.8)' : 'rgb(187, 247, 208, 0.8)')">
+      {{ userIsComing ? "Coming! 🤩" : "Can't come 😔"}}
+    </button>
+    <button mat-button (click)="openAtendeeForm()" class="inline-block w-24">EDIT</button>
+  </div>
+
+</section>

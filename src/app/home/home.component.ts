@@ -3,7 +3,7 @@ import { dbRef } from "@/firebase";
 import { addDatesToAtendee, isoDatesToAtendee } from "@/functions";
 import { AuthService } from "@/services/auth.service";
 import { StoreService } from "@/services/store.service";
-import { IAtendee } from "@/types";
+import { ExtractType, IAtendee } from "@/types";
 import { DateLimitValidator } from "@/validators";
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
@@ -102,13 +102,14 @@ export class HomeComponent implements OnDestroy {
   }
 
   public async saveUserRegistration(): Promise<void> {
-    const snackBarInstance = this.snackBar.open("saving...", undefined, {duration: 2000});
+
+    const snackBarInstance = this.snackBar.open("saving...", undefined, { duration: 2000 });
 
     // Update added/edited datetime stamps
     if (!this.userRegistrationForm.controls.addedOn.value) {
-      this.userRegistrationForm.controls.addedOn.setValue(new Date());
+      this.userRegistrationForm.controls.addedOn.setValue(new Date(), { emitEvent: false, onlySelf: true });
     }
-    this.userRegistrationForm.controls.editedOn.setValue(new Date());
+    this.userRegistrationForm.controls.editedOn.setValue(new Date(), { emitEvent: false, onlySelf: true });
 
 
     const value: IAtendee<Date> = this.userRegistrationForm.getRawValue();
@@ -118,5 +119,9 @@ export class HomeComponent implements OnDestroy {
     setTimeout(() => {
       snackBarInstance.dismiss();
     }, 700);
+  }
+
+  public toggleCheckbox(key: ExtractType<IAtendee, boolean>, value: boolean): void {
+    this.userRegistrationForm.controls[key].setValue(value);
   }
 }
