@@ -60,10 +60,11 @@
     <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full">
       <mat-form-field class="basis-1/2">
         <input placeholder="when are you arriving?" matInput [min]="minAllowedDate" [max]="midsommarDate"
-          [matDatepicker]="arrivalPicker"  [formControl]="userRegistrationForm.controls.arrival" />
+          [matDatepicker]="arrivalPicker" [formControl]="userRegistrationForm.controls.arrival" />
         <mat-hint>arrival date</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="arrivalPicker"></mat-datepicker-toggle>
-        <mat-datepicker #arrivalPicker></mat-datepicker>
+        <mat-datepicker #arrivalPicker [dateClass]="dateClass"></mat-datepicker>
+
         <mat-error *ngIf="hasError('arrival', 'arrivalTooEarly')">invalid date... if you want to arrive earlier, write
           us</mat-error>
         <mat-error *ngIf="hasError('arrival', 'collision')">invalid date. Must be earlier than departure</mat-error>
@@ -74,13 +75,14 @@
           [matDatepicker]="departurePicker" [formControl]="userRegistrationForm.controls.departure" />
         <mat-hint>departure date</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="departurePicker"></mat-datepicker-toggle>
-        <mat-datepicker #departurePicker></mat-datepicker>
+        <mat-datepicker #departurePicker [dateClass]="dateClass"></mat-datepicker>
         <mat-error *ngIf="hasError('departure', 'collision')">invalid date. Must be later than arrival</mat-error>
         <mat-error *ngIf="hasError('departure', 'departureTooLate')">invalid date... if you want to leave later, write
           us</mat-error>
       </mat-form-field>
     </div>
 
+    <!-- TWO NATIVE INPUTS. Maybe for mobile? -->
     <!-- <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full">
       <mat-form-field class="basis-1/2">
         <input placeholder="when are you arriving?" matInput type="date"
@@ -103,6 +105,8 @@
       </mat-form-field>
     </div> -->
 
+
+    <!-- Material Date-Range picker -->
     <!-- <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full">
       <mat-form-field>
         <mat-date-range-input [rangePicker]="picker" [formGroup]="userRegistrationForm">

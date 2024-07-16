@@ -30,6 +30,11 @@ body {
   }
 }
 
+.highlighted-date {
+  background-color: orange !important;
+  border-radius: 100%;
+}
+
 @layer components {
   .text-secondary {
     @apply opacity-0;

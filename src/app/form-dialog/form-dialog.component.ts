@@ -12,6 +12,7 @@ import { MaterialModule } from "@/app/material.module";
 import { CommonModule } from "@angular/common";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { EARLIEST_POSSIBLE_DATE, LATEST_POSSIBLE_DATE, MIDSOMMAR_DATE } from "@/definitions";
+import { MatCalendarCellClassFunction } from "@angular/material/datepicker";
 
 @Component({
   selector: 'app-form-dialog',
@@ -61,9 +62,13 @@ export class FormDialogComponent {
     return this.userRegistrationForm.get(key)?.errors?.[error] ?? false;
   }
 
-  myFilter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    // Prevent Saturday and Sunday from being selected.
-    return day !== 0 && day !== 6;
+   public dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
+    // Only highligh dates inside the month view.
+    if (view === 'month') {
+      // Highlight the 1st and 20th day of each month.
+      return cellDate.getDate() === new Date(MIDSOMMAR_DATE).getDate() ? 'highlighted-date' : '';
+    }
+
+    return '';
   };
 }
