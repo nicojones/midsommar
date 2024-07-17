@@ -1,7 +1,6 @@
 import { STORAGE_KEY } from "@/definitions";
 import { fbAuth } from "@/firebase";
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
 import { User } from "firebase/auth";
 
 @Injectable({ providedIn: "root" })
@@ -12,9 +11,7 @@ export class AuthService<UserType extends User | null = User> {
    */
   public user: UserType = null as unknown as UserType;
 
-  public constructor(
-    private router: Router,
-  ) {
+  public constructor() {
     fbAuth.onAuthStateChanged((user: User | null) => {
       if (user) {
         localStorage.setItem(STORAGE_KEY.loggedIn, "1");
@@ -23,10 +20,11 @@ export class AuthService<UserType extends User | null = User> {
       }
       /**
        * Trick to make sure `user` is still typed as User.
-       * In those pages where `user` is null, we don't access it, and if we do,
-       * we can construct the service as:
+       * In those pages where `user` is null, the code does not access it,
+       * and if we do, we can construct the service as follow,
+       * and it will be properly typed:
+       * @example
        * public construct(private auth: AuthService<User | null>) {}
-       * and it will be properly typed
        */
       this.user = user as UserType;
     });
@@ -50,7 +48,6 @@ export class AuthService<UserType extends User | null = User> {
     return (
       this.user?.email ??
       this.user?.phoneNumber ??
-      this.user?.displayName ??
       `ID: ${this.user?.uid ?? "No idea who"}`
     );
   }

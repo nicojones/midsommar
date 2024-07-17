@@ -13,18 +13,21 @@ import { CommonModule } from "@angular/common";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { EARLIEST_POSSIBLE_DATE, LATEST_POSSIBLE_DATE, MIDSOMMAR_DATE } from "@/definitions";
 import { MatCalendarCellClassFunction } from "@angular/material/datepicker";
+import { AttendingButtonComponent } from "@/app/form/attending-button/attending-button.component";
+import { timeStayingInWords } from "@/functions";
 
 @Component({
   selector: 'app-form-dialog',
   templateUrl: './form-dialog.component.html',
   standalone: true,
-  imports: [MatDialogTitle, MatDialogContent, MaterialModule, ReactiveFormsModule, CommonModule],
+  imports: [MatDialogTitle, MatDialogContent, MaterialModule, ReactiveFormsModule, CommonModule, AttendingButtonComponent],
 })
 export class FormDialogComponent {
 
   @Output() public submit = new EventEmitter();
 
   public debug: boolean = false;
+  public readonly noopComponent = NoopComponent;
 
   public minAllowedDate = EARLIEST_POSSIBLE_DATE;
   public maxAllowedDate = LATEST_POSSIBLE_DATE;
@@ -43,6 +46,10 @@ export class FormDialogComponent {
     return this.userRegistrationForm.value.addedOn;
   }
 
+  public get timeStayingInWords(): string {
+    return timeStayingInWords(this.userRegistrationForm.value as IAtendee);
+  }
+
   public submitFunction(e: PDefault): void {
     e.preventDefault();
     e.stopPropagation();
@@ -58,11 +65,11 @@ export class FormDialogComponent {
     this.userRegistrationForm.controls[key].setValue(value);
   }
 
-  public hasError (key: keyof Pick<IAtendee, "arrival" | "departure">, error: IDateLimitError): boolean {
+  public hasError(key: keyof Pick<IAtendee, "arrival" | "departure">, error: IDateLimitError): boolean {
     return this.userRegistrationForm.get(key)?.errors?.[error] ?? false;
   }
 
-   public dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
+  public dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
     // Only highligh dates inside the month view.
     if (view === 'month') {
       // Highlight the 1st and 20th day of each month.
@@ -72,3 +79,12 @@ export class FormDialogComponent {
     return '';
   };
 }
+
+
+@Component({
+  selector: 'app-noop',
+  template: "<br/>",
+  standalone: true,
+  imports: [],
+})
+export class NoopComponent {}
