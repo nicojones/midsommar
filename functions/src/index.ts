@@ -37,7 +37,7 @@ export default database.ref('/people/{uid}')
       }
       const arrival = new Date(person.arrival);
       const departure = new Date(person.departure);
-      const duration = (+departure - +arrival) / (1000 * 60 * 60 * 24); // duration in days
+      const duration = Math.round((+departure - +arrival) / (1000 * 60 * 60 * 24)); // duration in days
       totalDuration += duration;
       totalPeople++;
 

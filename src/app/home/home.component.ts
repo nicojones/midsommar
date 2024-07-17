@@ -13,7 +13,7 @@ import { Subject, Subscription, debounceTime, distinctUntilChanged, filter, take
 import {
   MatDialog,
 } from '@angular/material/dialog';
-import { FormDialogComponent } from "@/app/form-dialog/form-dialog.component";
+import { FormDialogComponent } from "@/app/form/form-dialog/form-dialog.component";
 
 @Component({
   selector: 'app-home',

@@ -13,6 +13,7 @@ import { APP_ROUTES } from "./app.routes";
 import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
 import { MaterialModule } from "./material.module";
+import { AttendingButtonComponent } from "./form/attending-button/attending-button.component";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MaterialModule } from "./material.module";
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-  ],
+    AttendingButtonComponent
+],
   providers: [
     AuthService,
     StoreService,

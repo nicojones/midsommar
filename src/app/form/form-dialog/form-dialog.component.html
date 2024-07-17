@@ -12,14 +12,8 @@
   <br />
 
   <form (submit)="submitFunction($event)" class="flex flex-col space-y-4">
-    <mat-checkbox [checked]="userRegistrationForm.controls.attending.value"
-      (change)="toggleCheckbox('attending', $event.checked)">
-      {{
-      userRegistrationForm.controls.attending.value
-      ? "Coming!? 🤩"
-      : "Oh, not coming... 😔"
-      }}
-    </mat-checkbox>
+    <app-attending-button classes="w-full h-20" [checked]="userRegistrationForm.controls.attending.value"
+      (change)="toggleCheckbox('attending', $event)" [animateOnInit]="true"></app-attending-button>
 
     <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full">
       <mat-form-field class="basis-1/2">
@@ -34,14 +28,14 @@
     </div>
 
 
-    <div class="flex flex-col space-y-2 md:fric-2 items-baseline justify-stretch w-full">
+    <div class="flex flex-col space-y-2 items-baseline justify-stretch w-full">
       <mat-checkbox [checked]="userRegistrationForm.controls.hasTent.value"
         (change)="toggleCheckbox('hasTent', $event.checked)">Can you bring sleep arrangements (tent ⛺️, van 🚐,
         ...)?</mat-checkbox>
       <mat-checkbox *ngIf="userRegistrationForm.controls.hasTent.value"
         [checked]="userRegistrationForm.controls.sleepsInTent.value"
         (change)="toggleCheckbox('sleepsInTent', $event.checked)">
-        Will you sleep in it? 🌝
+        Will you sleep in it? 🌝 🏕️
       </mat-checkbox>
     </div>
 
@@ -59,11 +53,11 @@
 
     <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full">
       <mat-form-field class="basis-1/2">
-        <input placeholder="when are you arriving?" matInput [min]="minAllowedDate" [max]="midsommarDate"
-          [matDatepicker]="arrivalPicker" [formControl]="userRegistrationForm.controls.arrival" />
+        <input class="pointer-events-none" placeholder="when are you arriving?" matInput [min]="minAllowedDate" [max]="midsommarDate"
+          [matDatepicker]="arrivalPicker" [readonly]="true" [formControl]="userRegistrationForm.controls.arrival" />
         <mat-hint>arrival date</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="arrivalPicker"></mat-datepicker-toggle>
-        <mat-datepicker #arrivalPicker [dateClass]="dateClass"></mat-datepicker>
+        <mat-datepicker #arrivalPicker [calendarHeaderComponent]="noopComponent" [dateClass]="dateClass"></mat-datepicker>
 
         <mat-error *ngIf="hasError('arrival', 'arrivalTooEarly')">invalid date... if you want to arrive earlier, write
           us</mat-error>
@@ -71,16 +65,22 @@
       </mat-form-field>
 
       <mat-form-field class="basis-1/2">
-        <input placeholder="when are you leaving?" matInput [min]="midsommarDate" [max]="maxAllowedDate"
-          [matDatepicker]="departurePicker" [formControl]="userRegistrationForm.controls.departure" />
+        <input class="pointer-events-none" placeholder="when are you leaving?" matInput [min]="midsommarDate" [max]="maxAllowedDate"
+          [matDatepicker]="departurePicker" [readonly]="true" [formControl]="userRegistrationForm.controls.departure" />
         <mat-hint>departure date</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="departurePicker"></mat-datepicker-toggle>
-        <mat-datepicker #departurePicker [dateClass]="dateClass"></mat-datepicker>
+        <mat-datepicker #departurePicker  [calendarHeaderComponent]="noopComponent" [dateClass]="dateClass"></mat-datepicker>
         <mat-error *ngIf="hasError('departure', 'collision')">invalid date. Must be later than arrival</mat-error>
         <mat-error *ngIf="hasError('departure', 'departureTooLate')">invalid date... if you want to leave later, write
           us</mat-error>
       </mat-form-field>
     </div>
+    @if (!hasError('departure', 'collision') && !hasError('departure', 'departureTooLate') && !hasError('arrival', 'arrivalTooEarly')) {
+      <mat-hint class="relative -top-4 w-full text-center bg-gray-100 rounded p-1">
+        {{ timeStayingInWords }}
+      </mat-hint>
+    }
+    <hr>
 
     <!-- TWO NATIVE INPUTS. Maybe for mobile? -->
     <!-- <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full">
