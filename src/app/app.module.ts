@@ -14,12 +14,16 @@ import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
 import { MaterialModule } from "./material.module";
 import { AttendingButtonComponent } from "./form/attending-button/attending-button.component";
+import { GuestsComponent } from "./guests/guests.component";
+import { AdminComponent } from "./admin/admin.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    GuestsComponent,
     HomeComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,13 +33,13 @@ import { AttendingButtonComponent } from "./form/attending-button/attending-butt
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    AttendingButtonComponent
-],
+    AttendingButtonComponent,
+  ],
   providers: [
     AuthService,
     StoreService,
     provideRouter(APP_ROUTES, withComponentInputBinding()),
-    {provide: MAT_RIPPLE_GLOBAL_OPTIONS, useExisting: AppGlobalRippleOptions},
+    { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useExisting: AppGlobalRippleOptions },
   ],
   bootstrap: [
     AppComponent,

@@ -1,4 +1,4 @@
-<nav class="fixed top-0 h-12 w-screen bg-gray-300 drop-shadow-2xl py-3">
+<mat-toolbar class="fixed top-0 h-12 w-screen bg-gray-300 drop-shadow-2xl py-3">
   <div class="flex flex-row items-center justify-between container mx-auto">
 
     <!-- LEFT SIDE -->
@@ -12,17 +12,25 @@
 
     <!-- RIGHT SIDE -->
     <div class="fric-2">
-      <!-- TODO -- make it clearer that these are the people, or remove altogether -->
-      <span class="cursor-help"
-        [title]="ss.stats$.value?.attending + ' people coming so far'">({{ss.stats$.value?.attending}})</span>
 
-      <!-- TODO -- add an icon -->
-      <!-- TODO -- only show if the user is logged in -->
-      <a class="ml-auto" role="button" (click)="signOut()">sign out</a>
+      <button *ngIf="auth.isAdmin" mat-icon-button [matMenuTriggerFor]="adminMenu" aria-label="Admin menu">
+        <mat-icon>verified_user</mat-icon>
+      </button>
+      <mat-menu #adminMenu="matMenu">
+        <a routerLink="/admin" mat-menu-item>
+          <mat-icon>groups</mat-icon>
+          <span>Attending</span>
+        </a>
+      </mat-menu>
+
+
+      <button *ngIf="auth.isAuthed" mat-icon-button aria-label="sign-out button" (click)="signOut()">
+        <mat-icon fontIcon="logout"></mat-icon>
+      </button>
     </div>
 
   </div>
-</nav>
+</mat-toolbar>
 
 <nav class="top-0 h-12 w-screen mb-6">
   <!-- placeholder for the header, so the content inside starts at the right place -->
