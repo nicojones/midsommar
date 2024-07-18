@@ -1,19 +1,19 @@
+import { FormDialogComponent } from "@/app/form/form-dialog/form-dialog.component";
 import { EXPECTED_ARRIVAL_DATE, EXPECTED_DEPARTURE_DATE } from "@/definitions";
 import { dbRef } from "@/firebase";
-import { addDatesToAtendee, isoDatesToAtendee } from "@/functions";
+import { addDatesToAtendee, formModalData, isoDatesToAtendee } from "@/functions";
 import { AuthService } from "@/services/auth.service";
 import { StoreService } from "@/services/store.service";
 import { ExtractType, IAtendee } from "@/types";
 import { DateLimitValidator } from "@/validators";
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { get, query, update } from "firebase/database";
-import { Subject, Subscription, debounceTime, distinctUntilChanged, filter, takeUntil, tap } from "rxjs";
 import {
   MatDialog,
 } from '@angular/material/dialog';
-import { FormDialogComponent } from "@/app/form/form-dialog/form-dialog.component";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { get, query, update } from "firebase/database";
+import { Subject, Subscription, debounceTime, distinctUntilChanged, filter, takeUntil, tap } from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -44,7 +44,7 @@ export class HomeComponent implements OnDestroy {
             email: auth.identifier,
             name: auth.user.displayName ?? "",
           });
-          this.openAtendeeForm();
+          this.openAtendeeModalForm();
         } else {
           const parsedAtendee: IAtendee<Date> = addDatesToAtendee(atendee);
           this.userRegistrationForm.setValue(parsedAtendee);
@@ -69,10 +69,8 @@ export class HomeComponent implements OnDestroy {
       ).subscribe();
   }
 
-  public openAtendeeForm() {
-    this.dialog.open(FormDialogComponent, {
-      data: this.userRegistrationForm,
-    });
+  public openAtendeeModalForm() {
+    this.dialog.open(FormDialogComponent, formModalData(this.userRegistrationForm));
   }
 
   public get userHasRegistered(): boolean {
@@ -84,6 +82,7 @@ export class HomeComponent implements OnDestroy {
   }
 
   public createRegistrationForm(atendee: Partial<IAtendee<Date>>): void {
+    // TODO -- create `form.service.ts` and move this there
     this.userRegistrationForm = new FormGroup({
       name: new FormControl(atendee.name ?? "", { validators: Validators.required }),
       arrival: new FormControl(atendee.arrival ?? EXPECTED_ARRIVAL_DATE, [Validators.required]),

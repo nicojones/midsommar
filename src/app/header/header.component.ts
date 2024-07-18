@@ -1,5 +1,4 @@
 import { AuthService } from "@/services/auth.service";
-import { StoreService } from "@/services/store.service";
 import { Component } from '@angular/core';
 
 @Component({
@@ -9,8 +8,7 @@ import { Component } from '@angular/core';
 export class HeaderComponent {
 
     public constructor(
-      private auth: AuthService,
-      public ss: StoreService,
+      public auth: AuthService,
     ) {
 
     }

@@ -7,10 +7,10 @@
   </form>
 </div>
 
-<ng-content *ngIf="isAuthed">
+<ng-container *ngIf="isAuthed">
 
   <app-header></app-header>
 
   <router-outlet></router-outlet>
 
-</ng-content>
+</ng-container>

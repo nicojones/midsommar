@@ -1,0 +1,29 @@
+<ng-container *ngIf="(stats$ | async) as stats; else loadingStats">
+  <mat-accordion>
+    <mat-expansion-panel matRipple>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Who's coming? ({{stats.attending}}) </mat-panel-title>
+      </mat-expansion-panel-header>
+      <ul>
+        <ng-container *ngFor="let p of stats.people">
+          <li>
+            {{p.name}}
+            <small *ngIf="p.uid === auth.userId">
+              (me)
+            </small>
+            <small *ngIf="hostIds.includes(p.uid)">
+              (host 💁‍♀️)
+            </small>
+
+            <!-- TODO -- add "from {date} to {date}" -->
+            <!-- TODO -- add their role (cooking, shopping, whatever) -->
+            <!-- TODO -- add icons whether they have a tent, car, etc -->
+          </li>
+        </ng-container>
+      </ul>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ng-container>
+<ng-template #loadingStats>
+  <mat-progress-bar class="basis-1/2" mode="indeterminate"></mat-progress-bar>
+</ng-template>

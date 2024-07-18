@@ -27,23 +27,34 @@ const FB_CONFIG: FirebaseOptions = {
 };
 
 export const FB_UI_CONFIG: firebaseui.auth.Config = {
+  callbacks: {
+    // Called when the user has been successfully signed in.
+    signInSuccessWithAuthResult: (authResult, _redirectUrl: string) => {
+
+      if (authResult.user) {
+        const isNewUser = authResult?.additionalUserInfo?.isNewUser ?? false;
+        window.location.href = "/" + (isNewUser ? "?new=1" : "");
+      }
+      return false;
+    },
+  },
   signInSuccessUrl: ENV.url,
   siteName: ENV.name,
   signInFlow: "popup",
   signInOptions: [
-    // Leave the lines as is for the providers you want to offer your users.
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+    // firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    {
+      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      // Whether the display name should be displayed in Sign Up page.
+      requireDisplayName: true,
+      signInMethod: "emailLink",
+      disableSignUp: {
+        status: false,
+      },
+    },
   ],
-  // tosUrl and privacyPolicyUrl accept either url string or a callback
-  // function.
-  // Terms of service url/callback.
-  // tosUrl: '<your-tos-url>',
-  // Privacy policy url/callback.
-  // privacyPolicyUrl: function() {
-  //   window.location.assign('<your-privacy-policy-url>');
-  // },
+  credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO,
 };
 
 // Initialize Firebase

@@ -1,6 +1,7 @@
-import { STORAGE_KEY } from "@/definitions";
+import { ADMIN_UIDS, STORAGE_KEY } from "@/definitions";
 import { fbAuth } from "@/firebase";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { User } from "firebase/auth";
 
 @Injectable({ providedIn: "root" })
@@ -11,12 +12,18 @@ export class AuthService<UserType extends User | null = User> {
    */
   public user: UserType = null as unknown as UserType;
 
-  public constructor() {
+  public constructor(
+    private router: Router,
+  ) {
+
+
     fbAuth.onAuthStateChanged((user: User | null) => {
       if (user) {
         localStorage.setItem(STORAGE_KEY.loggedIn, "1");
+        // router.navigateByUrl("/");
       } else {
         localStorage.removeItem(STORAGE_KEY.loggedIn);
+        // router.navigateByUrl("/login");
       }
       /**
        * Trick to make sure `user` is still typed as User.
@@ -40,6 +47,10 @@ export class AuthService<UserType extends User | null = User> {
     return this.user?.uid;
   }
 
+  public get isAdmin(): boolean {
+    return ADMIN_UIDS.includes(this.userId ?? "");
+  }
+
   public get isAuthed(): boolean {
     return !!localStorage.getItem(STORAGE_KEY.loggedIn);
   }
@@ -47,7 +58,6 @@ export class AuthService<UserType extends User | null = User> {
   public get identifier(): string {
     return (
       this.user?.email ??
-      this.user?.phoneNumber ??
       `ID: ${this.user?.uid ?? "No idea who"}`
     );
   }
@@ -56,4 +66,5 @@ export class AuthService<UserType extends User | null = User> {
     await fbAuth.signOut();
     window.location.reload();
   }
+
 }
