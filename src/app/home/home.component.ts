@@ -21,8 +21,11 @@ import { Subject, Subscription, debounceTime, distinctUntilChanged, filter, take
 })
 export class HomeComponent implements OnDestroy {
 
+  // TODO Céline -- move to RegistrationService
   public userRegistrationForm!: FormGroup<Record<keyof IAtendee<Date>, FormControl>>;
+  // TODO Céline -- move to RegistrationService
   private formListener$ = new Subject();
+  // TODO Céline -- move to RegistrationService
   private valueChangesSubscription: Subscription | null = null;
 
   public constructor(
@@ -32,22 +35,23 @@ export class HomeComponent implements OnDestroy {
     public dialog: MatDialog,
   ) {
 
-    this.createRegistrationForm({});
     get(query(dbRef(`/people/${auth.user.uid}`)))
       .then(r => r.val())
       .then((atendee: IAtendee<string> | null) => {
+
+        // TODO Céline -- move all this code to a function `RegistrationService::initRegistrationForm(atendee)` that handles everything
         this.valueChangesSubscription?.unsubscribe();
 
         if (!atendee) {
-          // It's a registration
-          this.userRegistrationForm.patchValue({
+          this.createRegistrationForm({
             email: auth.identifier,
             name: auth.user.displayName ?? "",
           });
+          // It's a registration
           this.openAtendeeModalForm();
         } else {
           const parsedAtendee: IAtendee<Date> = addDatesToAtendee(atendee);
-          this.userRegistrationForm.setValue(parsedAtendee);
+          this.createRegistrationForm(parsedAtendee);
         }
 
         this.listenForFormChanges();
@@ -58,31 +62,35 @@ export class HomeComponent implements OnDestroy {
     this.formListener$.complete();
   }
 
+  // TODO Céline -- move to RegistrationService
   private listenForFormChanges(): void {
     this.valueChangesSubscription = this.userRegistrationForm.valueChanges
       .pipe(
         takeUntil(this.formListener$),
         filter(() => this.userRegistrationForm.valid),
-        distinctUntilChanged(),
+        distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
         debounceTime(2000),
         tap(() => this.saveUserRegistration()),
       ).subscribe();
   }
 
+  // TODO Céline -- move to RegistrationService
   public openAtendeeModalForm() {
     this.dialog.open(FormDialogComponent, formModalData(this.userRegistrationForm));
   }
 
+  // TODO Céline -- move to RegistrationService
   public get userHasRegistered(): boolean {
     return !!this.userRegistrationForm.controls.addedOn.value;
   }
 
+  // TODO Céline -- move to RegistrationService
   public get userIsComing(): boolean {
     return this.userRegistrationForm.value.attending;
   }
 
+  // TODO Céline -- move to RegistrationService
   public createRegistrationForm(atendee: Partial<IAtendee<Date>>): void {
-    // TODO -- create `form.service.ts` and move this there
     this.userRegistrationForm = new FormGroup({
       name: new FormControl(atendee.name ?? "", { validators: Validators.required }),
       arrival: new FormControl(atendee.arrival ?? EXPECTED_ARRIVAL_DATE, [Validators.required]),
@@ -100,6 +108,7 @@ export class HomeComponent implements OnDestroy {
     }, { validators: [DateLimitValidator.createValidator()] });
   }
 
+  // TODO Céline -- move to RegistrationService
   public async saveUserRegistration(): Promise<void> {
 
     const snackBarInstance = this.snackBar.open("saving...", undefined, { duration: 2000 });
@@ -120,6 +129,7 @@ export class HomeComponent implements OnDestroy {
     }, 700);
   }
 
+  // TODO Céline -- move to RegistrationService
   public toggleCheckbox(key: ExtractType<IAtendee, boolean>, value: boolean): void {
     this.userRegistrationForm.controls[key].setValue(value);
   }

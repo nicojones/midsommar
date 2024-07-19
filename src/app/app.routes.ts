@@ -28,11 +28,11 @@ export const APP_ROUTES: Routes = [
       },
       // {
       //   path: "gallery",
-      //   component: // TODO -- create gallery page
+      //   component: // TODO Céline -- create gallery page (no need for UI, just components)
       // },
       // {
       //   path: "activities",
-      //   component: // TODO - create activities page
+      //   component: // TODO Céline - create activities page (no need for UI, just components)
       // }
     ],
   },
