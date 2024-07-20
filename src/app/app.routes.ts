@@ -6,6 +6,7 @@ import { AdminComponent } from "./admin/admin.component";
 import { HomeComponent } from "./home/home.component";
 import { LoginComponent } from "./login/login.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
+import {GalleryComponent} from "@/app/gallery/gallery.component";
 
 export const APP_ROUTES: Routes = [
   {
@@ -26,10 +27,10 @@ export const APP_ROUTES: Routes = [
           canActivateAdmin,
         ],
       },
-      // {
-      //   path: "gallery",
-      //   component: // TODO Céline -- create gallery page (no need for UI, just components)
-      // },
+      {
+        path: "gallery",
+        component: GalleryComponent,
+      },
       // {
       //   path: "activities",
       //   component: // TODO Céline - create activities page (no need for UI, just components)

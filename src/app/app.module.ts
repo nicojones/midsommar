@@ -17,6 +17,7 @@ import { AttendingButtonComponent } from "./form/attending-button/attending-butt
 import { GuestsComponent } from "./guests/guests.component";
 import { AdminComponent } from "./admin/admin.component";
 import {RegistrationService} from "@/services/registration.service";
+import {GalleryComponent} from "@/app/gallery/gallery.component";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {RegistrationService} from "@/services/registration.service";
     GuestsComponent,
     HomeComponent,
     AdminComponent,
+    GalleryComponent,
   ],
   imports: [
     BrowserModule,
