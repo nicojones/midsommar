@@ -13,11 +13,12 @@ import {
 import { MaterialModule } from "@/app/material.module";
 import { CommonModule } from "@angular/common";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { EARLIEST_POSSIBLE_DATE, LATEST_POSSIBLE_DATE, MIDSOMMAR_DATE } from "@/definitions";
+import { EARLIEST_POSSIBLE_DATE, LATEST_POSSIBLE_DATE, MIDSOMMAR_DATE, PROBLEMATIC_FOODS } from "@/definitions";
 import { MatCalendarCellClassFunction } from "@angular/material/datepicker";
 import { AttendingButtonComponent } from "@/app/form/attending-button/attending-button.component";
 import { timeStayingInWords } from "@/functions";
 import { FormService } from "@/services/form.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: 'app-form-dialog',
@@ -30,9 +31,10 @@ export class FormDialogComponent {
   public debug: boolean = false;
   public readonly noopComponent = NoopComponent;
 
-  public minAllowedDate = EARLIEST_POSSIBLE_DATE;
-  public maxAllowedDate = LATEST_POSSIBLE_DATE;
-  public midsommarDate = MIDSOMMAR_DATE;
+  public readonly minAllowedDate = EARLIEST_POSSIBLE_DATE;
+  public readonly maxAllowedDate = LATEST_POSSIBLE_DATE;
+  public readonly midsommarDate = MIDSOMMAR_DATE;
+  public readonly problematicFoods = PROBLEMATIC_FOODS;
 
 
   public constructor(
@@ -46,10 +48,6 @@ export class FormDialogComponent {
 
   public get isEdit(): boolean {
     return this.userRegistrationForm.value.addedOn;
-  }
-
-  public get timeStayingInWords(): string {
-    return timeStayingInWords(this.userRegistrationForm.value as IAttendee);
   }
 
   public submitFunction(e: PDefault): void {

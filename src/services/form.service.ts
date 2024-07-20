@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ExtractType, IAttendee } from "@/types";
-import { debounceTime, distinctUntilChanged, filter, Observable, of, Subject, Subscription, takeUntil, tap } from "rxjs";
-import { addDatesToAtendee, formModalData, isoDatesToAtendee } from "@/functions";
+import { BehaviorSubject, debounceTime, distinctUntilChanged, filter, Observable, of, startWith, Subject, Subscription, takeUntil, tap } from "rxjs";
+import { addDatesToAttendee, formModalData, isoDatesToAttendee, timeStayingInWords } from "@/functions";
 import { AuthService } from "@/services/auth.service";
 import { FormDialogComponent } from "@/app/form/form-dialog/form-dialog.component";
 import { EXPECTED_ARRIVAL_DATE, EXPECTED_DEPARTURE_DATE } from "@/definitions";
@@ -18,6 +18,7 @@ export class FormService {
   public form!: FormGroup<Record<keyof IAttendee<Date>, FormControl>>;
   private listener = new Subject();
   private valueChangesSubscription: Subscription | null = null;
+  public timeStayingInWords$ = new BehaviorSubject<string>("");
 
   constructor(
     public auth: AuthService,
@@ -37,7 +38,7 @@ export class FormService {
       // It's a registration
       this.openAttendeeModalForm();
     } else {
-      const parsedAttendee: IAttendee = addDatesToAtendee(attendee);
+      const parsedAttendee: IAttendee = addDatesToAttendee(attendee);
       this.createRegistrationForm(parsedAttendee);
     }
 
@@ -45,10 +46,13 @@ export class FormService {
   }
 
   private listenForFormChanges(): void {
+    this.updateDurationOfStay();
+
     this.valueChangesSubscription = this.form.valueChanges
       .pipe(
         takeUntil(this.listener),
         filter(() => this.form.valid),
+        tap(() => this.updateDurationOfStay()),
         distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
         debounceTime(4000),
         tap(() => this.saveUserRegistration()),
@@ -86,6 +90,7 @@ export class FormService {
       sleepsInTent: new FormControl(attendee.sleepsInTent ?? false),
       attending: new FormControl(attendee.attending ?? true),
       email: new FormControl(attendee.email ?? "", Validators.required),
+      problematicFoods: new FormControl(attendee.problematicFoods ?? []),
       freeCarSeats: new FormControl(attendee.freeCarSeats ?? 0),
       editedOn: new FormControl(new Date(attendee.editedOn ?? new Date())),
       addedOn: new FormControl(attendee.addedOn),
@@ -106,7 +111,7 @@ export class FormService {
 
 
     const value: IAttendee<Date> = this.form.getRawValue();
-    const valueParsed: IAttendee<string> = isoDatesToAtendee(value);
+    const valueParsed: IAttendee<string> = isoDatesToAttendee(value);
 
     await update(dbRef(`/people/${value.uid}`), valueParsed);
     setTimeout(() => {
@@ -123,5 +128,9 @@ export class FormService {
       value,
       emit ? undefined : { emitEvent: false, onlySelf: true },
     );
+  }
+
+  private updateDurationOfStay(): void {
+    this.timeStayingInWords$.next(timeStayingInWords(this.form.value as IAttendee));
   }
 }

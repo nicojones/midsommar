@@ -1,4 +1,4 @@
-export interface IAttendee<TheTypeOfDateObjectReturnedFromFirebase extends string | Date = Date> {
+export interface IAttendee<DateType extends string | Date = Date> {
   uid: string;
   /**
    * Full name of the person
@@ -11,11 +11,19 @@ export interface IAttendee<TheTypeOfDateObjectReturnedFromFirebase extends strin
   /**
    * The date when they arrive (YYYY-MM-DD String)
    */
-  arrival: TheTypeOfDateObjectReturnedFromFirebase;
+  arrival: DateType;
   /**
    * The date when they leave (YYYY-MM-DD String)
    */
-  departure: TheTypeOfDateObjectReturnedFromFirebase;
+  departure: DateType;
+  /**
+   * When did they signed up for the event (ISO String)
+   */
+  addedOn: DateType;
+  /**
+   * When did they last edit their data (ISO String)
+   */
+  editedOn: DateType;
   /**
    * True if they own and bring a car
    */
@@ -35,17 +43,13 @@ export interface IAttendee<TheTypeOfDateObjectReturnedFromFirebase extends strin
    */
   sleepsInTent: boolean;
   /**
-   * Whether they are attending or not. An atendee might have signed up and later cancel it.
+   * Whether they are attending or not. An attendee might have signed up and later cancel it.
    */
   attending: boolean;
   /**
-   * When did they signed up for the event (ISO String)
+   * Food that they can't or don't want to eat
    */
-  addedOn: TheTypeOfDateObjectReturnedFromFirebase;
-  /**
-   * When did they last edit their data (ISO String)
-   */
-  editedOn: TheTypeOfDateObjectReturnedFromFirebase;
+  problematicFoods: string[];
   /**
    * Comments
    */

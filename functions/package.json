@@ -3,7 +3,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
-    "build": "tsc && cp lib/functions/src/index.js lib",
+    "build": "tsc && cp lib/functions/src/*.js lib",
     "build:watch": "tsc --watch",
     "serve": "npm run build && firebase emulators:start --only functions",
     "shell": "npm run build && firebase functions:shell",

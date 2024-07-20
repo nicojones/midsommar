@@ -1,11 +1,9 @@
 import { IAttendee } from "./attendee.type";
 
-export type IStatsAtendee = Pick<IAttendee, "name" | "email" | "arrival" | "departure" | "freeCarSeats" | "attending" | "hasCar" | "hasTent"> & { uid: string; };
+export type IStatsAttendee<DateType extends string | Date = Date> =
+  Pick<IAttendee<DateType>, "name" | "email" | "addedOn" | "editedOn" | "arrival" | "departure" | "freeCarSeats" | "attending" | "hasCar" | "hasTent" | "sleepsInTent" | "problematicFoods"> & { uid: string; };
 
-/**
- * The values are updated via a cloud function.
- */
-export interface IStats {
+export interface IStatsPerDay<DateType extends string | Date = Date> {
   /**
    * How many people are attending
    * @readonly
@@ -15,16 +13,21 @@ export interface IStats {
    * How many people have a car
    * @readonly
    */
-  hasCar: number;
+  amountHaveCar: number;
   /**
-   * Total free seats. This is calculated as the total number of {@link IAtendee["freeCarSeats"]} - amount of atendees that do not have a car
+   * Total free seats. This is calculated as the total number of {@link IAttendee["freeCarSeats"]} - amount of attendees that do not have a car
    */
   freeCarSeats: number;
   /**
-   * How many people bring their own tent
+   * How many people COULD bring their own tent.
    * @readonly
    */
-  hasTent: number;
+  amountHaveTent: number;
+  /**
+   * How many people WHO HAVE A TENT are willing to sleep in it
+   * @readonly
+   */
+  amountSleepInTent: number;
   /**
    * Average duration in days (float) that people stay
    * @readonly
@@ -34,6 +37,26 @@ export interface IStats {
    * Summarized data of the people who come
    * @readonly
    */
-  people: IStatsAtendee[];
+  people: IStatsAttendee<DateType>[];
+  /**
+   * The problematic foods (summarized)
+   */
+  problematicFoods: Record<string, number>;
+}
 
+export interface IDailyStats<DateType extends string | Date = Date> {
+  day: string;
+  stats: IStatsPerDay<DateType>;
+}
+
+
+/**
+ * The values are updated via a cloud function.
+ */
+export interface IStats<DateType extends string | Date = Date> extends IStatsPerDay<DateType> {
+
+  /**
+   * Same stats, but per day
+   */
+  perDay: Record<string, IStatsPerDay<DateType>>;
 }

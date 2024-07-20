@@ -22,8 +22,8 @@ export class StoreService {
     });
 
     onValue(query(dbRef("/people")), v => {
-      const _atendees: Record<string, IAttendee> = v.val();
-      this.adminPeople$.next(Object.values(_atendees));
+      const _attendees: Record<string, IAttendee> = v.val() ?? {};
+      this.adminPeople$.next(Object.values(_attendees));
     });
   }
 }

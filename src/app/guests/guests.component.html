@@ -6,18 +6,13 @@
       </mat-expansion-panel-header>
       <ul>
         <ng-container *ngFor="let p of stats.people">
-          <li>
-            {{p.name}}
-            <small *ngIf="p.uid === auth.userId">
-              (me)
-            </small>
-            <small *ngIf="hostIds.includes(p.uid)">
-              (host 💁‍♀️)
-            </small>
+          <li class="cursor-help fric-2">
+          <!-- <li [matTooltip]="timeInWords(p)"> -->
+            <span>{{p.name}}</span>
+            <small *ngIf="p.uid === auth.userId" matTooltip="that's you 🫵">(me)</small>
+            <app-guest-info [info]="p"></app-guest-info>
 
-            <!-- TODO -- add "from {date} to {date}" -->
             <!-- TODO -- add their role (cooking, shopping, whatever) -->
-            <!-- TODO -- add icons whether they have a tent, car, etc -->
           </li>
         </ng-container>
       </ul>

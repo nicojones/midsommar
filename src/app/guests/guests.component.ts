@@ -1,6 +1,6 @@
-import { ADMIN_UIDS } from "@/definitions";
+import { timeStayingInWords } from "@/functions";
 import { AuthService } from "@/services/auth.service";
-import { IStats } from "@/types";
+import { IStats, IStatsAttendee } from "@/types";
 import { Component, Input } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
 
@@ -12,12 +12,14 @@ export class GuestsComponent {
 
   @Input({ required: true }) public stats$ = new BehaviorSubject<IStats | null>(null);
 
-  public readonly hostIds = ADMIN_UIDS;
-
   public constructor(
     public auth: AuthService,
   ) {
 
+  }
+
+  public timeInWords (attendee: IStatsAttendee<Date>): string {
+    return timeStayingInWords(attendee);
   }
 
 }
