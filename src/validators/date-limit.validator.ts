@@ -1,5 +1,5 @@
 import { EARLIEST_POSSIBLE_DATE, LATEST_POSSIBLE_DATE } from "@/definitions";
-import { IAtendee } from "@/types";
+import { IAttendee } from "@/types";
 import { FormControl, FormGroup, ValidatorFn } from "@angular/forms";
 
 export type IDateLimitError = "arrivalTooEarly" | "departureTooLate" | "collision";
@@ -7,7 +7,7 @@ export type IDateLimitError = "arrivalTooEarly" | "departureTooLate" | "collisio
 export class DateLimitValidator {
   public static createValidator(): ValidatorFn {
     // @ts-expect-error mismatching types
-    return (control: FormGroup<Record<keyof IAtendee<Date>, FormControl>>): any => {
+    return (control: FormGroup<Record<keyof IAttendee<Date>, FormControl>>): any => {
       // console.log(control.controls.arrival.value, EARLIEST_POSSIBLE_DATE, +control.controls.arrival.value - +EARLIEST_POSSIBLE_DATE);
       const collision = control.controls.departure.value <= control.controls.arrival.value;
       const arrivalTooEarly = control.controls.arrival.value < EARLIEST_POSSIBLE_DATE;

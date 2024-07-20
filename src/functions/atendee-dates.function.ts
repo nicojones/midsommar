@@ -1,7 +1,7 @@
 import { TZ_OFFSET } from "@/definitions";
-import { IAtendee } from "@/types";
+import { IAttendee } from "@/types";
 
-export const addDatesToAtendee = (atendee: IAtendee<string>): IAtendee<Date> => ({
+export const addDatesToAtendee = (atendee: IAttendee<string>): IAttendee<Date> => ({
   ...atendee,
   editedOn: new Date(atendee.editedOn),
   addedOn: new Date(atendee.addedOn),
@@ -10,7 +10,7 @@ export const addDatesToAtendee = (atendee: IAtendee<string>): IAtendee<Date> => 
 });
 
 
-export const isoDatesToAtendee = (atendee: IAtendee<Date>): IAtendee<string> => ({
+export const isoDatesToAtendee = (atendee: IAttendee<Date>): IAttendee<string> => ({
   ...atendee,
   editedOn: atendee.editedOn.toISOString(),
   addedOn: atendee.addedOn.toISOString(),

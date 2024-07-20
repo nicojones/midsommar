@@ -5,7 +5,7 @@
     <ng-container *ngFor="let u of users">
       <li>
         {{ u.name }}
-        <pre>{{u | json}}</pre>
+        <button mat-button (click)="editAttendee(u)" class="inline-block w-24">EDIT</button>
       </li>
     </ng-container>
   </ul>

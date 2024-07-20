@@ -1,6 +1,6 @@
-import { IAtendee } from "./atendee.type";
+import { IAttendee } from "./attendee.type";
 
-export type IStatsAtendee = Pick<IAtendee, "name" | "email" | "arrival" | "departure" | "freeCarSeats" | "attending" | "hasCar" | "hasTent"> & { uid: string; };
+export type IStatsAtendee = Pick<IAttendee, "name" | "email" | "arrival" | "departure" | "freeCarSeats" | "attending" | "hasCar" | "hasTent"> & { uid: string; };
 
 /**
  * The values are updated via a cloud function.

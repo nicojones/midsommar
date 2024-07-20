@@ -16,6 +16,7 @@ import { MaterialModule } from "./material.module";
 import { AttendingButtonComponent } from "./form/attending-button/attending-button.component";
 import { GuestsComponent } from "./guests/guests.component";
 import { AdminComponent } from "./admin/admin.component";
+import {RegistrationService} from "@/services/registration.service";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { AdminComponent } from "./admin/admin.component";
     StoreService,
     provideRouter(APP_ROUTES, withComponentInputBinding()),
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useExisting: AppGlobalRippleOptions },
+    RegistrationService,
   ],
   bootstrap: [
     AppComponent,

@@ -3,13 +3,13 @@ import { AuthService } from "./auth.service";
 import { dbRef } from "@/firebase";
 import { onValue, query } from "firebase/database";
 import { BehaviorSubject } from "rxjs";
-import { IAtendee, IStats } from "@/types";
+import { IAttendee, IStats } from "@/types";
 
 @Injectable()
 export class StoreService {
 
   public stats$ = new BehaviorSubject<IStats | null>(null);
-  public adminPeople$ = new BehaviorSubject<IAtendee[] | null>(null);
+  public adminPeople$ = new BehaviorSubject<IAttendee[] | null>(null);
 
   public constructor(
     private auth: AuthService,
@@ -22,7 +22,7 @@ export class StoreService {
     });
 
     onValue(query(dbRef("/people")), v => {
-      const _atendees: Record<string, IAtendee> = v.val();
+      const _atendees: Record<string, IAttendee> = v.val();
       this.adminPeople$.next(Object.values(_atendees));
     });
   }

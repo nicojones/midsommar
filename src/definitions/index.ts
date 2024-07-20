@@ -18,5 +18,5 @@ export const LATEST_POSSIBLE_DATE = new Date(+new Date("2025-06-22"));
 
 export const ADMIN_UIDS = [
   "I5LzPFdWFgYhyCTqFZPWQ5euYME2", // NICO
-  "IxIOAfnXIiYGJglVWAtvtODIYCb2", // CELINE (provisional)
+  "IxIOAfnXIiYGJglVWAtvtODIYCb2", // CELINE
 ];
