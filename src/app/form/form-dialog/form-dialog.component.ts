@@ -7,6 +7,8 @@ import {
   MAT_DIALOG_DATA,
   MatDialogTitle,
   MatDialogContent,
+  MatDialogRef,
+  MatDialogActions,
 } from '@angular/material/dialog';
 import { MaterialModule } from "@/app/material.module";
 import { CommonModule } from "@angular/common";
@@ -15,16 +17,15 @@ import { EARLIEST_POSSIBLE_DATE, LATEST_POSSIBLE_DATE, MIDSOMMAR_DATE } from "@/
 import { MatCalendarCellClassFunction } from "@angular/material/datepicker";
 import { AttendingButtonComponent } from "@/app/form/attending-button/attending-button.component";
 import { timeStayingInWords } from "@/functions";
+import { FormService } from "@/services/form.service";
 
 @Component({
   selector: 'app-form-dialog',
   templateUrl: './form-dialog.component.html',
   standalone: true,
-  imports: [MatDialogTitle, MatDialogContent, MaterialModule, ReactiveFormsModule, CommonModule, AttendingButtonComponent],
+  imports: [MatDialogTitle, MatDialogActions, MatDialogContent, MaterialModule, ReactiveFormsModule, CommonModule, AttendingButtonComponent],
 })
 export class FormDialogComponent {
-
-  @Output() public submit = new EventEmitter();
 
   public debug: boolean = false;
   public readonly noopComponent = NoopComponent;
@@ -35,9 +36,10 @@ export class FormDialogComponent {
 
 
   public constructor(
-    private auth: AuthService,
     @Inject(MAT_DIALOG_DATA) public userRegistrationForm: FormGroup<Record<keyof IAttendee, FormControl>>,
     public snackBar: MatSnackBar,
+    public fs: FormService,
+    private dialogRef: MatDialogRef<any, boolean>,
   ) {
 
   }
@@ -55,14 +57,10 @@ export class FormDialogComponent {
     e.stopPropagation();
     this.userRegistrationForm.markAllAsTouched();
     if (this.userRegistrationForm.valid) {
-      this.submit.emit();
+      this.dialogRef.close(true);
     } else {
       const _snackBarInstance = this.snackBar.open("please fix the errors");
     }
-  }
-
-  public toggleCheckbox(key: ExtractType<IAttendee, boolean>, value: boolean): void {
-    this.userRegistrationForm.controls[key].setValue(value);
   }
 
   public hasError(key: keyof Pick<IAttendee, "arrival" | "departure">, error: IDateLimitError): boolean {
@@ -78,6 +76,10 @@ export class FormDialogComponent {
 
     return '';
   };
+
+  public closeDialog (): void {
+    this.dialogRef.close(false);
+  }
 }
 
 

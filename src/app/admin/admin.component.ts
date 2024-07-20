@@ -1,10 +1,10 @@
 import { dbRef } from "@/firebase";
-import {addDatesToAtendee, isoDatesToAtendee} from "@/functions";
+import { addDatesToAtendee, isoDatesToAtendee } from "@/functions";
 import { AuthService } from "@/services/auth.service";
+import { FormService } from "@/services/form.service";
 import { IAttendee } from "@/types";
 import { Component } from '@angular/core';
-import {get, onValue, query} from "firebase/database";
-import {RegistrationService} from "@/services/registration.service";
+import { onValue, query } from "firebase/database";
 
 @Component({
   selector: 'app-admin',
@@ -17,7 +17,7 @@ export class AdminComponent {
 
   public constructor(
     private auth: AuthService,
-    public rs: RegistrationService,
+    public fs: FormService,
   ) {
 
     onValue(query(dbRef(`/people`)), r => {
@@ -33,8 +33,8 @@ export class AdminComponent {
   }
 
   public editAttendee(attendee: IAttendee){
-    this.rs.initRegistrationForm(isoDatesToAtendee(attendee));
-    this.rs.openAttendeeModalForm();
+    this.fs.initRegistrationForm(isoDatesToAtendee(attendee));
+    this.fs.openAttendeeModalForm();
   }
 
 }
