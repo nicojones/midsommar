@@ -59,7 +59,6 @@ export class FormService {
     this.dialog.open(FormDialogComponent, formModalData(this.form))
       .afterClosed()
       .subscribe((isSaveAction: boolean) => {
-        console.log("action?", isSaveAction);
         if (isSaveAction) {
           this.saveUserRegistration();
         } else {

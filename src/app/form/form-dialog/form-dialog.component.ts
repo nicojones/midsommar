@@ -77,7 +77,7 @@ export class FormDialogComponent {
     return '';
   };
 
-  public closeDialog (): void {
+  public closeDialog(): void {
     this.dialogRef.close(false);
   }
 }
@@ -89,4 +89,4 @@ export class FormDialogComponent {
   standalone: true,
   imports: [],
 })
-export class NoopComponent {}
+export class NoopComponent { }
