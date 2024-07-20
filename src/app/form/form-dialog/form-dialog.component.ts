@@ -1,5 +1,5 @@
 import { AuthService } from "@/services/auth.service";
-import { ExtractType, IAtendee, PDefault } from "@/types";
+import { ExtractType, IAttendee, PDefault } from "@/types";
 import { IDateLimitError } from "@/validators";
 import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
@@ -36,7 +36,7 @@ export class FormDialogComponent {
 
   public constructor(
     private auth: AuthService,
-    @Inject(MAT_DIALOG_DATA) public userRegistrationForm: FormGroup<Record<keyof IAtendee, FormControl>>,
+    @Inject(MAT_DIALOG_DATA) public userRegistrationForm: FormGroup<Record<keyof IAttendee, FormControl>>,
     public snackBar: MatSnackBar,
   ) {
 
@@ -47,7 +47,7 @@ export class FormDialogComponent {
   }
 
   public get timeStayingInWords(): string {
-    return timeStayingInWords(this.userRegistrationForm.value as IAtendee);
+    return timeStayingInWords(this.userRegistrationForm.value as IAttendee);
   }
 
   public submitFunction(e: PDefault): void {
@@ -61,11 +61,11 @@ export class FormDialogComponent {
     }
   }
 
-  public toggleCheckbox(key: ExtractType<IAtendee, boolean>, value: boolean): void {
+  public toggleCheckbox(key: ExtractType<IAttendee, boolean>, value: boolean): void {
     this.userRegistrationForm.controls[key].setValue(value);
   }
 
-  public hasError(key: keyof Pick<IAtendee, "arrival" | "departure">, error: IDateLimitError): boolean {
+  public hasError(key: keyof Pick<IAttendee, "arrival" | "departure">, error: IDateLimitError): boolean {
     return this.userRegistrationForm.get(key)?.errors?.[error] ?? false;
   }
 

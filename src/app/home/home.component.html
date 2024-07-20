@@ -13,10 +13,10 @@
 
   <div class="container mx-auto">
     <div class="flex flex-col space-y-2 lg:fric-2">
-      <div *ngIf="userHasRegistered; else notRegistered" class="flex flex-col items-center space-y-2 basis-1/2">
-        <app-attending-button classes="w-64 h-64" [checked]="userIsComing"
-          (change)="toggleCheckbox('attending', $event)"></app-attending-button>
-        <button mat-button (click)="openAtendeeModalForm()" class="inline-block w-24">EDIT</button>
+      <div *ngIf="rs.userHasRegistered; else notRegistered" class="flex flex-col items-center space-y-2 basis-1/2">
+        <app-attending-button classes="w-64 h-64" [checked]="rs.userIsComing"
+          (change)="rs.toggleCheckbox('attending', $event)"></app-attending-button>
+        <button mat-button (click)="rs.openAttendeeModalForm()" class="inline-block w-24">EDIT</button>
       </div>
       <ng-template #notRegistered>
         <mat-card class="flex space-x-4 items-baseline basis-1/2">
@@ -27,7 +27,7 @@
             <small>Register your attendance so we know who's coming.<br/>You can always change this later</small>
           </mat-card-content>
           <mat-card-actions>
-            <button mat-button (click)="openAtendeeModalForm()" class="inline-block w-24">REGISTER</button>
+            <button mat-button (click)="rs.openAttendeeModalForm()" class="inline-block w-24">REGISTER</button>
           </mat-card-actions>
         </mat-card>
       </ng-template>

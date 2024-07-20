@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-restricted-imports
-import { IAtendee, IStats, IStatsAtendee } from "../../src/types";
+import { IAttendee, IStats, IStatsAtendee } from "../../src/types";
 import { database } from "firebase-functions";
 import * as admin from 'firebase-admin';
 
@@ -11,7 +11,7 @@ export default database.ref('/people/{uid}')
     const statsRef = admin.database().ref('stats');
 
     const snapshot = await peopleRef.once('value');
-    const people: Record<string, IAtendee> = snapshot.val();
+    const people: Record<string, IAttendee> = snapshot.val();
 
     let attending = 0;
     let hasCar = 0;

@@ -1,9 +1,10 @@
 import { dbRef } from "@/firebase";
-import { addDatesToAtendee } from "@/functions";
+import {addDatesToAtendee, isoDatesToAtendee} from "@/functions";
 import { AuthService } from "@/services/auth.service";
-import { IAtendee } from "@/types";
+import { IAttendee } from "@/types";
 import { Component } from '@angular/core';
-import { get, query } from "firebase/database";
+import {get, onValue, query} from "firebase/database";
+import {RegistrationService} from "@/services/registration.service";
 
 @Component({
   selector: 'app-admin',
@@ -11,24 +12,29 @@ import { get, query } from "firebase/database";
 })
 export class AdminComponent {
 
-  public users: IAtendee[] = [];
-  public usersNotComing: IAtendee[] = [];
+  public users: IAttendee[] = [];
+  public usersNotComing: IAttendee[] = [];
 
   public constructor(
     private auth: AuthService,
+    public rs: RegistrationService,
   ) {
 
-    get(query(dbRef(`/people`)))
-      .then(r => r.val())
-      .then((atendees: Record<string, IAtendee<string>> | null) => {
-        if (!atendees) {
+    onValue(query(dbRef(`/people`)), r => {
+      const attendees: Record<string, IAttendee<string>> | null = r.val();
+        if (!attendees) {
           console.log("NO atendees");
           return; // database empty, most likely
         }
-
-        const allUsers = Object.values(atendees).map(addDatesToAtendee);
+        const allUsers = Object.values(attendees).map(addDatesToAtendee);
         this.users = allUsers.filter(u => u.attending);
         this.usersNotComing = allUsers.filter(u => !u.attending);
-      });
+    });
   }
+
+  public editAttendee(attendee: IAttendee){
+    this.rs.initRegistrationForm(isoDatesToAtendee(attendee));
+    this.rs.openAttendeeModalForm();
+  }
+
 }
