@@ -13,7 +13,7 @@
 
   <form (submit)="submitFunction($event)" class="flex flex-col space-y-4">
     <app-attending-button classes="w-full h-20" [checked]="userRegistrationForm.controls.attending.value"
-      (change)="toggleCheckbox('attending', $event)" [animateOnInit]="true"></app-attending-button>
+      (change)="fs.toggleCheckbox('attending', $event)" [animateOnInit]="true"></app-attending-button>
 
     <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full">
       <mat-form-field class="basis-1/2">
@@ -30,18 +30,18 @@
 
     <div class="flex flex-col space-y-2 items-baseline justify-stretch w-full">
       <mat-checkbox [checked]="userRegistrationForm.controls.hasTent.value"
-        (change)="toggleCheckbox('hasTent', $event.checked)">Can you bring sleep arrangements (tent ⛺️, van 🚐,
+        (change)="fs.toggleCheckbox('hasTent', $event.checked)">Can you bring sleep arrangements (tent ⛺️, van 🚐,
         ...)?</mat-checkbox>
       <mat-checkbox *ngIf="userRegistrationForm.controls.hasTent.value"
         [checked]="userRegistrationForm.controls.sleepsInTent.value"
-        (change)="toggleCheckbox('sleepsInTent', $event.checked)">
+        (change)="fs.toggleCheckbox('sleepsInTent', $event.checked)">
         Will you sleep in it? 🌝 🏕️
       </mat-checkbox>
     </div>
 
     <div class="flex flex-col space-y-2 md:fric-2 items-baseline justify-stretch w-full">
       <mat-checkbox [checked]="userRegistrationForm.controls.hasCar.value"
-        (change)="toggleCheckbox('hasCar', $event.checked)">Do
+        (change)="fs.toggleCheckbox('hasCar', $event.checked)">Do
         you come by car? 🚙</mat-checkbox>
       <mat-form-field *ngIf="userRegistrationForm.controls.hasCar.value">
         <mat-label>number of <b>free</b> car seats</mat-label>
@@ -135,7 +135,7 @@
 
 
     <mat-checkbox [checked]="userRegistrationForm.controls.iWillBringNoDeadAnimals.value"
-      (change)="toggleCheckbox('iWillBringNoDeadAnimals', $event.checked)">
+      (change)="fs.toggleCheckbox('iWillBringNoDeadAnimals', $event.checked)">
       I confirm that i will bring <b>no dead animals</b> (meat, fish, chicken, seafood, etc.) with me.
       <br />
       The house is in harmony with nature and, while we tolerate vegetarian products, we do not want any corpses
@@ -146,8 +146,6 @@
       is important</mat-error>
 
 
-    <button type="submit" class="fixed -l-[1000rem]"></button>
-
     <small role="button" class="opacity-20 hover:opacity-100 transition-opacity absolute right-1 bottom-1"
       (click)="debug = !debug">debug</small>
     <ng-container *ngIf="debug">
@@ -156,5 +154,16 @@
         <pre>{{userRegistrationForm.value | json}}</pre>
       </small>
     </ng-container>
+
   </form>
 </mat-dialog-content>
+<mat-dialog-actions class="!justify-between fric">
+  <button mat-button type="button" (click)="closeDialog()">
+    <mat-icon fontIcon="close"></mat-icon>
+    CLOSE
+  </button>
+  <button type="submit" mat-flat-button >
+    <mat-icon fontIcon="save"></mat-icon>
+    SAVE
+  </button>
+</mat-dialog-actions>

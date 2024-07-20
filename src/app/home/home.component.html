@@ -1,6 +1,6 @@
-<section class="flex flex-col space-y-8">
+<section class="container mx-auto flex flex-col space-y-8">
 
-  <div class="flex flex-col container mx-auto">
+  <div class="flex flex-col">
     <p>
       As you know, we would love to spend together a wonderful <a href="https://en.wikipedia.org/wiki/Midsummer"
         target="_blank" rel="noreferrer">Midsommar</a> in 2025
@@ -11,28 +11,26 @@
   </div>
 
 
-  <div class="container mx-auto">
-    <div class="flex flex-col space-y-2 lg:fric-2">
-      <div *ngIf="rs.userHasRegistered; else notRegistered" class="flex flex-col items-center space-y-2 basis-1/2">
-        <app-attending-button classes="w-64 h-64" [checked]="rs.userIsComing"
-          (change)="rs.toggleCheckbox('attending', $event)"></app-attending-button>
-        <button mat-button (click)="rs.openAttendeeModalForm()" class="inline-block w-24">EDIT</button>
-      </div>
-      <ng-template #notRegistered>
-        <mat-card class="flex space-x-4 items-baseline basis-1/2">
-          <mat-card-header>
-            <mat-card-title>Register first</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <small>Register your attendance so we know who's coming.<br/>You can always change this later</small>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-button (click)="rs.openAttendeeModalForm()" class="inline-block w-24">REGISTER</button>
-          </mat-card-actions>
-        </mat-card>
-      </ng-template>
-      <app-guests [stats$]="ss.stats$" class="basis-1/2"></app-guests>
+  <div class="flex flex-col space-y-2 lg:fric-2">
+    <div *ngIf="fs.userHasRegistered; else notRegistered" class="flex flex-col items-center space-y-2 basis-1/2">
+      <app-attending-button classes="w-64 h-64" [checked]="fs.userIsComing"
+        (change)="changeAttendance($event)"></app-attending-button>
+      <button mat-button (click)="fs.openAttendeeModalForm()" class="inline-block w-24">EDIT</button>
     </div>
+    <ng-template #notRegistered>
+      <mat-card class="flex space-x-4 items-baseline basis-1/2">
+        <mat-card-header>
+          <mat-card-title>Register first</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <small>Register your attendance so we know who's coming.<br />You can always change this later</small>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="fs.openAttendeeModalForm()" class="inline-block w-24">REGISTER</button>
+        </mat-card-actions>
+      </mat-card>
+    </ng-template>
+    <app-guests [stats$]="ss.stats$" class="basis-1/2"></app-guests>
   </div>
 
 </section>

@@ -1,5 +1,6 @@
 <button [class]="'mx-auto drop-shadow-md ' + (checked ? 'bg-green-200 ' : 'bg-red-200 ') + classes" role="button"
       (click)="handleChange(!checked)" matRipple
+      type="button"
       [matRippleColor]="(checked ? 'rgb(254, 202, 202, 0.8)' : 'rgb(187, 247, 208, 0.8)')">
       {{ checked ? "Coming! 🤩" : "Can't come 😔"}}
     </button>

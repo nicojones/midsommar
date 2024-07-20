@@ -16,8 +16,8 @@ import { MaterialModule } from "./material.module";
 import { AttendingButtonComponent } from "./form/attending-button/attending-button.component";
 import { GuestsComponent } from "./guests/guests.component";
 import { AdminComponent } from "./admin/admin.component";
-import {RegistrationService} from "@/services/registration.service";
-import {GalleryComponent} from "@/app/gallery/gallery.component";
+import { FormService } from "@/services/form.service";
+import { GalleryComponent } from "./gallery/gallery.component";
 
 @NgModule({
   declarations: [
@@ -43,7 +43,7 @@ import {GalleryComponent} from "@/app/gallery/gallery.component";
     StoreService,
     provideRouter(APP_ROUTES, withComponentInputBinding()),
     { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useExisting: AppGlobalRippleOptions },
-    RegistrationService,
+    FormService,
   ],
   bootstrap: [
     AppComponent,
