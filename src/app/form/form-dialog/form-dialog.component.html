@@ -155,6 +155,7 @@
       </small>
     </ng-container>
 
+    <button type="submit" class="fixed -l-[1000rem]"></button>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions class="!justify-between fric">
@@ -162,7 +163,7 @@
     <mat-icon fontIcon="close"></mat-icon>
     CLOSE
   </button>
-  <button type="submit" mat-flat-button >
+  <button type="submit" mat-flat-button (click)="submitFunction($event)" >
     <mat-icon fontIcon="save"></mat-icon>
     SAVE
   </button>
