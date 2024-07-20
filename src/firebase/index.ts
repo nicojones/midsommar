@@ -64,4 +64,4 @@ export const fbAuth = getAuth(fbApp);
 export const fbUi = new firebaseui.auth.AuthUI(fbAuth);
 
 export const fbDatabase = getDatabase(fbApp);
-export const dbRef = (path: string) => ref(fbDatabase, path);
+export const dbRef = (path: string) => ref(fbDatabase, ENV.dbPrefix + path);

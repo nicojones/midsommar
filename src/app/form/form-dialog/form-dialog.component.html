@@ -12,25 +12,47 @@
   <br />
 
   <form (submit)="submitFunction($event)" class="flex flex-col space-y-4">
+
+    <!-- ----------------------------------- -->
+
+    <mat-checkbox [checked]="userRegistrationForm.controls.iWillBringNoDeadAnimals.value"
+      (change)="fs.toggleCheckbox('iWillBringNoDeadAnimals', $event.checked)">
+      I confirm that i will bring <b>no dead animals</b> (meat, fish, chicken, seafood, etc.) with me.
+      <br />
+      The house is in harmony with nature and, while we tolerate vegetarian products, we do not want any corpses
+      in the house (except the one I buried in the garden 🤫)
+    </mat-checkbox>
+    <mat-error
+      *ngIf="userRegistrationForm.controls.iWillBringNoDeadAnimals.touched && userRegistrationForm.controls.iWillBringNoDeadAnimals.errors">this
+      is important</mat-error>
+
+    <hr>
+    <!-- ----------------------------------- -->
+
     <app-attending-button classes="w-full h-20" [checked]="userRegistrationForm.controls.attending.value"
       (change)="fs.toggleCheckbox('attending', $event)" [animateOnInit]="true"></app-attending-button>
 
+    <hr>
+    <!-- ----------------------------------- -->
+
     <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full">
-      <mat-form-field class="basis-1/2">
+      <mat-form-field class="md:basis-1/2">
         <mat-label>full name</mat-label>
         <input placeholder="e.g. Céline" matInput type="text" [formControl]="userRegistrationForm.controls.name" />
       </mat-form-field>
 
-      <mat-form-field class="basis-1/2">
+      <mat-form-field class="md:basis-1/2">
         <mat-label>email</mat-label>
         <input placeholder="Email address" matInput type="email" [formControl]="userRegistrationForm.controls.email" />
       </mat-form-field>
     </div>
 
+    <hr>
+    <!-- ----------------------------------- -->
 
     <div class="flex flex-col space-y-2 items-baseline justify-stretch w-full">
       <mat-checkbox [checked]="userRegistrationForm.controls.hasTent.value"
-        (change)="fs.toggleCheckbox('hasTent', $event.checked)">Can you bring sleep arrangements (tent ⛺️, van 🚐,
+        (change)="fs.toggleCheckbox('hasTent', $event.checked)">Can you bring (or come with) sleep arrangements (tent ⛺️, van 🚐,
         ...)?</mat-checkbox>
       <mat-checkbox *ngIf="userRegistrationForm.controls.hasTent.value"
         [checked]="userRegistrationForm.controls.sleepsInTent.value"
@@ -39,52 +61,68 @@
       </mat-checkbox>
     </div>
 
-    <div class="flex flex-col space-y-2 md:fric-2 items-baseline justify-stretch w-full">
+    <hr>
+    <!-- ----------------------------------- -->
+
+    <div class="flex flex-col space-y-2 md:fric-2 items-stretch md:items-baseline justify-stretch w-full">
       <mat-checkbox [checked]="userRegistrationForm.controls.hasCar.value"
-        (change)="fs.toggleCheckbox('hasCar', $event.checked)">Do
-        you come by car? 🚙</mat-checkbox>
-      <mat-form-field *ngIf="userRegistrationForm.controls.hasCar.value">
+        (change)="fs.toggleCheckbox('hasCar', $event.checked)" class="md:basis-1/2">Do
+        you come by car <b>and</b> have any free seats? 🚙</mat-checkbox>
+      <mat-form-field class="md:basis-1/2 basis-full" *ngIf="userRegistrationForm.controls.hasCar.value">
         <mat-label>number of <b>free</b> car seats</mat-label>
         <input placeholder="e.g. 2" matInput type="number" [min]="0" [max]="5"
           [formControl]="userRegistrationForm.controls.freeCarSeats" />
       </mat-form-field>
     </div>
+    <small class="w-full block !mt-0" *ngIf="userRegistrationForm.controls.hasCar.value">
+      example: if you are two people in a 5-seat car, one of you has "no car", the other has 3 seats
+    </small>
 
+    <hr>
+    <!-- ----------------------------------- -->
 
     <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full">
-      <mat-form-field class="basis-1/2">
-        <input class="pointer-events-none" placeholder="when are you arriving?" matInput [min]="minAllowedDate" [max]="midsommarDate"
-          [matDatepicker]="arrivalPicker" [readonly]="true" [formControl]="userRegistrationForm.controls.arrival" />
+      <mat-form-field class="md:basis-1/2">
+        <input class="pointer-events-none" placeholder="when are you arriving?" matInput [min]="minAllowedDate"
+          [max]="midsommarDate" [matDatepicker]="arrivalPicker" [readonly]="true"
+          [formControl]="userRegistrationForm.controls.arrival" />
         <mat-hint>arrival date</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="arrivalPicker"></mat-datepicker-toggle>
-        <mat-datepicker #arrivalPicker [calendarHeaderComponent]="noopComponent" [dateClass]="dateClass"></mat-datepicker>
+        <mat-datepicker #arrivalPicker [calendarHeaderComponent]="noopComponent"
+          [dateClass]="dateClass"></mat-datepicker>
 
         <mat-error *ngIf="hasError('arrival', 'arrivalTooEarly')">invalid date... if you want to arrive earlier, write
           us</mat-error>
         <mat-error *ngIf="hasError('arrival', 'collision')">invalid date. Must be earlier than departure</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="basis-1/2">
-        <input class="pointer-events-none" placeholder="when are you leaving?" matInput [min]="midsommarDate" [max]="maxAllowedDate"
-          [matDatepicker]="departurePicker" [readonly]="true" [formControl]="userRegistrationForm.controls.departure" />
+      <mat-form-field class="md:basis-1/2">
+        <input class="pointer-events-none" placeholder="when are you leaving?" matInput [min]="midsommarDate"
+          [max]="maxAllowedDate" [matDatepicker]="departurePicker" [readonly]="true"
+          [formControl]="userRegistrationForm.controls.departure" />
         <mat-hint>departure date</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="departurePicker"></mat-datepicker-toggle>
-        <mat-datepicker #departurePicker  [calendarHeaderComponent]="noopComponent" [dateClass]="dateClass"></mat-datepicker>
+        <mat-datepicker #departurePicker [calendarHeaderComponent]="noopComponent"
+          [dateClass]="dateClass"></mat-datepicker>
         <mat-error *ngIf="hasError('departure', 'collision')">invalid date. Must be later than arrival</mat-error>
         <mat-error *ngIf="hasError('departure', 'departureTooLate')">invalid date... if you want to leave later, write
           us</mat-error>
       </mat-form-field>
     </div>
-    @if (!hasError('departure', 'collision') && !hasError('departure', 'departureTooLate') && !hasError('arrival', 'arrivalTooEarly')) {
-      <mat-hint class="relative -top-4 w-full text-center bg-gray-100 rounded p-1">
-        {{ timeStayingInWords }}
-      </mat-hint>
+    @if (!hasError('departure', 'collision') && !hasError('departure', 'departureTooLate') && !hasError('arrival',
+    'arrivalTooEarly')) {
+    <mat-hint class="relative -top-4 w-full text-center bg-gray-100 rounded p-1">
+      {{ fs.timeStayingInWords$ | async }}
+    </mat-hint>
     }
+
     <hr>
+    <!-- ----------------------------------- -->
+
 
     <!-- TWO NATIVE INPUTS. Maybe for mobile? -->
     <!-- <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full">
-      <mat-form-field class="basis-1/2">
+      <mat-form-field class="md:basis-1/2">
         <input placeholder="when are you arriving?" matInput type="date"
         [min]="minAllowedDate" [max]="midsommarDate"
           [formControl]="userRegistrationForm.controls.arrival" />
@@ -94,7 +132,7 @@
         <mat-error *ngIf="hasError('arrival', 'collision')">invalid date. Must be earlier than departure</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="basis-1/2">
+      <mat-form-field class="md:basis-1/2">
         <input placeholder="when are you leaving?" matInput type="date"
         [min]="midsommarDate" [max]="maxAllowedDate"
           [formControl]="userRegistrationForm.controls.departure" />
@@ -128,22 +166,36 @@
       <mat-date-range-picker #picker></mat-date-range-picker>
     </div> -->
 
+
+
     <mat-form-field>
-      <mat-label>comments?</mat-label>
-      <textarea matInput [formControl]="userRegistrationForm.controls.comments" cdkTextareaAutosize></textarea>
+      <mat-label>food issues</mat-label>
+      <mat-select multiple [formControl]="userRegistrationForm.controls.problematicFoods">
+        @for (food of problematicFoods; track food) {
+        <mat-option [value]="food.value">{{food.label}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <hr>
+    <!-- ----------------------------------- -->
+
+    <mat-form-field>
+      <mat-label>comments? observations? questions? </mat-label>
+      <textarea
+      matInput
+      [formControl]="userRegistrationForm.controls.comments"
+       cdkTextareaAutosize
+       placeholder='e.g. "I was wondering if...", "I&quot;m not sure about..."'
+       ></textarea>
     </mat-form-field>
 
 
-    <mat-checkbox [checked]="userRegistrationForm.controls.iWillBringNoDeadAnimals.value"
-      (change)="fs.toggleCheckbox('iWillBringNoDeadAnimals', $event.checked)">
-      I confirm that i will bring <b>no dead animals</b> (meat, fish, chicken, seafood, etc.) with me.
-      <br />
-      The house is in harmony with nature and, while we tolerate vegetarian products, we do not want any corpses
-      in the house (except the one I buried in the garden 🤫)
-    </mat-checkbox>
-    <mat-error
-      *ngIf="userRegistrationForm.controls.iWillBringNoDeadAnimals.touched && userRegistrationForm.controls.iWillBringNoDeadAnimals.errors">this
-      is important</mat-error>
+    <!-- ----------------------------------- -->
+    <!-- ----------------------------------- -->
+    <!-- --------- END OF FORM ------------- -->
+    <!-- ----------------------------------- -->
+    <!-- ----------------------------------- -->
 
 
     <small role="button" class="opacity-20 hover:opacity-100 transition-opacity absolute right-1 bottom-1"
@@ -159,11 +211,11 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions class="!justify-between fric">
-  <button mat-button type="button" (click)="closeDialog()">
+  <button mat-fab extended type="button" (click)="closeDialog()">
     <mat-icon fontIcon="close"></mat-icon>
     CLOSE
   </button>
-  <button type="submit" mat-flat-button (click)="submitFunction($event)" >
+  <button type="submit" mat-fab extended (click)="submitFunction($event)">
     <mat-icon fontIcon="save"></mat-icon>
     SAVE
   </button>

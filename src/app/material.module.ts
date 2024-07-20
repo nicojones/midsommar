@@ -11,6 +11,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -37,7 +39,9 @@ const MODULES: any[] = [
   MatNativeDateModule,
   MatProgressBarModule,
   MatCardModule,
+  MatSelectModule,
   MatMenuModule,
+  MatTooltipModule,
 ];
 
 @NgModule({

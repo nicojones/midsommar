@@ -1,0 +1,18 @@
+<small *ngIf="hostIds.includes(info.uid)" matTooltip="i'm one of the hosts 🏡">💁‍♀️</small>
+<small *ngIf="info.hasCar" matTooltip="i come by car">🚙</small>
+<small *ngIf="info.hasTent" matTooltip="i could bring a tent">⛺️</small>
+<small *ngIf="info.sleepsInTent" matTooltip="i could sleep in a tent">🏕️</small>
+
+<ng-container *ngIf="showAllergies">
+
+  <small>
+    (<ng-container *ngFor="let food of info.problematicFoods">
+      <ng-container *ngTemplateOutlet="foodTemplate; context: { $implicit: food }"></ng-container>
+    </ng-container>
+
+    <ng-template #foodTemplate let-food>
+      <span [matTooltip]="foodDetail(food).label">{{ foodDetail(food).icon }}</span>
+    </ng-template>)
+  </small>
+
+</ng-container>

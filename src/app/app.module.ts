@@ -18,6 +18,7 @@ import { GuestsComponent } from "./guests/guests.component";
 import { AdminComponent } from "./admin/admin.component";
 import { FormService } from "@/services/form.service";
 import { GalleryComponent } from "./gallery/gallery.component";
+import { GuestInfoComponent } from "./guest-info/guest-info.component";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { GalleryComponent } from "./gallery/gallery.component";
     HomeComponent,
     AdminComponent,
     GalleryComponent,
+    GuestInfoComponent,
   ],
   imports: [
     BrowserModule,
