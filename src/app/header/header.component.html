@@ -13,6 +13,11 @@
     <!-- RIGHT SIDE -->
     <div class="fric-2">
 
+      <a routerLink="/gallery" *ngIf="auth.isAuthed" mat-icon-button>
+        <mat-icon fontIcon="image"></mat-icon>
+      </a>
+
+
       <button *ngIf="auth.isAdmin" mat-icon-button [matMenuTriggerFor]="adminMenu" aria-label="Admin menu">
         <mat-icon>verified_user</mat-icon>
       </button>

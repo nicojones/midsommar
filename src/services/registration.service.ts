@@ -100,7 +100,7 @@ export class RegistrationService{
     const value: IAttendee<Date> = this.userRegistrationForm.getRawValue();
     const valueParsed: IAttendee<string> = isoDatesToAtendee(value);
 
-    await update(dbRef(`/people/${this.auth.user.uid}`), valueParsed);
+    await update(dbRef(`/people/${value.uid}`), valueParsed);
     setTimeout(() => {
       snackBarInstance.dismiss();
     }, 700);
