@@ -2,11 +2,13 @@ import { canActivateAdmin } from "@/guards/can-activate-admin.guard";
 import { canActivateWebsite } from "@/guards/can-activate-website.guard";
 import { isLoggedInGuard } from "@/guards/is-logged-in.guard";
 import { Routes } from '@angular/router';
-import { AdminComponent } from "./admin/admin.component";
+import { AdminGuestsComponent } from "./admin/admin-guests.component";
 import { HomeComponent } from "./home/home.component";
 import { LoginComponent } from "./login/login.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
-import {GalleryComponent} from "@/app/gallery/gallery.component";
+import { GalleryComponent } from "@/app/gallery/gallery.component";
+import { AdminEmailsComponent } from "./admin/admin-emails/admin-emails.component";
+import { InfoComponent } from "./info/info.component";
 
 export const APP_ROUTES: Routes = [
   {
@@ -22,14 +24,27 @@ export const APP_ROUTES: Routes = [
       },
       {
         path: "admin",
-        component: AdminComponent,
         canActivate: [
           canActivateAdmin,
+        ],
+        children: [
+          {
+            path: "guests",
+            component: AdminGuestsComponent,
+          },
+          {
+            path: "emails",
+            component: AdminEmailsComponent,
+          },
         ],
       },
       {
         path: "gallery",
         component: GalleryComponent,
+      },
+      {
+        path: "info",
+        component: InfoComponent,
       },
       // {
       //   path: "activities",

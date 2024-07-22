@@ -9,6 +9,10 @@ export interface IAttendee<DateType extends string | Date = Date> {
    */
   email: string;
   /**
+   * Phone number of the person. Needed to write them on whatsapp and stuff like that
+   */
+  phone: string;
+  /**
    * The date when they arrive (YYYY-MM-DD String)
    */
   arrival: DateType;
@@ -50,6 +54,10 @@ export interface IAttendee<DateType extends string | Date = Date> {
    * Food that they can't or don't want to eat
    */
   problematicFoods: string[];
+  /**
+   * Which tasks would they like to help with?
+   */
+  taskHelp: string[];
   /**
    * Comments
    */

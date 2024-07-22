@@ -16,15 +16,22 @@
       <a routerLink="/gallery" *ngIf="auth.isAuthed" mat-icon-button>
         <mat-icon fontIcon="image"></mat-icon>
       </a>
+      <a routerLink="/info" *ngIf="auth.isAuthed" mat-icon-button>
+        <mat-icon fontIcon="info"></mat-icon>
+      </a>
 
 
       <button *ngIf="auth.isAdmin" mat-icon-button [matMenuTriggerFor]="adminMenu" aria-label="Admin menu">
         <mat-icon>verified_user</mat-icon>
       </button>
       <mat-menu #adminMenu="matMenu">
-        <a routerLink="/admin" mat-menu-item>
+        <a routerLink="/admin/guests" mat-menu-item>
           <mat-icon>groups</mat-icon>
           <span>Attending</span>
+        </a>
+        <a routerLink="/admin/emails" mat-menu-item>
+          <mat-icon>email</mat-icon>
+          <span>Send Emails</span>
         </a>
       </mat-menu>
 

@@ -1,7 +1,14 @@
 import { IAttendee } from "./attendee.type";
 
+export interface IStatsAttendeeArrival {
+  arriving?: boolean;
+  departing?: boolean;
+}
+
 export type IStatsAttendee<DateType extends string | Date = Date> =
-  Pick<IAttendee<DateType>, "name" | "email" | "addedOn" | "editedOn" | "arrival" | "departure" | "freeCarSeats" | "attending" | "hasCar" | "hasTent" | "sleepsInTent" | "problematicFoods"> & { uid: string; };
+  Pick<IAttendee<DateType>, "name" | "email" | "addedOn" | "editedOn" | "arrival" | "departure" | "freeCarSeats" | "attending" | "hasCar" | "hasTent" | "sleepsInTent" | "problematicFoods" | "taskHelp" | "phone"> & { uid: string; }
+  &
+  IStatsAttendeeArrival;
 
 export interface IStatsPerDay<DateType extends string | Date = Date> {
   /**
@@ -42,6 +49,10 @@ export interface IStatsPerDay<DateType extends string | Date = Date> {
    * The problematic foods (summarized)
    */
   problematicFoods: Record<string, number>;
+  /**
+   * The task separation (summarized)
+   */
+  taskHelp: Record<string, number>;
 }
 
 export interface IDailyStats<DateType extends string | Date = Date> {

@@ -1,6 +1,7 @@
-import { ADMIN_UIDS, PROBLEMATIC_FOODS } from "@/definitions";
+import { ADMIN_UIDS } from "@/definitions";
 import { AuthService } from "@/services/auth.service";
-import { IStatsAttendee, IValueLabel } from "@/types";
+import { FormService } from "@/services/form.service";
+import { IStatsAttendee, PDefault } from "@/types";
 import { Component, Input } from '@angular/core';
 
 @Component({
@@ -10,21 +11,23 @@ import { Component, Input } from '@angular/core';
 export class GuestInfoComponent {
 
   @Input({ required: true }) public info!: IStatsAttendee<Date>;
+  @Input() public showAllergies: boolean = false;
+  @Input() public showTaskHelp: boolean = false;
 
   public readonly hostIds = ADMIN_UIDS;
 
   public constructor(
-    private auth: AuthService,
+    public auth: AuthService,
+    public fs: FormService,
   ) {
 
   }
 
-  public foodDetail(value: string): IValueLabel {
-    return PROBLEMATIC_FOODS.find(food => food.value === value) ?? ({} as IValueLabel);
-  }
-
-  public get showAllergies (): boolean {
-    return this.auth.isAdmin;
+  public confirm(name: string, contactBy: string, e: PDefault): void {
+    if (!window.confirm(`Contact ${name} by ${contactBy}?`)) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
   }
 
 }

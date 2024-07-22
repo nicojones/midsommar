@@ -1,4 +1,4 @@
-import { timeStayingInWords } from "@/functions";
+import { daysStaying } from "@/functions";
 import { AuthService } from "@/services/auth.service";
 import { IStats, IStatsAttendee } from "@/types";
 import { Component, Input } from '@angular/core';
@@ -19,7 +19,7 @@ export class GuestsComponent {
   }
 
   public timeInWords (attendee: IStatsAttendee<Date>): string {
-    return timeStayingInWords(attendee);
+    return daysStaying(attendee);
   }
 
 }

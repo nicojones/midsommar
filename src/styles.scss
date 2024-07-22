@@ -39,13 +39,13 @@ body {
 
 @layer components {
   .text-secondary {
-    @apply opacity-0;
+    @apply opacity-30;
   }
   .center-page {
     @apply grid place-items-center place-content-center h-screen w-screen;
   }
   .fric {
-    @apply flex flex-row;
+    @apply flex flex-row items-center;
   }
   .fric-2 {
     @apply fric space-x-2 space-y-0;

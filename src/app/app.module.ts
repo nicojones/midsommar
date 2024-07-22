@@ -15,7 +15,7 @@ import { HomeComponent } from "./home/home.component";
 import { MaterialModule } from "./material.module";
 import { AttendingButtonComponent } from "./form/attending-button/attending-button.component";
 import { GuestsComponent } from "./guests/guests.component";
-import { AdminComponent } from "./admin/admin.component";
+import { AdminGuestsComponent } from "./admin/admin-guests.component";
 import { FormService } from "@/services/form.service";
 import { GalleryComponent } from "./gallery/gallery.component";
 import { GuestInfoComponent } from "./guest-info/guest-info.component";
@@ -26,7 +26,7 @@ import { GuestInfoComponent } from "./guest-info/guest-info.component";
     HeaderComponent,
     GuestsComponent,
     HomeComponent,
-    AdminComponent,
+    AdminGuestsComponent,
     GalleryComponent,
     GuestInfoComponent,
   ],
