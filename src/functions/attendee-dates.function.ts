@@ -5,7 +5,7 @@ export const addDatesToAttendee = (attendee: IAttendee<string>): IAttendee<Date>
   ...attendee,
   editedOn: new Date(attendee.editedOn),
   addedOn: new Date(attendee.addedOn),
-  arrival: new Date(attendee.arrival),
+  arrival: new Date(+new Date(attendee.arrival) + TZ_OFFSET),
   departure: new Date(attendee.departure),
 });
 

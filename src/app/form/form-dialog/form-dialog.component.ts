@@ -1,30 +1,28 @@
-import { AuthService } from "@/services/auth.service";
-import { ExtractType, IAttendee, PDefault } from "@/types";
+import { AttendingButtonComponent } from "@/app/form/attending-button/attending-button.component";
+import { MaterialModule } from "@/app/material.module";
+import { EARLIEST_POSSIBLE_DATE, LATEST_POSSIBLE_DATE, MIDSOMMAR_DATE, PROBLEMATIC_FOODS, TASK_HELP } from "@/definitions";
+import { FormService } from "@/services/form.service";
+import { IAttendee, PDefault } from "@/types";
 import { IDateLimitError } from "@/validators";
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
+import { MatCalendarCellClassFunction } from "@angular/material/datepicker";
 import {
   MAT_DIALOG_DATA,
-  MatDialogTitle,
+  MatDialogActions,
   MatDialogContent,
   MatDialogRef,
-  MatDialogActions,
+  MatDialogTitle,
 } from '@angular/material/dialog';
-import { MaterialModule } from "@/app/material.module";
-import { CommonModule } from "@angular/common";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { EARLIEST_POSSIBLE_DATE, LATEST_POSSIBLE_DATE, MIDSOMMAR_DATE, PROBLEMATIC_FOODS } from "@/definitions";
-import { MatCalendarCellClassFunction } from "@angular/material/datepicker";
-import { AttendingButtonComponent } from "@/app/form/attending-button/attending-button.component";
-import { timeStayingInWords } from "@/functions";
-import { FormService } from "@/services/form.service";
-import { Observable } from "rxjs";
+import { FakeHintComponent } from "@/app/form/fake-hint/fake-hint.component";
 
 @Component({
   selector: 'app-form-dialog',
   templateUrl: './form-dialog.component.html',
   standalone: true,
-  imports: [MatDialogTitle, MatDialogActions, MatDialogContent, MaterialModule, ReactiveFormsModule, CommonModule, AttendingButtonComponent],
+  imports: [MatDialogTitle, MatDialogActions, MatDialogContent, MaterialModule, ReactiveFormsModule, CommonModule, AttendingButtonComponent, FakeHintComponent],
 })
 export class FormDialogComponent {
 
@@ -35,6 +33,7 @@ export class FormDialogComponent {
   public readonly maxAllowedDate = LATEST_POSSIBLE_DATE;
   public readonly midsommarDate = MIDSOMMAR_DATE;
   public readonly problematicFoods = PROBLEMATIC_FOODS;
+  public readonly taskHelp = TASK_HELP;
 
 
   public constructor(

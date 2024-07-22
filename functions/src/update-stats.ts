@@ -6,13 +6,17 @@ import * as admin from 'firebase-admin';
 /**
  * Also change in /definitions/index.ts
  */
-const LATEST_POSSIBLE_DATE = new Date(+new Date("2025-06-22"));
-const EARLIEST_POSSIBLE_DATE = new Date(+new Date("2025-06-15"));
+const EARLIEST_POSSIBLE_DATE = new Date("2025-06-15T02:00:00.000Z");
+const LATEST_POSSIBLE_DATE = new Date("2025-06-22T02:00:00.000Z");
 const MS_PER_DAY = 86_400_000;
+const HOURS_AHEAD_TO_DEAL_WITH_TIMEZONES = 12;
 
 const pad = (val: number): string => val < 10 ? `0${val}` : `${val}`;
-const toDate = (date: Date): string =>
-  `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+const toDate = (dateLike: Date | number | string): string => {
+  const date = new Date(dateLike);
+  date.setHours(date.getHours() + HOURS_AHEAD_TO_DEAL_WITH_TIMEZONES);
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+};
 
 export const updateStatsFactory = () => database.ref('/people/{uid}')
   .onWrite(async (_change, _context) => {
@@ -36,6 +40,7 @@ export const updateStatsFactory = () => database.ref('/people/{uid}')
     let totalDuration = 0;
     let totalPeople = 0;
     const problematicFoods: Record<string, number> = {};
+    const taskHelp: Record<string, number> = {};
     const peopleList: IStatsAttendee<string>[] = [];
     const perDay: Record<string, IStatsPerDay<string>> = {};
 
@@ -43,6 +48,7 @@ export const updateStatsFactory = () => database.ref('/people/{uid}')
       const person = people[uid];
 
       if (person.attending) {
+        let arrivesToday = true;
 
         attending += 1;
 
@@ -72,19 +78,38 @@ export const updateStatsFactory = () => database.ref('/people/{uid}')
             problematicFoods[f] += 1;
           }
         });
+        // Add the task help to the list.
+        person.taskHelp.forEach(t => {
+          if (!taskHelp[t]) {
+            taskHelp[t] = 1;
+          } else {
+            taskHelp[t] += 1;
+          }
+        });
 
         const attendee: IStatsAttendee<string> = {
           ...person,
           sleepsInTent: person.hasTent && person.sleepsInTent,
           problematicFoods: person.problematicFoods,
+          taskHelp: person.taskHelp,
           uid,
         };
 
         peopleList.push(attendee);
 
-        for (let i = +EARLIEST_POSSIBLE_DATE; i < +LATEST_POSSIBLE_DATE; i += MS_PER_DAY) {
-          if (i >= +new Date(attendee.arrival) && i <= +new Date(attendee.departure)) {
-            const dateKey = toDate(new Date(i));
+
+        for (
+          let i = +EARLIEST_POSSIBLE_DATE;
+          i <= +LATEST_POSSIBLE_DATE + MS_PER_DAY;
+          i += MS_PER_DAY
+        ) {
+          const iDate = toDate(i);
+          const isGoneTomorrow = (toDate(i + MS_PER_DAY) > toDate(attendee.departure));
+          if (
+            iDate >= toDate(attendee.arrival) &&
+            iDate <= toDate(attendee.departure)
+          ) {
+            const dateKey = iDate;
             perDay[dateKey] = perDay[dateKey] ?? {
               attending: 0,
               averageDuration: 1,
@@ -93,6 +118,7 @@ export const updateStatsFactory = () => database.ref('/people/{uid}')
               amountSleepInTent: 0,
               freeCarSeats: 0,
               problematicFoods: {},
+              taskHelp: {},
               people: [],
             };
             const day = perDay[dateKey];
@@ -101,13 +127,27 @@ export const updateStatsFactory = () => database.ref('/people/{uid}')
             day.freeCarSeats += person.freeCarSeats;
             day.amountHaveTent += Number(person.hasTent);
             day.amountSleepInTent += Number(person.hasTent && person.sleepsInTent);
-            day.people.push(attendee);
+            day.people.push({
+              ...attendee,
+              arriving: arrivesToday,
+              departing: isGoneTomorrow,
+            });
+
+            arrivesToday = false;
 
             person.problematicFoods.forEach(f => {
               if (!day.problematicFoods[f]) {
                 day.problematicFoods[f] = 1;
               } else {
                 day.problematicFoods[f] += 1;
+              }
+            });
+
+            person.taskHelp.forEach(t => {
+              if (!day.taskHelp[t]) {
+                day.taskHelp[t] = 1;
+              } else {
+                day.taskHelp[t] += 1;
               }
             });
           }
@@ -127,6 +167,7 @@ export const updateStatsFactory = () => database.ref('/people/{uid}')
       people: peopleList,
       perDay,
       problematicFoods,
+      taskHelp,
     };
 
     await statsRef.set(stats);

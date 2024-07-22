@@ -35,30 +35,50 @@
     <hr>
     <!-- ----------------------------------- -->
 
+    <mat-form-field class="">
+      <mat-label>full name</mat-label>
+      <input placeholder="e.g. Céline" matInput type="text" [formControl]="userRegistrationForm.controls.name" />
+      <mat-hint>full name (or full "enough") so we know who you are 🦆</mat-hint>
+    </mat-form-field>
+
+
     <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full">
       <mat-form-field class="md:basis-1/2">
-        <mat-label>full name</mat-label>
-        <input placeholder="e.g. Céline" matInput type="text" [formControl]="userRegistrationForm.controls.name" />
+        <mat-label>email</mat-label>
+        <input placeholder="e.g. john-1987-hottie@hotmail.com" matInput type="email"
+          [formControl]="userRegistrationForm.controls.email" />
+        <mat-hint>we *might* send an email reminding you to update your availability. But maybe not. Still, good to have
+          if you don't mind.</mat-hint>
       </mat-form-field>
 
       <mat-form-field class="md:basis-1/2">
-        <mat-label>email</mat-label>
-        <input placeholder="Email address" matInput type="email" [formControl]="userRegistrationForm.controls.email" />
+        <mat-label>phone</mat-label>
+        <input placeholder="e.g. +44 777 888 999" matInput type="phone"
+          [formControl]="userRegistrationForm.controls.phone" />
+        <mat-hint>easier for us (hosts) to message or call people directly, since not all of you are in the whatsapp
+          chat</mat-hint>
       </mat-form-field>
     </div>
 
+    <br>
+    <br>
     <hr>
     <!-- ----------------------------------- -->
 
     <div class="flex flex-col space-y-2 items-baseline justify-stretch w-full">
       <mat-checkbox [checked]="userRegistrationForm.controls.hasTent.value"
-        (change)="fs.toggleCheckbox('hasTent', $event.checked)">Can you bring (or come with) sleep arrangements (tent ⛺️, van 🚐,
+        (change)="fs.toggleCheckbox('hasTent', $event.checked)">Can you bring (or come with) sleep arrangements (tent
+        ⛺️, van 🚐,
         ...)?</mat-checkbox>
       <mat-checkbox *ngIf="userRegistrationForm.controls.hasTent.value"
         [checked]="userRegistrationForm.controls.sleepsInTent.value"
         (change)="fs.toggleCheckbox('sleepsInTent', $event.checked)">
         Will you sleep in it? 🌝 🏕️
       </mat-checkbox>
+      <app-fake-hint>
+        we want to make sure there are enough sleeping spots for everyone. You don't have to commit to anything (yet)
+        but this helps us estimate better and take action.
+      </app-fake-hint>
     </div>
 
     <hr>
@@ -74,9 +94,12 @@
           [formControl]="userRegistrationForm.controls.freeCarSeats" />
       </mat-form-field>
     </div>
-    <small class="w-full block !mt-0" *ngIf="userRegistrationForm.controls.hasCar.value">
+    <app-fake-hint *ngIf="userRegistrationForm.controls.hasCar.value">
       example: if you are two people in a 5-seat car, one of you has "no car", the other has 3 seats
-    </small>
+    </app-fake-hint>
+    <app-fake-hint *ngIf="!userRegistrationForm.controls.hasCar.value">
+      this helps us know if we can all go together somewhere, or pick up or drop people, etc.
+    </app-fake-hint>
 
     <hr>
     <!-- ----------------------------------- -->
@@ -169,26 +192,51 @@
 
 
     <mat-form-field>
-      <mat-label>food issues</mat-label>
-      <mat-select multiple [formControl]="userRegistrationForm.controls.problematicFoods">
-        @for (food of problematicFoods; track food) {
-        <mat-option [value]="food.value">{{food.label}}</mat-option>
+      <mat-label>where to help?</mat-label>
+      <mat-select multiple [formControl]="userRegistrationForm.controls.taskHelp">
+        @for (task of taskHelp; track task) {
+        <mat-option [value]="task.value" [matTooltip]="task.description ?? ''">{{task.label}}</mat-option>
         }
       </mat-select>
+      <mat-error *ngIf="userRegistrationForm.controls.taskHelp.errors?.['minLength']">
+        Please select at least one task 😅
+      </mat-error>
+      <mat-hint *ngIf="!userRegistrationForm.controls.taskHelp.errors?.['minLength']"
+      >you are not committing to anything, nor we can promise anything.
+        This is for us to have an idea how you are willing to contribute
+      </mat-hint>
     </mat-form-field>
 
     <hr>
     <!-- ----------------------------------- -->
 
     <mat-form-field>
-      <mat-label>comments? observations? questions? </mat-label>
-      <textarea
-      matInput
-      [formControl]="userRegistrationForm.controls.comments"
-       cdkTextareaAutosize
-       placeholder='e.g. "I was wondering if...", "I&quot;m not sure about..."'
-       ></textarea>
+      <mat-label>food issues</mat-label>
+      <mat-select multiple [formControl]="userRegistrationForm.controls.problematicFoods">
+        @for (food of problematicFoods; track food) {
+        <mat-option [value]="food.value" [matTooltip]="food.description ?? ''">{{food.label}}</mat-option>
+        }
+      </mat-select>
     </mat-form-field>
+    <app-fake-hint>
+      want to know if any of you have any <i>allergies</i>, or any restrictions we might need to know about.
+      if you don&apos;t like cucumber there will be dishes without it. please let&apos;s keep this for serious stuff
+      only
+    </app-fake-hint>
+
+
+    <hr>
+    <!-- ----------------------------------- -->
+
+    <mat-form-field>
+      <mat-label>comments? observations? questions? </mat-label>
+      <textarea matInput [formControl]="userRegistrationForm.controls.comments" cdkTextareaAutosize
+        placeholder='e.g. "I was wondering if...", "I&quot;m not sure about..."'></textarea>
+      <mat-hint>if you want to say something, or we forgot to ask you... let us know</mat-hint>
+    </mat-form-field>
+
+    <br>
+    <br>
 
 
     <!-- ----------------------------------- -->

@@ -17,6 +17,7 @@ const config: Config = {
   safelist: [
     "text-[#eee]",
     "text-[#333]",
+    "line-through",
   ],
 };
 export default config;

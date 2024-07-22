@@ -1,16 +1,16 @@
+import { FormDialogComponent } from "@/app/form/form-dialog/form-dialog.component";
+import { EXPECTED_ARRIVAL_DATE, EXPECTED_DEPARTURE_DATE, PROBLEMATIC_FOODS, TASK_HELP } from "@/definitions";
+import { dbRef } from "@/firebase";
+import { addDatesToAttendee, daysStaying, formModalData, isoDatesToAttendee } from "@/functions";
+import { AuthService } from "@/services/auth.service";
+import { ExtractType, IAttendee, IValueLabel } from "@/types";
+import { ArrayValidator, DateLimitValidator } from "@/validators";
 import { Injectable } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ExtractType, IAttendee } from "@/types";
-import { BehaviorSubject, debounceTime, distinctUntilChanged, filter, Observable, of, startWith, Subject, Subscription, takeUntil, tap } from "rxjs";
-import { addDatesToAttendee, formModalData, isoDatesToAttendee, timeStayingInWords } from "@/functions";
-import { AuthService } from "@/services/auth.service";
-import { FormDialogComponent } from "@/app/form/form-dialog/form-dialog.component";
-import { EXPECTED_ARRIVAL_DATE, EXPECTED_DEPARTURE_DATE } from "@/definitions";
-import { DateLimitValidator } from "@/validators";
-import { update } from "firebase/database";
-import { dbRef } from "@/firebase";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatDialog } from "@angular/material/dialog";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { update } from "firebase/database";
+import { BehaviorSubject, debounceTime, distinctUntilChanged, filter, Subject, Subscription, takeUntil, tap } from "rxjs";
 
 @Injectable()
 export class FormService {
@@ -79,22 +79,36 @@ export class FormService {
     return !!this.form?.value.attending;
   }
 
+  public foodDetail(value: string): IValueLabel {
+    return PROBLEMATIC_FOODS.find(food => food.value === value) ?? ({} as IValueLabel);
+  }
+
+  public helpDetail(value: string): IValueLabel {
+    return TASK_HELP.find(food => food.value === value) ?? ({} as IValueLabel);
+  }
+
   public createRegistrationForm(attendee: Partial<IAttendee<Date>>): void {
     this.form = new FormGroup({
       uid: new FormControl(attendee.uid ?? ""),
       name: new FormControl(attendee.name ?? "", { validators: Validators.required }),
+      phone: new FormControl(attendee.phone ?? "", { validators: Validators.required }),
+      email: new FormControl(attendee.email ?? "", { validators: Validators.required }),
+
+      attending: new FormControl(attendee.attending ?? true),
       arrival: new FormControl(attendee.arrival ?? EXPECTED_ARRIVAL_DATE, [Validators.required]),
       departure: new FormControl(attendee.departure ?? EXPECTED_DEPARTURE_DATE, [Validators.required]),
+      comments: new FormControl(attendee.comments ?? ""),
+
       hasCar: new FormControl(attendee.hasCar ?? false),
       hasTent: new FormControl(attendee.hasTent ?? false),
       sleepsInTent: new FormControl(attendee.sleepsInTent ?? false),
-      attending: new FormControl(attendee.attending ?? true),
-      email: new FormControl(attendee.email ?? "", Validators.required),
-      problematicFoods: new FormControl(attendee.problematicFoods ?? []),
       freeCarSeats: new FormControl(attendee.freeCarSeats ?? 0),
+
+      problematicFoods: new FormControl(attendee.problematicFoods ?? []),
+      taskHelp: new FormControl(attendee.taskHelp ?? [], ArrayValidator.minLength(1)),
+
       editedOn: new FormControl(new Date(attendee.editedOn ?? new Date())),
       addedOn: new FormControl(attendee.addedOn),
-      comments: new FormControl(attendee.comments ?? ""),
       iWillBringNoDeadAnimals: new FormControl(attendee.iWillBringNoDeadAnimals ?? false, Validators.requiredTrue),
     }, { validators: [DateLimitValidator.createValidator()] });
   }
@@ -131,6 +145,6 @@ export class FormService {
   }
 
   private updateDurationOfStay(): void {
-    this.timeStayingInWords$.next(timeStayingInWords(this.form.value as IAttendee));
+    this.timeStayingInWords$.next(daysStaying(this.form.value as IAttendee));
   }
 }
