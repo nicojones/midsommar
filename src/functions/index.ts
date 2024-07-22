@@ -3,3 +3,7 @@ export * from "./is-valid-app-password.function";
 export * from "./days-staying.function";
 export * from "./form-modal-data.function";
 export * from "./day-name.function";
+export * from "./to-query.function";
+export * from "./google-maps-directions.function";
+export * from "./pad.function";
+export * from "./to-iso-date.function";

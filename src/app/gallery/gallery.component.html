@@ -1,1 +1,25 @@
-<img src="/house/houses.jpeg" />
+<div class="flex flex-col space-y-12 py-12 mx-auto max-w-[600px] -z-[1] relative">
+
+  <h1 class="text-4xl w-full text-center">Pictures</h1>
+
+
+  @for (image of images; track image.value) {
+  <mat-card class="z-0" appearance="raised">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{image.label}}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="image.value" [alt]="image.label">
+    @if (image.description) {
+    <mat-card-content>
+      <p [innerHTML]="image.description"></p>
+    </mat-card-content>
+    }
+    <!-- <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions> -->
+  </mat-card>
+  }
+
+</div>

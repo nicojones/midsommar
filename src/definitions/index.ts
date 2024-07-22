@@ -1,4 +1,4 @@
-import { IValueLabel } from "@/types";
+import { ICoords, IValueLabel } from "@/types";
 
 export * from "./storage-keys.definition";
 export * from "./store.definition";
@@ -40,3 +40,6 @@ export const TASK_HELP: IValueLabel[] = [
   { value: "shopping", label: "🚛 help with shopping", icon: "🚛", description: "Implies potential trips to supermarkets or shops to buy food" },
   { value: "prepare", label: "🍴 help with preparations", icon: "🍴", description: "prepare tables, organize spaces, assist kitchen" },
 ];
+
+export const HOUSE_COORDS: ICoords = { lat: 61.269927, lng: 16.850408 } as const;
+export const AIRPORT_COORDS: ICoords = { lat: 59.64957359874774, lng: 17.929290658863916 } as const;
