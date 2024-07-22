@@ -2,7 +2,7 @@ import { AuthService } from "@/services/auth.service";
 import { AppGlobalRippleOptions } from "@/services/ripples.service";
 import { StoreService } from "@/services/store.service";
 import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from "@angular/material/core";
 import { BrowserModule } from "@angular/platform-browser";
@@ -19,6 +19,7 @@ import { AdminGuestsComponent } from "./admin/admin-guests.component";
 import { FormService } from "@/services/form.service";
 import { GalleryComponent } from "./gallery/gallery.component";
 import { GuestInfoComponent } from "./guest-info/guest-info.component";
+import { InfoComponent } from "./info/info.component";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { GuestInfoComponent } from "./guest-info/guest-info.component";
     AdminGuestsComponent,
     GalleryComponent,
     GuestInfoComponent,
+    InfoComponent,
   ],
   imports: [
     BrowserModule,

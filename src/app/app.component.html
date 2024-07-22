@@ -1,8 +1,10 @@
 <div *ngIf="!isAuthed" class="grid place-items-center place-content-center h-screen">
-  Welcome to our new Swedish midsommar thing thing
-  <form (submit)="handlePassSubmit($event)">
-    <mat-form-field floatLabel="always" hintLabel="the password is on the whatsapp message" class="!w-96">
+  Welcome to our Swedish Midsommar thingy thing
+  <form (submit)="handlePassSubmit($event)" class="max-w-min">
+    <img src="/house/main-house.jpg" class="w-full" />
+    <mat-form-field floatLabel="always" class="!w-96">
       <input placeholder="password" matInput [formControl]="pass" type="text"/>
+      <mat-hint class="text-[12px]">the password is on the whatsapp message. type, then press Enter</mat-hint>
     </mat-form-field>
   </form>
 </div>
@@ -10,8 +12,7 @@
 <ng-container *ngIf="isAuthed">
 
   <app-header></app-header>
-
-  <main class="container mx-auto">
+  <main class="container mx-auto ">
     <router-outlet></router-outlet>
   </main>
 

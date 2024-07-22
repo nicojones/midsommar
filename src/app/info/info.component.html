@@ -1,4 +1,86 @@
-<h1 class="text-2xl">Info</h1>
-<p>what are we going to do?</p>
-<p>what is midsommar?</p>
-<p>etc...</p>
+<div class="flex flex-col space-y-12 py-12">
+  <div class="flex flex-col space-y-6">
+    <h1 class="text-4xl w-full text-center">Info</h1>
+  </div>
+
+  <div class="flex flex-col space-y-6">
+    <h2 class="text-2xl">What?</h2>
+    <p>We want to celebrate <a href="https://en.wikipedia.org/wiki/Midsummer" target="_blank"
+        rel="noreferrer">Midsommar</a> with all of you.</p>
+  </div>
+
+  <div class="flex flex-col space-y-6">
+    <h2 class="text-2xl">When?</h2>
+    <p>The week of 17-22nd of June, 2025</p>
+    <p *ngIf="guestData; else noGuestData" class="font-bold">In your particular case, you are staying
+      {{daysStaying(guestData)}}
+    </p>
+    <ng-template #noGuestData>
+      <a routerLink="/">Make sure to register and confirm participation!</a>
+    </ng-template>
+    <p>Make sure to check train schedules (below) if you don't come by car!</p>
+  </div>
+
+
+  <div class="flex flex-col space-y-6">
+
+    <h2 class="text-2xl">Where?</h2>
+    <p>The house is in Sweden, around 2h North of the airport (by car or public transport)</p>
+    <a routerLink="/gallery">You can see some pictures <u>here</u></a>
+    <small>we might be able to pick some people up at Söderhamn station. otherwise, there's an hourly 30min bus</small>
+    <div class="fric-2">
+
+      <pre class="border-l-2 border-gray-400 pl-4">Älvstigen 31
+826 67 Bergvik</pre>
+      <a class="fric-2" href="https://maps.app.goo.gl/FcZcgeQ5KeB8ehBg6" target="_blank" rel="noreferrer"
+        matTooltip="Open in Google Maps">
+        <mat-icon fontIcon="location_on"></mat-icon>
+      </a>
+    </div>
+
+    <hr>
+    <div class="flex flex-col space-y-2">
+
+      <small>If you are coming from the airport, this info might be helpful:</small>
+      <div class="fric-2">
+        <span>
+          By (rented) <span class="text-white bg-orange-500 px-1 rounded">car</span> ({{driveDirections?.distance}},
+          {{driveDirections?.duration}})
+        </span>
+        <a mat-icon-button matTooltip="See directions on Google Maps" [href]="driveDirectionsUrl" target="_blank"
+          rel="noreferrer"><mat-icon fontIcon="map"></mat-icon></a>
+      </div>
+
+      <div class="fric-2">
+        <span class="flex flex-col">
+          <span>By <span class="text-white bg-purple-800 px-1 rounded">train</span> ({{trainDirections?.distance}},
+            {{trainDirections?.duration}}).</span>
+          <span>
+            <a class="underline font-bold" [href]="swedishTrainUrl" target="_blank" rel="noreferrer">Buy at SJ.se</a>
+            &nbsp;<span>(swedish trains)</span>
+          </span>
+        </span>
+        <a mat-icon-button matTooltip="See directions on Google Maps" [href]="trainDirectionsUrl" target="_blank"
+          rel="noreferrer"><mat-icon fontIcon="map"></mat-icon></a>
+      </div>
+
+    </div>
+
+    <div id="map" class="h-96 max-h-screen w-full"></div>
+  </div>
+
+  <div class="flex flex-col space-y-6">
+    <h2 class="text-2xl">Useful links</h2>
+    <a class="underline" matTooltip="See directions on Google Maps" [href]="driveDirectionsUrl" target="_blank"
+      rel="noreferrer">directions from the airport by car</a>
+    <a class="underline" matTooltip="See directions on Google Maps" [href]="trainDirectionsUrl" target="_blank"
+      rel="noreferrer">directions from the airport by train</a>
+    <a class="underline" href="https://maps.app.goo.gl/FcZcgeQ5KeB8ehBg6" target="_blank" rel="noreferrer"
+      matTooltip="Open in Google Maps">
+      where the house is
+    </a>
+    <a class="underline" [href]="swedishTrainUrl" target="_blank" rel="noreferrer">SJ.se (swedish trains)</a>
+    <a class="underline" href="https://flights.google.com" target="_blank" rel="noreferrer">Google Flights</a>
+  </div>
+
+</div>
