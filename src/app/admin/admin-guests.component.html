@@ -1,73 +1,94 @@
-<ul class="py-4">
-  @for (u of users; track u) {
-  <ng-container *ngTemplateOutlet="userTemplate; context: { $implicit: u }"></ng-container>
-  }
-</ul>
-<ul class="py-4">
-  @for (u of usersNotComing; track u) {
-  <ng-container *ngTemplateOutlet="userTemplate; context: { $implicit: u }"></ng-container>
-  }
-</ul>
+<div class="mx-auto max-w-screen-md py-12">
+  <h2 class="text-2xl">Guests</h2>
+  <br>
 
-
-<mat-accordion>
-  <ng-container *ngFor="let day of dailyStats">
-    <mat-expansion-panel matRipple>
-      <mat-expansion-panel-header>
-        <mat-panel-title>on {{ day.day }}</mat-panel-title>
-      </mat-expansion-panel-header>
-      <div class="fric-2 text-xl">
-        <small matTooltip="number of guests">{{day.stats.attending}}👯‍♂️</small>
-        <small matTooltip="number of free seats">{{day.stats.freeCarSeats + day.stats.amountHaveCar}}🚙</small>
-        <small *ngIf="availableCarSeats(day.stats) < 0" class="text-red-600" matTooltip="not enough cars for eveyone to travel. This value indicates the shortage">
-          {{-availableCarSeats(day.stats)}}🚒
-        </small>
-        <small matTooltip="number of tents">{{day.stats.amountHaveTent}}⛺️</small>
-        <small matTooltip="own accommodation">{{day.stats.amountSleepInTent}}🏕️</small>
-        <small class="fric space-x-0.5">(
-          @for (a of allergies(day.stats.problematicFoods); track a[0]) {
-          <span [matTooltip]="'people with ' + a[1]">{{a[2]}}{{a[0]}}</span>
-          }
-          )
-        </small>
-        <small class="fric space-x-0.5">(
-          @for (a of taskHelp(day.stats.taskHelp); track a[0]) {
-          <span [matTooltip]=" a[2] + ' people will ' + a[1]">{{a[2]}}{{a[0]}}</span>
-          }
-          )
-        </small>
-      </div>
-      <br>
-      <hr>
-      <br>
-      <span>Guests</span>
-      <ul class="pl-4">
-        <ng-container *ngFor="let p of day.stats.people">
-          <li [class]="'cursor-help fric-2 ' + (p.arriving ? 'text-green-600 ' : '') + (p.departing ? 'text-red-600' : '')">
-            <!-- <li [matTooltip]="timeInWords(p)"> -->
-            <span>{{p.name}}</span>
-            <app-guest-info [info]="p" [showAllergies]="true" [showTaskHelp]="true"></app-guest-info>
-
-            <!-- TODO -- add their role (cooking, shopping, whatever) -->
-          </li>
-        </ng-container>
+  <mat-accordion>
+    <mat-expansion-panel matRipple [expanded]="true">
+      <mat-expansion-panel-header>{{users.length}} Coming</mat-expansion-panel-header>
+      <ul class="py-4">
+        @for (u of users; track u) {
+        <ng-container *ngTemplateOutlet="userTemplate; context: { $implicit: u }"></ng-container>
+        }
       </ul>
     </mat-expansion-panel>
-  </ng-container>
-</mat-accordion>
+    <mat-expansion-panel matRipple *ngIf="usersNotComing.length">
+      <mat-expansion-panel-header>{{ usersNotComing.length}} Not coming</mat-expansion-panel-header>
+      <ul class="py-4">
+        @for (u of usersNotComing; track u) {
+        <ng-container *ngTemplateOutlet="userTemplate; context: { $implicit: u }"></ng-container>
+        }
+      </ul>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <br>
+  <hr>
+  <br>
+
+  <h2 class="text-2xl">Per day</h2>
+  <br>
+
+  <mat-accordion>
+    <ng-container *ngFor="let day of dailyStats">
+      <mat-expansion-panel matRipple>
+        <mat-expansion-panel-header>
+          <mat-panel-title>on {{ day.day }}</mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="fric-2 text-xl">
+          <small matTooltip="number of guests">{{day.stats.attending}}👯‍♂️</small>
+          <small matTooltip="number of free seats">{{day.stats.freeCarSeats + day.stats.amountHaveCar}}🚙</small>
+          <small *ngIf="availableCarSeats(day.stats) < 0" class="text-red-600"
+            matTooltip="not enough cars for eveyone to travel. This value indicates the shortage">
+            {{-availableCarSeats(day.stats)}}🚒
+          </small>
+          <small matTooltip="number of tents">{{day.stats.amountHaveTent}}⛺️</small>
+          <small matTooltip="own accommodation">{{day.stats.amountSleepInTent}}🏕️</small>
+          <small class="fric space-x-0.5">(
+            @for (a of allergies(day.stats.problematicFoods); track a[0]) {
+            <span [matTooltip]="'people with ' + a[1]">{{a[2]}}{{a[0]}}</span>
+            }
+            )
+          </small>
+          <small class="fric space-x-0.5">(
+            @for (a of taskHelp(day.stats.taskHelp); track a[0]) {
+            <span [matTooltip]=" a[2] + ' people will ' + a[1]">{{a[2]}}{{a[0]}}</span>
+            }
+            )
+          </small>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <span>Guests</span>
+        <ul class="pl-4">
+          <ng-container *ngFor="let p of day.stats.people">
+            <li
+              [class]="'cursor-help fric-2 ' + (p.arriving ? 'text-green-600 ' : '') + (p.departing ? 'text-red-600' : '')">
+              <!-- <li [matTooltip]="timeInWords(p)"> -->
+              <span>{{p.name}}</span>
+              <app-guest-info [info]="p" [showAllergies]="true" [showTaskHelp]="true" [showContactDetails]="true"></app-guest-info>
+
+              <!-- TODO -- add their role (cooking, shopping, whatever) -->
+            </li>
+          </ng-container>
+        </ul>
+      </mat-expansion-panel>
+    </ng-container>
+  </mat-accordion>
 
 
 
-<ng-template #userTemplate let-u>
-  <li
-    class="fric-2 border-solid border-gray-400 border-b">
-    <div class="flex flex-col" [class.line-through]="!u.attending" [class.opacity-40]="!u.attending">
-      <span>{{ u.name }}</span>
-      <small class="text-xs text-secondary">{{daysStaying(u)}}</small>
-    </div>
-    <app-guest-info [info]="u" class="text-xl fric-2"></app-guest-info>
-    <button mat-icon-button (click)="editAttendee(u)" class="inline-block w-24">
-      <mat-icon>edit</mat-icon>
-    </button>
-  </li>
-</ng-template>
+  <ng-template #userTemplate let-u>
+    <li class="fric-2 border-solid border-gray-400 border-b">
+      <div class="flex flex-col" [class.line-through]="!u.attending" [class.opacity-40]="!u.attending">
+        <span>{{ u.name }}</span>
+        <small class="text-xs text-secondary">{{daysStaying(u)}}</small>
+      </div>
+      <app-guest-info [info]="u" class="text-xl fric-2"></app-guest-info>
+      <button mat-icon-button (click)="editAttendee(u)" class="inline-block w-24">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </li>
+  </ng-template>
+
+</div>

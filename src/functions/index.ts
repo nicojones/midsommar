@@ -7,3 +7,4 @@ export * from "./to-query.function";
 export * from "./google-maps-directions.function";
 export * from "./pad.function";
 export * from "./to-iso-date.function";
+export * from "./coming-or-interested.function";

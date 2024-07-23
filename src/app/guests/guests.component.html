@@ -2,7 +2,7 @@
   <mat-accordion>
     <mat-expansion-panel matRipple>
       <mat-expansion-panel-header>
-        <mat-panel-title> Who's coming? ({{stats.attending}}) </mat-panel-title>
+        <mat-panel-title> Who's {{comingOrInterested(['interested', "confirmed participation"])}}? ({{stats.attending}}) </mat-panel-title>
       </mat-expansion-panel-header>
       <ul>
         <ng-container *ngFor="let p of stats.people">
@@ -11,8 +11,6 @@
             <span>{{p.name}}</span>
             <small *ngIf="p.uid === auth.userId" matTooltip="that's you 🫵">(me)</small>
             <app-guest-info [info]="p"></app-guest-info>
-
-            <!-- TODO -- add their role (cooking, shopping, whatever) -->
           </li>
         </ng-container>
       </ul>

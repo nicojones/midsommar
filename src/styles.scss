@@ -50,6 +50,9 @@ body {
   .fric-2 {
     @apply fric space-x-2 space-y-0;
   }
+  .link {
+    @apply underline hover:no-underline text-blue-600;
+  }
 }
 
 @include mat.core();

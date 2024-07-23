@@ -1,11 +1,11 @@
-<div class="flex flex-col space-y-12 py-12">
+<div class="flex flex-col space-y-12 py-12 max-w-screen-md mx-auto">
   <div class="flex flex-col space-y-6">
     <h1 class="text-4xl w-full text-center">Info</h1>
   </div>
 
   <div class="flex flex-col space-y-6">
     <h2 class="text-2xl">What?</h2>
-    <p>We want to celebrate <a href="https://en.wikipedia.org/wiki/Midsummer" target="_blank"
+    <p>We want to celebrate <a href="https://en.wikipedia.org/wiki/Midsummer" target="_blank" class="link"
         rel="noreferrer">Midsommar</a> with all of you.</p>
   </div>
 
@@ -21,12 +21,22 @@
     <p>Make sure to check train schedules (below) if you don't come by car!</p>
   </div>
 
+  <div class="flex flex-col space-y-6">
+    <h2 class="text-2xl">Who?</h2>
+    <p>
+      You, we, and any friends you'd like to invite. We don't want to be restrictive and say "just you" or "bring a +1";
+      we leave the decision for you to decide.
+      <br>
+      Anybody is welcome if they want to come and have a good time 😇
+    </p>
+  </div>
+
 
   <div class="flex flex-col space-y-6">
 
     <h2 class="text-2xl">Where?</h2>
     <p>The house is in Sweden, around 2h North of the airport (by car or public transport)</p>
-    <a routerLink="/gallery">You can see some pictures <u>here</u></a>
+    <a class="link" routerLink="/gallery">You can see some pictures here</a>
     <small>we might be able to pick some people up at Söderhamn station. otherwise, there's an hourly 30min bus</small>
     <div class="fric-2">
 
@@ -41,28 +51,28 @@
     <hr>
     <div class="flex flex-col space-y-2">
 
-      <small>If you are coming from the airport, this info might be helpful:</small>
-      <div class="fric-2">
+      <p>If you are coming from the airport, this info might be helpful:</p>
+      <p class="fric-2">
         <span>
           By (rented) <span class="text-white bg-orange-500 px-1 rounded">car</span> ({{driveDirections?.distance}},
           {{driveDirections?.duration}})
         </span>
         <a mat-icon-button matTooltip="See directions on Google Maps" [href]="driveDirectionsUrl" target="_blank"
           rel="noreferrer"><mat-icon fontIcon="map"></mat-icon></a>
-      </div>
+      </p>
 
-      <div class="fric-2">
+      <p class="fric-2">
         <span class="flex flex-col">
           <span>By <span class="text-white bg-purple-800 px-1 rounded">train</span> ({{trainDirections?.distance}},
             {{trainDirections?.duration}}).</span>
           <span>
-            <a class="underline font-bold" [href]="swedishTrainUrl" target="_blank" rel="noreferrer">Buy at SJ.se</a>
+            <a class="link" [href]="swedishTrainUrl" target="_blank" rel="noreferrer">Buy at SJ.se</a>
             &nbsp;<span>(swedish trains)</span>
           </span>
         </span>
         <a mat-icon-button matTooltip="See directions on Google Maps" [href]="trainDirectionsUrl" target="_blank"
           rel="noreferrer"><mat-icon fontIcon="map"></mat-icon></a>
-      </div>
+      </p>
 
     </div>
 
@@ -70,17 +80,39 @@
   </div>
 
   <div class="flex flex-col space-y-6">
+    <h2 class="text-2xl">How much?</h2>
+    <p>
+      Huh!? 😅 It's <b>free</b>. Well, we'll share food costs, probably based on the number of nights you stay, but
+      there's no <i>cost</i> or <i>fee</i>.
+    </p>
+    <p>
+      Just basic cost splitting.
+    </p>
+    <p>
+      We haven't thought about it yet.
+    </p>
+    <p>
+      This scheme can also help repay fuel to those who come by car and go shopping for the rest of us.
+    </p>
+    <p>
+      Nothing fixed, all open for discussion.
+    </p>
+  </div>
+
+
+
+  <div class="flex flex-col space-y-6">
     <h2 class="text-2xl">Useful links</h2>
-    <a class="underline" matTooltip="See directions on Google Maps" [href]="driveDirectionsUrl" target="_blank"
-      rel="noreferrer">directions from the airport by car</a>
-    <a class="underline" matTooltip="See directions on Google Maps" [href]="trainDirectionsUrl" target="_blank"
-      rel="noreferrer">directions from the airport by train</a>
-    <a class="underline" href="https://maps.app.goo.gl/FcZcgeQ5KeB8ehBg6" target="_blank" rel="noreferrer"
+    <a class="link" matTooltip="See directions on Google Maps" [href]="driveDirectionsUrl" target="_blank"
+      rel="noreferrer">Directions from the airport by car</a>
+    <a class="link" matTooltip="See directions on Google Maps" [href]="trainDirectionsUrl" target="_blank"
+      rel="noreferrer">Directions from the airport by train</a>
+    <a class="link" href="https://maps.app.goo.gl/FcZcgeQ5KeB8ehBg6" target="_blank" rel="noreferrer"
       matTooltip="Open in Google Maps">
-      where the house is
+      Where is it?
     </a>
-    <a class="underline" [href]="swedishTrainUrl" target="_blank" rel="noreferrer">SJ.se (swedish trains)</a>
-    <a class="underline" href="https://flights.google.com" target="_blank" rel="noreferrer">Google Flights</a>
+    <a class="link" [href]="swedishTrainUrl" target="_blank" rel="noreferrer">SJ.se (swedish trains)</a>
+    <a class="link" href="https://flights.google.com" target="_blank" rel="noreferrer">Google Flights</a>
   </div>
 
 </div>

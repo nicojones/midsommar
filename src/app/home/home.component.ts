@@ -1,4 +1,5 @@
 import { dbRef } from "@/firebase";
+import { comingOrInterested } from "@/functions";
 import { AuthService } from "@/services/auth.service";
 import { FormService } from "@/services/form.service";
 import { StoreService } from "@/services/store.service";
@@ -12,6 +13,7 @@ import { get, query } from "firebase/database";
 })
 export class HomeComponent {
 
+  public readonly comingOrInterested = comingOrInterested;
 
   public constructor(
     public auth: AuthService,
