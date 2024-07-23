@@ -29,9 +29,10 @@ export const ADMIN_UIDS = [
 ];
 
 export const PROBLEMATIC_FOODS: IValueLabel[] = [
-  { value: "onions", label: "🧅 raw onions", icon: "🧅" },
+  { value: "wheat", label: "🌾 wheat issues/allergy", icon: "🌾" },
   { value: "nuts", label: "🌰 nut allergy", icon: "🌰" },
-  { value: "peanut", label: "🥜 peanut allergy", icon: "🥜" },
+  { value: "peanuts", label: "🥜 peanut allergy", icon: "🥜" },
+  { value: "soy", label: "🫛 soy allergy (e.g. tofu)", icon: "🫛"},
 ];
 
 export const TASK_HELP: IValueLabel[] = [
@@ -43,3 +44,5 @@ export const TASK_HELP: IValueLabel[] = [
 
 export const HOUSE_COORDS: ICoords = { lat: 61.269927, lng: 16.850408 } as const;
 export const AIRPORT_COORDS: ICoords = { lat: 59.64957359874774, lng: 17.929290658863916 } as const;
+
+export const BEFORE_THIS_DATE_WE_ARE_JUST_CHECKING_WHO_IS_INTERESTED = new Date("2025-01-01");

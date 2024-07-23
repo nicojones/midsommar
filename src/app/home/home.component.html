@@ -1,13 +1,12 @@
 <div class="flex flex-col space-y-8">
 
-  <div class="flex flex-col">
+  <div class="flex flex-col space-y-6 mx-auto max-w-screen-md">
     <p>
-      As you know, we would love to spend together a wonderful <a href="https://en.wikipedia.org/wiki/Midsummer"
+      As you know, we would love to spend together a wonderful <a href="https://en.wikipedia.org/wiki/Midsummer" class="link"
         target="_blank" rel="noreferrer">Midsommar</a> in 2025
     </p>
-    <p>
-      Yes, it's a bit early for that! This website is a way to track who's coming and update you on the progress.
-    </p>
+    <p>{{comingOrInterested(["And yes, it's a bit early for that!", ""])}}</p>
+    <p>This website is a way to track who's {{comingOrInterested(["interested", "coming"])}} and update you on the progress.</p>
   </div>
 
 
@@ -23,7 +22,8 @@
           <mat-card-title>Register first</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <small>Register your attendance so we know who's coming.<br />You can always change this later</small>
+          <small>Register your attendance so we know who's {{comingOrInterested(["interested", "coming"])}}.<br />You
+            can always change this later {{comingOrInterested(["(and it's not definitive. we are just checking what the interest is.)", ""])}}</small>
         </mat-card-content>
         <mat-card-actions>
           <button mat-button (click)="fs.openAttendeeModalForm()" class="inline-block w-24">REGISTER</button>

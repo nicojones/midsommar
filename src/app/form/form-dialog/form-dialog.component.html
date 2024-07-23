@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>So... coming?</h2>
+<h2 mat-dialog-title>So... {{comingOrInterested(["interested", "coming"])}}?</h2>
 <mat-dialog-content class="mat-typography">
   <ng-container *ngIf="userRegistrationForm.controls.addedOn.value; else userHasRegistered">
     <small>you can always edit this form later</small>
@@ -201,11 +201,12 @@
       <mat-error *ngIf="userRegistrationForm.controls.taskHelp.errors?.['minLength']">
         Please select at least one task 😅
       </mat-error>
-      <mat-hint *ngIf="!userRegistrationForm.controls.taskHelp.errors?.['minLength']"
-      >you are not committing to anything, nor we can promise anything.
-        This is for us to have an idea how you are willing to contribute
-      </mat-hint>
     </mat-form-field>
+    <app-fake-hint *ngIf="!userRegistrationForm.controls.taskHelp.errors?.['minLength']"
+    >you are not committing to anything, nor we can promise anything.
+      This is for us to have an idea how you are willing to contribute. When the day comes, we'll see how to best
+      organise everyone to maximize happiness
+    </app-fake-hint>
 
     <hr>
     <!-- ----------------------------------- -->
@@ -220,8 +221,8 @@
     </mat-form-field>
     <app-fake-hint>
       want to know if any of you have any <i>allergies</i>, or any restrictions we might need to know about.
-      if you don&apos;t like cucumber there will be dishes without it. please let&apos;s keep this for serious stuff
-      only
+      if you don&apos;t like cucumber there will be dishes without it (and you can let us know in the "Comment" field below). please let&apos;s keep this for serious stuff
+      only. Remember: this might influence <i>everything</i> that gets prepared on a meal!
     </app-fake-hint>
 
 
@@ -246,8 +247,8 @@
     <!-- ----------------------------------- -->
 
 
-    <small role="button" class="opacity-20 hover:opacity-100 transition-opacity absolute right-1 bottom-1"
-      (click)="debug = !debug">debug</small>
+    <small role="button" class="opacity-0 hover:opacity-100 transition-opacity absolute right-1/2 bottom-1 z-10"
+      (click)="debug = !debug">debug {{debug ? "on" : "off"}}</small>
     <ng-container *ngIf="debug">
       <hr />
       <small>
