@@ -8,7 +8,7 @@
 
 <ng-container *ngIf="auth.isAdmin">
 
-  <div class="fric inline-block mx-2">
+  <div class="fric inline-block mx-2" *ngIf="showContactDetails">
     <a role="button" class="text-sm !cursor-pointer" [href]="'tel:' + info.phone" (click)="confirm(info.name, 'phone', $event)">📞</a>
     <a role="button" class="text-sm !cursor-pointer" [href]="'mailto:' + info.email" (click)="confirm(info.name, 'email', $event)">📧</a>
   </div>

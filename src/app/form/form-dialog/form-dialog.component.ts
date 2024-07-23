@@ -17,6 +17,7 @@ import {
 } from '@angular/material/dialog';
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { FakeHintComponent } from "@/app/form/fake-hint/fake-hint.component";
+import { comingOrInterested } from "@/functions";
 
 @Component({
   selector: 'app-form-dialog',
@@ -34,6 +35,8 @@ export class FormDialogComponent {
   public readonly midsommarDate = MIDSOMMAR_DATE;
   public readonly problematicFoods = PROBLEMATIC_FOODS;
   public readonly taskHelp = TASK_HELP;
+
+  public readonly comingOrInterested = comingOrInterested;
 
 
   public constructor(

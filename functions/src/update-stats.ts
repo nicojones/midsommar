@@ -46,6 +46,8 @@ export const updateStatsFactory = () => database.ref('/people/{uid}')
 
     for (const uid in people) {
       const person = people[uid];
+      person.problematicFoods = person.problematicFoods ?? [];
+      person.taskHelp = person.taskHelp ?? [];
 
       if (person.attending) {
         let arrivesToday = true;

@@ -2,5 +2,7 @@
       (click)="handleChange(!checked)" matRipple
       type="button"
       [matRippleColor]="(checked ? 'rgb(254, 202, 202, 0.8)' : 'rgb(187, 247, 208, 0.8)')">
-      {{ checked ? "Coming! 🤩" : "Can't come 😔"}}
+      <span class="opacity-30">{{ checked ? comingOrInterested(["Interested!", "Coming!"]) : comingOrInterested(["Not interested...", "Can't come..."])}}</span>
+      <br/>
+      <span class="text-5xl">{{ checked ? "🤩" : "😔"}}</span>
     </button>

@@ -6,7 +6,7 @@
     "dev": "ng serve",
     "predev": "npm i",
     "build": "ng build",
-    "gh-deploy": "ng deploy",
+    "gh-deploy": "ng deploy --repo https://github.com/nicojones/midsommar",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "eslint .",

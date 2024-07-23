@@ -1,4 +1,4 @@
-import { daysStaying } from "@/functions";
+import { comingOrInterested, daysStaying } from "@/functions";
 import { AuthService } from "@/services/auth.service";
 import { IStats, IStatsAttendee } from "@/types";
 import { Component, Input } from '@angular/core';
@@ -11,6 +11,7 @@ import { BehaviorSubject } from "rxjs";
 export class GuestsComponent {
 
   @Input({ required: true }) public stats$ = new BehaviorSubject<IStats | null>(null);
+  public readonly comingOrInterested = comingOrInterested;
 
   public constructor(
     public auth: AuthService,
