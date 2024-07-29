@@ -1,9 +1,10 @@
-import { AIRPORT_COORDS, EXPECTED_ARRIVAL_DATE, EXPECTED_DEPARTURE_DATE, HOUSE_COORDS } from "@/definitions";
+import { AIRPORT_COORDS, EARLIEST_POSSIBLE_DATE, EXPECTED_ARRIVAL_DATE, EXPECTED_DEPARTURE_DATE, HOUSE_COORDS, LATEST_POSSIBLE_DATE, SPIRITUAL_DATE } from "@/definitions";
 import { dbRef } from "@/firebase";
 import { addDatesToAttendee, daysStaying, googleMapsDirections, toIsoDate } from "@/functions";
 import { AuthService } from "@/services/auth.service";
 import { IAttendee } from "@/types";
 import { AfterViewInit, Component } from '@angular/core';
+import { MatCalendarCellClassFunction } from "@angular/material/datepicker";
 import { get, query } from "firebase/database";
 import { Loader, LoaderOptions } from 'google-maps';
 
@@ -29,6 +30,8 @@ export class InfoComponent implements AfterViewInit {
 
   public readonly trainDirectionsUrl = googleMapsDirections(AIRPORT_COORDS, HOUSE_COORDS, "TRANSIT");
   public readonly driveDirectionsUrl = googleMapsDirections(AIRPORT_COORDS, HOUSE_COORDS, "DRIVING");
+  public readonly spiritualDate = SPIRITUAL_DATE;
+  public readonly partyDates = [EARLIEST_POSSIBLE_DATE, LATEST_POSSIBLE_DATE];
 
   public constructor(
     private auth: AuthService,
@@ -113,5 +116,12 @@ export class InfoComponent implements AfterViewInit {
     }
     return `https://www.sj.se/sok-resa/valj-resa/Arlanda%20Central/S%C3%B6derhamn%20station/${arrivalDate}/${departureDate}`;
   }
+
+  /**
+   * Disable all the buttons in the calendar
+   */
+  public dateClass: MatCalendarCellClassFunction<Date> = (_cellDate, _view) => {
+    return "disabled-date";
+  };
 
 }

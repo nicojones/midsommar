@@ -1,5 +1,5 @@
 import { AttendingButtonComponent } from "@/app/form/attending-button/attending-button.component";
-import { MaterialModule } from "@/app/material.module";
+import { MaterialModule } from "@/app/material/material.module";
 import { EARLIEST_POSSIBLE_DATE, LATEST_POSSIBLE_DATE, MIDSOMMAR_DATE, PROBLEMATIC_FOODS, TASK_HELP } from "@/definitions";
 import { FormService } from "@/services/form.service";
 import { IAttendee, PDefault } from "@/types";

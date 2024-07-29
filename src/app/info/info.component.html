@@ -1,19 +1,44 @@
-<div class="flex flex-col space-y-12 py-12 max-w-screen-md mx-auto">
-  <div class="flex flex-col space-y-6">
-    <h1 class="text-4xl w-full text-center">Info</h1>
+<div class="flex flex-col space-y-12 py-12 c-fluid">
+  <div class="flex flex-col space-y-3">
+    <h1 class="jumbo-xl">Info</h1>
   </div>
 
-  <div class="flex flex-col space-y-6">
-    <h2 class="text-2xl">What?</h2>
+  <div class="flex flex-col space-y-3">
+    <h2 class="jumbo">What?</h2>
     <p>We want to celebrate <a href="https://en.wikipedia.org/wiki/Midsummer" target="_blank" class="link"
         rel="noreferrer">Midsommar</a> with all of you.</p>
+    <p>And we just happen to own a piece of Sweden where we could make it happen</p>
+    <br />
+    <small>
+      We won't get bored, there's lots to do:
+    </small>
+
+    <ul class="list-disc pl-4">
+      <li>🌲 forest walks</li>
+      <li>🧖 sauna (TBD)</li>
+      <li>🧭 explore surroundings</li>
+      <li>🏖️ chilling at the house</li>
+      <li>🛶 swimming or kayaking at our lake</li>
+      <li>🐳 going to the Baltic Sea (25min away)</li>
+      <li>🏢 Söderhamn and Bolnäs (15 and 25min away respectively) for many things: bowling, cinema, restaurants...</li>
+      <li>🍄🌈 "Spiritual" day on {{spiritualDate}}. If this interest you, let Nico know</li>
+    </ul>
   </div>
 
-  <div class="flex flex-col space-y-6">
-    <h2 class="text-2xl">When?</h2>
-    <p>The week of 17-22nd of June, 2025</p>
-    <p *ngIf="guestData; else noGuestData" class="font-bold">In your particular case, you are staying
-      {{daysStaying(guestData)}}
+  <div class="flex flex-col space-y-3">
+    <h2 class="jumbo">When?</h2>
+    <p>
+      <mat-form-field class="w-full">
+        <mat-date-range-input [rangePicker]="picker" [disabled]="false">
+          <input [readonly]="true" [value]="partyDates[0]" matInput matStartDate />
+          <input [readonly]="true" [value]="partyDates[1]" matInput matEndDate />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker touchUi #picker [dateClass]="dateClass"></mat-date-range-picker>
+        <mat-hint *ngIf="guestData; else noGuestData" class="font-bold">
+          In your particular case, you are staying {{daysStaying(guestData)}}
+        </mat-hint>
+      </mat-form-field>
     </p>
     <ng-template #noGuestData>
       <a routerLink="/">Make sure to register and confirm participation!</a>
@@ -21,20 +46,20 @@
     <p>Make sure to check train schedules (below) if you don't come by car!</p>
   </div>
 
-  <div class="flex flex-col space-y-6">
-    <h2 class="text-2xl">Who?</h2>
+  <div class="flex flex-col space-y-3">
+    <h2 class="jumbo">Who?</h2>
     <p>
-      You, we, and any friends you'd like to invite. We don't want to be restrictive and say "just you" or "bring a +1";
-      we leave the decision for you to decide.
+      You, we, some of our friends, and any friends you'd like to invite. We don't want to be restrictive and say "just
+      you" or "bring a +1"; we leave the decision for you to decide.
       <br>
       Anybody is welcome if they want to come and have a good time 😇
     </p>
   </div>
 
 
-  <div class="flex flex-col space-y-6">
+  <div class="flex flex-col space-y-3">
 
-    <h2 class="text-2xl">Where?</h2>
+    <h2 class="jumbo">Where?</h2>
     <p>The house is in Sweden, around 2h North of the airport (by car or public transport)</p>
     <a class="link" routerLink="/gallery">You can see some pictures here</a>
     <small>we might be able to pick some people up at Söderhamn station. otherwise, there's an hourly 30min bus</small>
@@ -51,7 +76,7 @@
     <hr>
     <div class="flex flex-col space-y-2">
 
-      <p>If you are coming from the airport, this info might be helpful:</p>
+      <small>If you are coming from the airport, this info might be helpful:</small>
       <p class="fric-2">
         <span>
           By (rented) <span class="text-white bg-orange-500 px-1 rounded">car</span> ({{driveDirections?.distance}},
@@ -67,7 +92,12 @@
             {{trainDirections?.duration}}).</span>
           <span>
             <a class="link" [href]="swedishTrainUrl" target="_blank" rel="noreferrer">Buy at SJ.se</a>
-            &nbsp;<span>(swedish trains)</span>
+            &nbsp;
+            @if (guestData) {
+            <span>(swedish trains, {{daysStaying(guestData, false)}})</span>
+            } @else {
+            <span>(swedish trains)</span>
+            }
           </span>
         </span>
         <a mat-icon-button matTooltip="See directions on Google Maps" [href]="trainDirectionsUrl" target="_blank"
@@ -79,8 +109,8 @@
     <div id="map" class="h-96 max-h-screen w-full"></div>
   </div>
 
-  <div class="flex flex-col space-y-6">
-    <h2 class="text-2xl">How much?</h2>
+  <div class="flex flex-col space-y-3">
+    <h2 class="jumbo">How much?</h2>
     <p>
       Huh!? 😅 It's <b>free</b>. Well, we'll share food costs, probably based on the number of nights you stay, but
       there's no <i>cost</i> or <i>fee</i>.
@@ -101,8 +131,8 @@
 
 
 
-  <div class="flex flex-col space-y-6">
-    <h2 class="text-2xl">Useful links</h2>
+  <div class="flex flex-col space-y-3">
+    <h2 class="jumbo">Useful links</h2>
     <a class="link" matTooltip="See directions on Google Maps" [href]="driveDirectionsUrl" target="_blank"
       rel="noreferrer">Directions from the airport by car</a>
     <a class="link" matTooltip="See directions on Google Maps" [href]="trainDirectionsUrl" target="_blank"
