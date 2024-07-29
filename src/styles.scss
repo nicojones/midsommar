@@ -1,9 +1,29 @@
 @use "@angular/material" as mat;
 @import "@angular/material/prebuilt-themes/cyan-orange.css";
+
 // @import "@angular/material/prebuilt-themes/rose-red.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* latin-ext */
+@font-face {
+  font-family: 'Nabla';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/nabla/v10/j8_D6-LI0Lvpe7Makz5UhJt9C3uqg_X_75gyGS4jAxsNIjrRBRleE3Z6x96OvGloBgM.woff) format('woff');
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Nabla';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/nabla/v10/j8_D6-LI0Lvpe7Makz5UhJt9C3uqg_X_75gyGS4jAxsNIjrRBRdeE3Z6x96OvAFr.woff) format('woff');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 $theme: mat.define-theme(
   (
@@ -22,6 +42,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   font-size: 20px;
+  --google-font-color-nabla: colrv1;
 }
 
 @layer utilities {
@@ -35,6 +56,42 @@ body {
 .highlighted-date {
   background-color: orange !important;
   border-radius: 100%;
+}
+
+@font-palette-values --RedYellow {
+  font-family: Nabla;
+  // base-palette: 1;
+  override-colors:
+    0 pink,
+    1 red,
+    3 #2b82d4,
+    5 red,
+    8 #ff0505;
+}
+
+@font-palette-values --BlueNabla {
+  font-family: Nabla;
+  base-palette: 2;
+}
+
+.fancy {
+  font-family: "Nabla";
+  // font-variation-settings: "EDPT" 0, "EHLT" 10.3833;
+  font-palette: --RedYellow;
+}
+
+.fancy-blue {
+  font-family: "Nabla";
+  font-palette: --BlueNabla;
+}
+
+.mat-calendar-next-button,
+.mat-calendar-previous-button,
+.mat-calendar-period-button,
+.disabled-date {
+  pointer-events: none;
+  user-select: none;
+  cursor: not-allowed;
 }
 
 @layer components {
@@ -51,7 +108,16 @@ body {
     @apply fric space-x-2 space-y-0;
   }
   .link {
-    @apply underline hover:no-underline text-blue-600;
+    @apply hover:underline fancy-blue text-blue-400;
+  }
+  .c-fluid {
+    @apply max-w-screen-md mx-auto grow pb-12;
+  }
+  .jumbo {
+    @apply text-5xl fancy w-full my-4;
+  }
+  .jumbo-xl {
+    @apply jumbo text-8xl text-center uppercase;
   }
 }
 

@@ -13,18 +13,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
-
-
-
-@Injectable()
-export class CustomDateAdapter extends NativeDateAdapter {
-  override getFirstDayOfWeek(): number {
-    return 1;
-  }
-  // override format(date: Date, displayFormat: Record<any, any>): string {
-  //   return super.format(date, displayFormat);
-  // }
-}
+import { CustomDatepickerModule } from "./date-picker.module";
 
 const MODULES: any[] = [
   MatToolbarModule,
@@ -34,7 +23,6 @@ const MODULES: any[] = [
   MatCheckboxModule,
   MatButtonModule,
   MatRippleModule,
-  MatDatepickerModule,
   MatExpansionModule,
   MatNativeDateModule,
   MatProgressBarModule,
@@ -42,6 +30,8 @@ const MODULES: any[] = [
   MatSelectModule,
   MatMenuModule,
   MatTooltipModule,
+
+  CustomDatepickerModule,
 ];
 
 @NgModule({
@@ -52,8 +42,7 @@ const MODULES: any[] = [
     ...MODULES,
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'ch-DE' },
-    { provide: DateAdapter, useClass: CustomDateAdapter },
+    // ...
   ],
 })
 export class MaterialModule { }

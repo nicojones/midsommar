@@ -3,4 +3,5 @@ export interface IValueLabel<ValueType extends string | number = string> {
   label: string;
   icon: string;
   description?: string;
+  disabled?: boolean;
 }

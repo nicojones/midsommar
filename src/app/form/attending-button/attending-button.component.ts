@@ -1,4 +1,4 @@
-import { MaterialModule } from "@/app/material.module";
+import { MaterialModule } from "@/app/material/material.module";
 import { comingOrInterested } from "@/functions";
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatRipple } from "@angular/material/core";
