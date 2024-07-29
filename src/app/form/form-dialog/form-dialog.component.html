@@ -215,7 +215,7 @@
       <mat-label>food issues</mat-label>
       <mat-select multiple [formControl]="userRegistrationForm.controls.problematicFoods">
         @for (food of problematicFoods; track food) {
-        <mat-option [value]="food.value" [matTooltip]="food.description ?? ''">{{food.label}}</mat-option>
+        <mat-option [disabled]="food.disabled" [value]="food.value" [matTooltip]="food.description ?? ''">{{food.label}}</mat-option>
         }
       </mat-select>
     </mat-form-field>
