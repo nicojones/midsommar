@@ -34,7 +34,7 @@ export const PROBLEMATIC_FOODS: IValueLabel[] = [
   { value: "nuts", label: "🌰 nut allergy", icon: "🌰" },
   { value: "peanuts", label: "🥜 peanut allergy", icon: "🥜" },
   { value: "soy", label: "🫛 soy allergy (e.g. tofu)", icon: "🫛" },
-  { value: "?", label: "❓ missing one? let us know", icon: "❓" },
+  { value: "?", label: "❓ missing one? let us know", icon: "❓", disabled: true },
 ];
 
 export const TASK_HELP: IValueLabel[] = [
