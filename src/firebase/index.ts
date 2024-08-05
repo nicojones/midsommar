@@ -4,7 +4,6 @@ import { getAnalytics } from "firebase/analytics";
 
 import firebase from 'firebase/compat/app';
 import * as firebaseui from 'firebaseui';
-import 'firebaseui/dist/firebaseui.css';
 import { getAuth } from "firebase/auth";
 import { getDatabase, ref } from "firebase/database";
 import { ENV } from "@/environments/env";

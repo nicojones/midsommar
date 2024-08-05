@@ -19,13 +19,9 @@ export class GalleryComponent {
       description: "There are two houses in the property, one of them being a barn that has a small &quot;chilling&quot; area where some people could sleep too",
     },
     {
-      value: "/house/kitchen-1.jpg",
+      value: "/house/kitchen.jpg",
       label: "Kitchen",
       description: "Our beautiful kitchen. All the delicious food will be made here",
-    },
-    {
-      label: "Kitchen",
-      value: "/house/kitchen-2.jpg",
     },
     {
       value: "/house/lake.jpg",
@@ -43,9 +39,9 @@ export class GalleryComponent {
       description: "There's tools and the like in here.",
     },
     {
-      value: "/house/fire.jpg",
+      value: "/house/fireplace.jpg",
       label: "Fireplace",
-      description: "Always happy to make a bondfire with whomever is interested :)",
+      description: "Always happy to make a bonfire with whomever is interested :)",
     },
     {
       value: "/house/main-door.jpg",
@@ -60,7 +56,17 @@ export class GalleryComponent {
     {
       value: "/house/neighbours.jpg",
       label: "Greenery",
-      description: "The house is surrounded by beautiful nature and greenery. And yes, that house in the distance are our closest neighbours.",
+      description: "The house is surrounded by beautiful nature and greenery. Fun fact: That house in the distance are our closest neighbours.",
+    },
+    {
+      value: "/house/house-at-night.jpg",
+      label: "Swedish coziness",
+      description: "Most swedish houses like this one have exterior lights to create the feeling of warmth, even during long harsh winters",
+    },
+    {
+      value: "/house/house-forest.jpg",
+      label: "Forest",
+      description: "The house is surrounded by over two hectares of Forest that you can explore, garden, or camp in.",
     },
     {
       value: "/house/old-house-1.jpg",
