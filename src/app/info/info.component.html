@@ -21,7 +21,7 @@
       <li>🛶 swimming or kayaking at our lake</li>
       <li>🐳 going to the Baltic Sea (25min away)</li>
       <li>🏢 Söderhamn and Bolnäs (15 and 25min away respectively) for many things: bowling, cinema, restaurants...</li>
-      <li>🍄🌈 "Spiritual" day on {{dayName(spiritualDate, "numeric")}}. If this interest you, let Nico know</li>
+      <li>🍄🌈 "Spiritual" day on {{dayName(spiritualDate, "numeric")}}. If this interest you, let Nico know directly</li>
     </ul>
   </div>
 
@@ -43,7 +43,13 @@
     <ng-template #noGuestData>
       <a routerLink="/">Make sure to register and confirm participation!</a>
     </ng-template>
-    <p>Make sure to check train schedules (below) if you don't come by car!</p>
+    @if(guestData) {
+      @if (guestData.hasCar) {
+        <p>You can see below car directions from the airport, in case y'all come together!</p>
+      } @else {
+        <p>Make sure to <a class="link" [href]="swedishTrainUrl" target="_blank" rel="noreferrer">check train schedules</a> before buying flights, and book it sooner rather than later!</p>
+      }
+    }
   </div>
 
   <div class="flex flex-col space-y-3">
@@ -91,7 +97,7 @@
           <span>By <span class="text-white bg-purple-800 px-1 rounded">train</span> ({{trainDirections?.distance}},
             {{trainDirections?.duration}}).</span>
           <span>
-            <a class="link" [href]="swedishTrainUrl" target="_blank" rel="noreferrer">Buy at SJ.se</a>
+            <a class="link" [href]="swedishTrainUrl" target="_blank" rel="noreferrer">Book at SJ.se</a>
             &nbsp;
             @if (guestData) {
             <span>(swedish trains, {{daysStaying(guestData, false)}})</span>
