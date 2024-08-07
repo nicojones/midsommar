@@ -28,12 +28,12 @@ export const addDatesToStats = (stats: IStats<string>): IStats<Date> => {
   Object.keys(stats.perDay).forEach(k => {
     perDay[k] = {
       ...stats.perDay[k],
-      people: stats.perDay[k].people.map(addDatesToStatsAttendee),
+      people: stats.perDay[k].people?.map(addDatesToStatsAttendee) ?? [],
     };
   });
   return ({
     ...stats,
-    people: stats.people.map(addDatesToStatsAttendee),
+    people: stats.people?.map(addDatesToStatsAttendee) ?? [],
     perDay,
   });
 };

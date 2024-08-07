@@ -7,7 +7,7 @@
           <small class="ml-auto text-gray-400">({{stats.attending}})</small>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      @if (stats.people.length) {
+      @if (stats.people?.length) {
       <ul>
         <ng-container *ngFor="let p of stats.people">
           <li class="cursor-help fric-2">

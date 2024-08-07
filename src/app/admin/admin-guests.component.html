@@ -61,7 +61,7 @@
         <br>
         <span>Guests</span>
         <ul class="pl-4">
-          <ng-container *ngFor="let p of day.stats.people">
+          <ng-container *ngFor="let p of day.stats?.people ?? []">
             <li
               [class]="'cursor-help fric-2 ' + (p.arriving ? 'text-green-600 ' : '') + (p.departing ? 'text-red-600' : '')">
               <!-- <li [matTooltip]="timeInWords(p)"> -->

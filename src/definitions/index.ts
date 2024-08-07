@@ -7,7 +7,7 @@ export * from "./store.definition";
 export const APP_PASSWORD = "swedishsummer";
 export const RIPPLES_ENABLED = true;
 
-export const TZ_OFFSET = 0; // 60000 * new Date().getTimezoneOffset();
+export const TZ_OFFSET =  60000 * new Date().getTimezoneOffset();
 
 /**
  * Also change in /functions/index.ts
@@ -22,7 +22,7 @@ export const EXPECTED_DEPARTURE_DATE = new Date(+new Date("2025-06-21") + TZ_OFF
 /**
  * Also change in /functions/index.ts
  */
-export const LATEST_POSSIBLE_DATE = new Date(+new Date("2025-06-22") + TZ_OFFSET);
+export const LATEST_POSSIBLE_DATE = new Date(+new Date("2025-06-22 12:00") + TZ_OFFSET);
 
 export const ADMIN_UIDS = [
   "I5LzPFdWFgYhyCTqFZPWQ5euYME2", // NICO
