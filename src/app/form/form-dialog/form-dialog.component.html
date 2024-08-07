@@ -139,7 +139,28 @@
     </mat-hint>
     }
 
+    <mat-checkbox [checked]="userRegistrationForm.controls.badDates.value"
+        (change)="fs.toggleCheckbox('badDates', $event.checked)" class="md:basis-1/2">
+        Would <b>love</b> to come, but those dates are a no-no? 💔</mat-checkbox>
+
+    @if (userRegistrationForm.controls.badDates.value) {
+      <mat-form-field>
+        <mat-label>other dates</mat-label>
+        <mat-select multiple [formControl]="userRegistrationForm.controls.betterDates">
+          @for (betterDate of betterDates; track betterDate) {
+          <mat-option [disabled]="betterDate.disabled" [value]="betterDate.value" [matTooltip]="betterDate.description ?? ''">{{betterDate.label}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <app-fake-hint>
+        Please, only fill this if those dates are already blocked in your calendar! We want to know if it's super
+        inconvenient for many people... otherwise we would prefer to keep it on the official date, where the whole
+        of sweden is celebrating this wonderful pagan festivity.
+      </app-fake-hint>
+    }
+
     <hr>
+
     <!-- ----------------------------------- -->
 
 

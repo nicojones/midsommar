@@ -44,6 +44,13 @@ export const TASK_HELP: IValueLabel[] = [
   { value: "prepare", label: "🍴 help with preparations", icon: "🍴", description: "prepare tables, organize spaces, assist kitchen" },
 ];
 
+export const BETTER_DATES: IValueLabel[] = [
+  {value: "-2", label: "two weeks before (June 6th)", icon: ""},
+  {value: "-1", label: "one week before (June 13th)", icon: ""},
+  {value: "1", label: "one week later (June 27th)", icon: ""},
+  {value: "2", label: "two weeks later (July 4th)", icon: ""},
+];
+
 export const HOUSE_COORDS: ICoords = { lat: 61.269927, lng: 16.850408 } as const;
 export const AIRPORT_COORDS: ICoords = { lat: 59.64957359874774, lng: 17.929290658863916 } as const;
 
