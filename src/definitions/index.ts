@@ -38,6 +38,7 @@ export const PROBLEMATIC_FOODS: IValueLabel[] = [
 ];
 
 export const TASK_HELP: IValueLabel[] = [
+  { value: "house", label: "🏡 help with house tasks", icon: "🏡", description: "Mow the lawn, trim herbs here and there, clear paths, tidy the barn, paint something..."},
   { value: "clean", label: "🧹 help with cleaning", icon: "🧹", description: "Help clean after meals, help tidy up. Least amount of work" },
   { value: "cook", label: "👩‍🍳 help with cooking", icon: "👩‍🍳", description: "Help with cooking and preparing food. This takes more time, but might be fun for you" },
   { value: "shopping", label: "🚛 help with shopping", icon: "🚛", description: "Implies potential trips to supermarkets or shops to buy food" },
