@@ -7,7 +7,7 @@ export * from "./store.definition";
 export const APP_PASSWORD = "swedishsummer";
 export const RIPPLES_ENABLED = true;
 
-export const TZ_OFFSET = 0; // 60000 * new Date().getTimezoneOffset();
+export const TZ_OFFSET =  60000 * new Date().getTimezoneOffset();
 
 /**
  * Also change in /functions/index.ts
@@ -22,7 +22,7 @@ export const EXPECTED_DEPARTURE_DATE = new Date(+new Date("2025-06-21") + TZ_OFF
 /**
  * Also change in /functions/index.ts
  */
-export const LATEST_POSSIBLE_DATE = new Date(+new Date("2025-06-22") + TZ_OFFSET);
+export const LATEST_POSSIBLE_DATE = new Date(+new Date("2025-06-22 12:00") + TZ_OFFSET);
 
 export const ADMIN_UIDS = [
   "I5LzPFdWFgYhyCTqFZPWQ5euYME2", // NICO
@@ -38,6 +38,7 @@ export const PROBLEMATIC_FOODS: IValueLabel[] = [
 ];
 
 export const TASK_HELP: IValueLabel[] = [
+  { value: "house", label: "🏡 help with house tasks", icon: "🏡", description: "Mow the lawn, trim herbs here and there, clear paths, tidy the barn, paint something..."},
   { value: "clean", label: "🧹 help with cleaning", icon: "🧹", description: "Help clean after meals, help tidy up. Least amount of work" },
   { value: "cook", label: "👩‍🍳 help with cooking", icon: "👩‍🍳", description: "Help with cooking and preparing food. This takes more time, but might be fun for you" },
   { value: "shopping", label: "🚛 help with shopping", icon: "🚛", description: "Implies potential trips to supermarkets or shops to buy food" },

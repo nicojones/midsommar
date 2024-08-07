@@ -49,7 +49,7 @@ export class AdminGuestsComponent {
   }
 
   public allergies(foods: IStats["problematicFoods"]): Array<[string, string, number]> {
-    return Object.keys(foods).map(food => [
+    return Object.keys(foods ?? {}).map(food => [
       this.fs.foodDetail(food).icon as string,
       this.fs.foodDetail(food).label,
       foods[food],

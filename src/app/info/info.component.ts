@@ -1,6 +1,6 @@
 import { AIRPORT_COORDS, EARLIEST_POSSIBLE_DATE, EXPECTED_ARRIVAL_DATE, EXPECTED_DEPARTURE_DATE, HOUSE_COORDS, LATEST_POSSIBLE_DATE, SPIRITUAL_DATE } from "@/definitions";
 import { dbRef } from "@/firebase";
-import { addDatesToAttendee, daysStaying, googleMapsDirections, toIsoDate } from "@/functions";
+import { addDatesToAttendee, dayName, daysStaying, googleMapsDirections, toIsoDate } from "@/functions";
 import { AuthService } from "@/services/auth.service";
 import { IAttendee } from "@/types";
 import { AfterViewInit, Component } from '@angular/core';
@@ -24,6 +24,7 @@ export class InfoComponent implements AfterViewInit {
   public guestData: IAttendee | null = null;
 
   public readonly daysStaying = daysStaying;
+  public readonly dayName = dayName;
 
   public driveDirections: IDrivingDirections | null = null;
   public trainDirections: IDrivingDirections | null = null;

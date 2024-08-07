@@ -102,16 +102,20 @@ body {
     @apply max-w-screen-md mx-auto grow pb-12;
   }
   .jumbo {
-    @apply text-5xl fancy w-full my-4;
+    @apply text-3xl md:text-5xl fancy w-full my-4;
   }
   .jumbo-xl {
-    @apply jumbo text-8xl text-center uppercase;
+    @apply jumbo text-5xl md:text-6xl lg:text-8xl text-center uppercase;
   }
   .fancy {
     @apply text-yellow-600;
     font-family: "Nabla";
     // font-variation-settings: "EDPT" 0, "EHLT" 10.3833;
     font-palette: --RedYellow;
+  }
+
+  .container {
+    @apply px-4 lg:px-0;
   }
 
   .fancy-blue {

@@ -44,7 +44,7 @@ export interface IStatsPerDay<DateType extends string | Date = Date> {
    * Summarized data of the people who come
    * @readonly
    */
-  people: IStatsAttendee<DateType>[];
+  people?: IStatsAttendee<DateType>[];
   /**
    * The problematic foods (summarized)
    */

@@ -51,8 +51,8 @@ export class FormService {
     this.valueChangesSubscription = this.form.valueChanges
       .pipe(
         takeUntil(this.listener),
-        filter(() => this.form.valid),
         tap(() => this.updateDurationOfStay()),
+        filter(() => this.form.valid),
         distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
         debounceTime(4000),
         tap(() => this.saveUserRegistration()),

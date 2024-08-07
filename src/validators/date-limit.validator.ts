@@ -1,4 +1,4 @@
-import { EARLIEST_POSSIBLE_DATE, LATEST_POSSIBLE_DATE } from "@/definitions";
+import { EARLIEST_POSSIBLE_DATE, LATEST_POSSIBLE_DATE, TZ_OFFSET } from "@/definitions";
 import { IAttendee } from "@/types";
 import { FormControl, FormGroup, ValidatorFn } from "@angular/forms";
 
@@ -13,6 +13,7 @@ export class DateLimitValidator {
       const arrivalTooEarly = control.controls.arrival.value < EARLIEST_POSSIBLE_DATE;
       const departureTooLate = control.controls.departure.value > LATEST_POSSIBLE_DATE;
 
+      // console.log(arrivalTooEarly, control.controls.arrival.value, EARLIEST_POSSIBLE_DATE);
       if (arrivalTooEarly || departureTooLate || collision) {
         if (arrivalTooEarly || collision) {
           control.controls.arrival.markAsTouched();
