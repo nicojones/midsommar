@@ -24,9 +24,14 @@ export class GalleryComponent {
       description: "Our beautiful kitchen. All the delicious food will be made here",
     },
     {
-      value: "/house/lake.jpg",
+      value: "/house/lake-1.jpg",
       label: "Lake",
       description: "This picture shows what's next to the property. There's a huge lake you could go kayak or swim in.",
+    },
+    {
+      value: "/house/lake-2.jpg",
+      label: "Lake",
+      description: "This is the beach. You can access it by bicycle in ~15 minutes, or go to the one closer to us in ~10min.",
     },
     {
       value: "/house/rainbow.jpg",
@@ -49,9 +54,19 @@ export class GalleryComponent {
       description: "The property has a beautiful garden, as well as a massive forest",
     },
     {
+      value: "/house/garden.jpg",
+      label: "Garden",
+      description: "The garden is in front of the house and there's fruit trees and berries (not in season when you come, sadly) but it always receives golden rays in the afternoon",
+    },
+    {
       value: "/house/garden-table.jpg",
       label: "Garden",
-      description: "If weather allows, we can sit outside most of the day. And, if the weather is dry (no rain in the past 24-48h) it's possible to sit outside without mosquitoes in the evening",
+      description: "If weather allows, we can sit outside most of the day. And, if the weather is dry (no rain in the past 24-48h) it's possible to sit outside without mosquitoes in the evening ...",
+    },
+    {
+      value: "/house/hammock.jpg",
+      label: "Garden",
+      description: "... or lie in the hammock",
     },
     {
       value: "/house/neighbours.jpg",

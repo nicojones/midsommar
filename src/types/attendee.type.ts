@@ -66,4 +66,12 @@ export interface IAttendee<DateType extends string | Date = Date> {
    * Must be checked to verify nobody brings meat
    */
   iWillBringNoDeadAnimals: boolean;
+  /**
+   * If the suggested dates are bad, they will chose other dates. {@link betterDates}
+   */
+  badDates: boolean;
+  /**
+   * The other dates
+   */
+  betterDates: string[];
 }

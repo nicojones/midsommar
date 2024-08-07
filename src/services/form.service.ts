@@ -98,6 +98,8 @@ export class FormService {
       arrival: new FormControl(attendee.arrival ?? EXPECTED_ARRIVAL_DATE, [Validators.required]),
       departure: new FormControl(attendee.departure ?? EXPECTED_DEPARTURE_DATE, [Validators.required]),
       comments: new FormControl(attendee.comments ?? ""),
+      badDates: new FormControl(attendee.badDates ?? false),
+      betterDates: new FormControl(attendee.betterDates ?? []),
 
       hasCar: new FormControl(attendee.hasCar ?? false),
       hasTent: new FormControl(attendee.hasTent ?? false),

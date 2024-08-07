@@ -1,6 +1,6 @@
 import { AttendingButtonComponent } from "@/app/form/attending-button/attending-button.component";
 import { MaterialModule } from "@/app/material/material.module";
-import { EARLIEST_POSSIBLE_DATE, LATEST_POSSIBLE_DATE, MIDSOMMAR_DATE, PROBLEMATIC_FOODS, TASK_HELP } from "@/definitions";
+import { BETTER_DATES, EARLIEST_POSSIBLE_DATE, LATEST_POSSIBLE_DATE, MIDSOMMAR_DATE, PROBLEMATIC_FOODS, TASK_HELP } from "@/definitions";
 import { FormService } from "@/services/form.service";
 import { IAttendee, PDefault } from "@/types";
 import { IDateLimitError } from "@/validators";
@@ -34,6 +34,7 @@ export class FormDialogComponent {
   public readonly maxAllowedDate = LATEST_POSSIBLE_DATE;
   public readonly midsommarDate = MIDSOMMAR_DATE;
   public readonly problematicFoods = PROBLEMATIC_FOODS;
+  public readonly betterDates = BETTER_DATES;
   public readonly taskHelp = TASK_HELP;
 
   public readonly comingOrInterested = comingOrInterested;
