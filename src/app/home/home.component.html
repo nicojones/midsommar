@@ -16,7 +16,7 @@
 
   <div class="flex flex-col space-y-4">
     <div *ngIf="fs.userHasRegistered; else notRegistered" class="flex flex-col items-center space-y-2 basis-1/2">
-      <app-attending-button classes="w-64 h-64 rounded-full mb-4" [checked]="fs.userIsComing"
+      <app-attending-button classes="w-64 h-64 rounded-full" [checked]="fs.userIsComing"
         (change)="changeAttendance($event)"></app-attending-button>
       <button mat-button (click)="fs.openAttendeeModalForm()" class="inline-block w-24">EDIT</button>
     </div>

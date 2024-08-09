@@ -1,5 +1,5 @@
 import { dbRef } from "@/firebase";
-import { toIsoDate, addDatesToAttendee, addDatesToStats, daysStaying, isoDatesToAttendee } from "@/functions";
+import { toIsoDate, addDatesToAttendee, addDatesToStats, daysStaying, isoDatesToAttendee, comingOrInterested } from "@/functions";
 import { AuthService } from "@/services/auth.service";
 import { FormService } from "@/services/form.service";
 import { IAttendee, IDailyStats, IStats, IStatsPerDay } from "@/types";
@@ -18,6 +18,7 @@ export class AdminGuestsComponent {
   public dailyStats!: IDailyStats[];
   public readonly parseDate = toIsoDate;
   public readonly daysStaying = daysStaying;
+  public readonly comingOrInterested = comingOrInterested;
 
   public constructor(
     private auth: AuthService,

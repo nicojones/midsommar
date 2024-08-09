@@ -43,7 +43,7 @@
 
 
     <!-- <div class="flex flex-col space-y-2 md:fric-2 justify-stretch w-full"> -->
-      <!-- <mat-form-field class="md:basis-1/2">
+    <!-- <mat-form-field class="md:basis-1/2">
         <mat-label>email</mat-label>
         <input placeholder="e.g. john-1987-hottie@hotmail.com" matInput type="email"
           [formControl]="userRegistrationForm.controls.email" />
@@ -51,16 +51,27 @@
           if you don't mind.</mat-hint>
       </mat-form-field> -->
 
-      <mat-form-field class="">
+    <mat-form-field class="">
       <!-- <mat-form-field class="md:basis-1/2"> -->
-        <mat-label>phone</mat-label>
-        <input placeholder="e.g. +44 777 888 999" matInput type="phone"
-          [formControl]="userRegistrationForm.controls.phone" />
-        <mat-hint>easier for us (hosts) to message or call people directly, since not all of you are in the whatsapp
-          chat</mat-hint>
-      </mat-form-field>
+      <mat-label>phone</mat-label>
+      <input placeholder="e.g. +44 777 888 999" matInput type="phone"
+        [formControl]="userRegistrationForm.controls.phone" />
+      <mat-hint>easier for us (hosts) to message or call people directly, since not all of you are in the whatsapp
+        chat</mat-hint>
+    </mat-form-field>
     <!-- </div> -->
 
+    <br>
+    <hr>
+    <!-- ----------------------------------- -->
+
+    <mat-form-field class="">
+      <!-- <mat-form-field class="md:basis-1/2"> -->
+        <mat-label>friends with...?</mat-label>
+        <input placeholder="e.g. Nico, Céline, Raphael, Andrea, ..." matInput type="phone"
+          [formControl]="userRegistrationForm.controls.friendsWith" />
+        <mat-hint>were you invited by one of the hosts (Nico or Céline)? Otherwise, who informed you about it? 😇<br/>(we only need it to keep track of who's who)</mat-hint>
+      </mat-form-field>
     <br>
     <hr>
     <!-- ----------------------------------- -->
@@ -95,7 +106,7 @@
       </mat-form-field>
     </div>
     <app-fake-hint *ngIf="userRegistrationForm.controls.hasCar.value">
-      example: if you are two people in a 5-seat car, one of you has "no car", the other has 3 seats
+      example: if you are two people in a 5-seat car, one of you has "0 seats", the other has 3 free seats. What's important is: 2 people, 3 free seats, 1 car
     </app-fake-hint>
     <app-fake-hint *ngIf="!userRegistrationForm.controls.hasCar.value">
       this helps us know if we can all go together somewhere, or pick up or drop people, etc.
@@ -140,23 +151,24 @@
     }
 
     <mat-checkbox [checked]="userRegistrationForm.controls.badDates.value"
-        (change)="fs.toggleCheckbox('badDates', $event.checked)" class="md:basis-1/2">
-        Would <b>love</b> to come, but those dates are a no-no? 💔</mat-checkbox>
+      (change)="fs.toggleCheckbox('badDates', $event.checked)" class="md:basis-1/2">
+      Would <b>love</b> to come, but those dates are a no-no? 💔</mat-checkbox>
 
     @if (userRegistrationForm.controls.badDates.value) {
-      <mat-form-field>
-        <mat-label>other dates</mat-label>
-        <mat-select multiple [formControl]="userRegistrationForm.controls.betterDates">
-          @for (betterDate of betterDates; track betterDate) {
-          <mat-option [disabled]="betterDate.disabled" [value]="betterDate.value" [matTooltip]="betterDate.description ?? ''">{{betterDate.label}}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-      <app-fake-hint>
-        Please, only fill this if those dates are already blocked in your calendar! We want to know if it's super
-        inconvenient for many people... otherwise we would prefer to keep it on the official date, where the whole
-        of sweden is celebrating this wonderful pagan festivity.
-      </app-fake-hint>
+    <mat-form-field>
+      <mat-label>other dates</mat-label>
+      <mat-select multiple [formControl]="userRegistrationForm.controls.betterDates">
+        @for (betterDate of betterDates; track betterDate) {
+        <mat-option [disabled]="betterDate.disabled" [value]="betterDate.value"
+          [matTooltip]="betterDate.description ?? ''">{{betterDate.label}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <app-fake-hint>
+      Please, only fill this if those dates are already blocked in your calendar! We want to know if it's super
+      inconvenient for many people... otherwise we would prefer to keep it on the official date, where the whole
+      of sweden is celebrating this wonderful pagan festivity.
+    </app-fake-hint>
     }
 
     <hr>
@@ -223,8 +235,8 @@
         Please select at least one task 😅
       </mat-error>
     </mat-form-field>
-    <app-fake-hint *ngIf="!userRegistrationForm.controls.taskHelp.errors?.['minLength']"
-    >you are not committing to anything, nor we can promise anything.
+    <app-fake-hint *ngIf="!userRegistrationForm.controls.taskHelp.errors?.['minLength']">you are not committing to
+      anything, nor we can promise anything.
       This is for us to have an idea how you are willing to contribute. When the day comes, we'll see how to best
       organise everyone to maximize happiness
     </app-fake-hint>
@@ -236,13 +248,15 @@
       <mat-label>food issues</mat-label>
       <mat-select multiple [formControl]="userRegistrationForm.controls.problematicFoods">
         @for (food of problematicFoods; track food) {
-        <mat-option [disabled]="food.disabled" [value]="food.value" [matTooltip]="food.description ?? ''">{{food.label}}</mat-option>
+        <mat-option [disabled]="food.disabled" [value]="food.value"
+          [matTooltip]="food.description ?? ''">{{food.label}}</mat-option>
         }
       </mat-select>
     </mat-form-field>
     <app-fake-hint>
       want to know if any of you have any <i>allergies</i>, or any restrictions we might need to know about.
-      if you don&apos;t like cucumber there will be dishes without it (and you can let us know in the "Comment" field below). please let&apos;s keep this for serious stuff
+      if you don&apos;t like cucumber there will be dishes without it (and you can let us know in the "Comment" field
+      below). please let&apos;s keep this for serious stuff
       only. Remember: this might influence <i>everything</i> that gets prepared on a meal!
     </app-fake-hint>
 

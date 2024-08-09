@@ -8,16 +8,20 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       @if (stats.people?.length) {
-      <ul>
-        <ng-container *ngFor="let p of stats.people">
-          <li class="cursor-help fric-2">
-            <!-- <li [matTooltip]="timeInWords(p)"> -->
-            <span>{{p.name}}</span>
-            <small *ngIf="p.uid === auth.userId" matTooltip="that's you 🫵">(me)</small>
-            <app-guest-info [info]="p"></app-guest-info>
-          </li>
-        </ng-container>
-      </ul>
+      <table>
+        <tbody>
+          <ng-container *ngFor="let p of stats.people">
+            <tr class="cursor-help">
+              <!-- <li [matTooltip]="timeInWords(p)"> -->
+              <td>{{p.name}}</td>
+              <td><small *ngIf="p.uid === auth.userId" matTooltip="that's you 🫵">(me)</small></td>
+
+              <template [ngTemplateOutlet]="source.tmp"></template>
+              <app-guest-info [info]="p" #source hidden></app-guest-info>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
       }
       @else {
       <span>Nobody signed up (...yet?)</span>

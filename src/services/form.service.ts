@@ -93,6 +93,7 @@ export class FormService {
       name: new FormControl(attendee.name ?? "", { validators: Validators.required }),
       phone: new FormControl(attendee.phone ?? "", { validators: Validators.required }),
       email: new FormControl(attendee.email ?? "", { validators: Validators.required }),
+      friendsWith: new FormControl(attendee.friendsWith ?? "", { validators: Validators.required }),
 
       attending: new FormControl(attendee.attending ?? true),
       arrival: new FormControl(attendee.arrival ?? EXPECTED_ARRIVAL_DATE, [Validators.required]),

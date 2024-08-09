@@ -19,7 +19,7 @@ export class AppComponent {
   }
 
   public setPassword(pass: string) {
-    localStorage.setItem(STORAGE_KEY.pass, pass);
+    localStorage.setItem(STORAGE_KEY.pass, pass.toLowerCase());
     if (!this.isAuthed) {
       alert("Invalid password. Please double-check!");
     }

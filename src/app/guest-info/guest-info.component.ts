@@ -2,13 +2,19 @@ import { ADMIN_UIDS } from "@/definitions";
 import { AuthService } from "@/services/auth.service";
 import { FormService } from "@/services/form.service";
 import { IStatsAttendee, PDefault } from "@/types";
-import { Component, Input } from '@angular/core';
+import { Component, HostBinding, Input, ViewChild, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-guest-info',
   templateUrl: './guest-info.component.html',
+  // styles: `:host { display: contents; }`,
+  // encapsulation: ViewEncapsulation.None,
 })
 export class GuestInfoComponent {
+
+  @ViewChild('tmp') tmp: any;
+
+  // @HostBinding('style.display') display = 'contents';
 
   @Input({ required: true }) public info!: IStatsAttendee<Date>;
   @Input() public showAllergies: boolean = false;
