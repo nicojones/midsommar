@@ -13,6 +13,10 @@ export interface IAttendee<DateType extends string | Date = Date> {
    */
   phone: string;
   /**
+   * Friends with whom?
+   */
+  friendsWith: string;
+  /**
    * The date when they arrive (YYYY-MM-DD String)
    */
   arrival: DateType;

@@ -1,43 +1,48 @@
-<small *ngIf="hostIds.includes(info.uid)" matTooltip="i'm one of the hosts 🏡">💁‍♀️</small>
-<small *ngIf="info.hasCar" matTooltip="i come by car">🚙</small>
-<small *ngIf="info.hasTent" matTooltip="i could bring a tent">⛺️</small>
-<small *ngIf="info.sleepsInTent" matTooltip="i could sleep in a tent">🏕️</small>
+<ng-template #tmp>
+  <td [class.invisible]="!hostIds.includes(info.uid)" matTooltip="i'm one of the hosts 🏡">💁‍♀️</td>
+  <td [class.invisible]="!info.hasCar" matTooltip="i come by car">🚙</td>
+  <td [class.invisible]="!info.hasTent" matTooltip="i could bring a tent">⛺️</td>
+  <td [class.invisible]="!info.sleepsInTent" matTooltip="i could sleep in a tent">🏕️</td>
 
-<span *ngIf="info.arriving" matTooltip="arrives today">🛬</span>
-<span *ngIf="info.departing" matTooltip="leaves today">🛫</span>
+  <td [class.invisible]="!info.arriving" matTooltip="arrives today">🛬</td>
+  <td [class.invisible]="!info.departing" matTooltip="leaves today">🛫</td>
 
-<ng-container *ngIf="auth.isAdmin">
+  <ng-container *ngIf="auth.isAdmin">
 
-  <div class="fric inline-block mx-2" *ngIf="showContactDetails">
-    <a role="button" class="text-sm !cursor-pointer" [href]="'tel:' + info.phone" (click)="confirm(info.name, 'phone', $event)">📞</a>
-    <a role="button" class="text-sm !cursor-pointer" [href]="'mailto:' + info.email" (click)="confirm(info.name, 'email', $event)">📧</a>
-  </div>
-  <ng-container *ngIf="showAllergies">
+    <td class="fric inline-block" *ngIf="showContactDetails">
+      <a role="button" class="text-sm !cursor-pointer" [href]="'tel:' + info.phone"
+        (click)="confirm(info.name, 'phone', $event)">📞</a>
+      <a role="button" class="text-sm !cursor-pointer" [href]="'mailto:' + info.email"
+        (click)="confirm(info.name, 'email', $event)">📧</a>
+    </td>
+    <ng-container *ngIf="showAllergies">
 
-    <small>
-      (<ng-container *ngFor="let food of info.problematicFoods">
-        <ng-container *ngTemplateOutlet="foodTemplate; context: { $implicit: food }"></ng-container>
-      </ng-container>
+      <td>
+        (<ng-container *ngFor="let food of info.problematicFoods">
+          <ng-container *ngTemplateOutlet="foodTemplate; context: { $implicit: food }"></ng-container>
+        </ng-container>
 
-      <ng-template #foodTemplate let-food>
-        <span [matTooltip]="fs.foodDetail(food).label">{{ fs.foodDetail(food).icon }}</span>
-      </ng-template>)
-    </small>
+        <ng-template #foodTemplate let-food>
+          <span [matTooltip]="fs.foodDetail(food).label">{{ fs.foodDetail(food).icon }}</span>
+        </ng-template>)
+      </td>
+
+    </ng-container>
+
+    <ng-container *ngIf="showTaskHelp">
+
+      <td>
+        (<ng-container *ngFor="let task of info.taskHelp">
+          <ng-container *ngTemplateOutlet="taskTemplate; context: { $implicit: task }"></ng-container>
+        </ng-container>
+
+        <ng-template #taskTemplate let-task>
+          <span [matTooltip]="fs.helpDetail(task).label">{{ fs.helpDetail(task).icon }}</span>
+        </ng-template>)
+      </td>
+
+    </ng-container>
 
   </ng-container>
 
-  <ng-container *ngIf="showTaskHelp">
-
-    <small>
-      (<ng-container *ngFor="let task of info.taskHelp">
-        <ng-container *ngTemplateOutlet="taskTemplate; context: { $implicit: task }"></ng-container>
-      </ng-container>
-
-      <ng-template #taskTemplate let-task>
-        <span [matTooltip]="fs.helpDetail(task).label">{{ fs.helpDetail(task).icon }}</span>
-      </ng-template>)
-    </small>
-
-  </ng-container>
-
-</ng-container>
+</ng-template>
