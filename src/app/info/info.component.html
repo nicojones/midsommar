@@ -21,7 +21,8 @@
       <li>🛶 swimming or kayaking at our lake</li>
       <li>🐳 going to the Baltic Sea (25min away)</li>
       <li>🏢 Söderhamn and Bolnäs (15 and 25min away respectively) for many things: bowling, cinema, restaurants...</li>
-      <li>🍄🌈 "Spiritual" day on {{dayName(spiritualDate, "numeric")}}. If this interest you, let Nico know directly</li>
+      <li>🍄🌈 "Spiritual" day on {{dayName(spiritualDate, "numeric")}}. If this interest you, let Nico know directly
+      </li>
     </ul>
   </div>
 
@@ -44,11 +45,12 @@
       <a routerLink="/">Make sure to register and confirm participation!</a>
     </ng-template>
     @if(guestData) {
-      @if (guestData.hasCar) {
-        <p>You can see below car directions from the airport, in case y'all come together!</p>
-      } @else {
-        <p>Make sure to <a class="link" [href]="swedishTrainUrl" target="_blank" rel="noreferrer">check train schedules</a> before buying flights, and book it sooner rather than later!</p>
-      }
+    @if (guestData.hasCar) {
+    <p>You can see below car directions from the airport, in case y'all come together!</p>
+    } @else {
+    <p>Make sure to <a class="link" [href]="swedishTrainUrl" target="_blank" rel="noreferrer">check train schedules</a>
+      before buying flights, and book it sooner rather than later!</p>
+    }
     }
   </div>
 
@@ -68,7 +70,7 @@
     <h2 class="jumbo">Where?</h2>
     <p>The house is in Sweden, around 2h North of the airport (by car or public transport)</p>
     <a class="link" routerLink="/gallery">You can see some pictures here</a>
-    <small>we might be able to pick some people up at Söderhamn station. otherwise, there's an hourly 30min bus</small>
+    <small>we might be able to pick some people up at Söderhamn station. otherwise, there's a 19min bus twice an hour</small>
     <div class="fric-2">
 
       <pre class="border-l-2 border-gray-400 pl-4">Älvstigen 31
@@ -82,11 +84,13 @@
     <hr>
     <div class="flex flex-col space-y-2">
 
-      <small>If you are coming from the airport, this info might be helpful:</small>
+      <small>If you are coming from the airport, this info below might be helpful! The times below
+        are approximate, and remember to search for your particular day!
+      </small>
       <p class="fric-2">
         <span>
           By (rented) <span class="text-white bg-orange-500 px-1 rounded">car</span> ({{driveDirections?.distance}},
-          {{driveDirections?.duration}})
+          ~2.5h)
         </span>
         <a mat-icon-button matTooltip="See directions on Google Maps" [href]="driveDirectionsUrl" target="_blank"
           rel="noreferrer"><mat-icon fontIcon="map"></mat-icon></a>
@@ -95,8 +99,12 @@
       <p class="fric-2">
         <span class="flex flex-col">
           <span>By <span class="text-white bg-purple-800 px-1 rounded">train</span> ({{trainDirections?.distance}},
-            {{trainDirections?.duration}}).</span>
+            2-3h based on connections).</span>
           <span>
+            <small>
+              Additionally, you'll have to buy a bus ticket (45SEK, ~4€), payable by card on the bus itself.<br />
+              You can also download and install X-Trafik if you plan to travel a bit around!
+            </small>
             <a class="link" [href]="swedishTrainUrl" target="_blank" rel="noreferrer">Book at SJ.se</a>
             &nbsp;
             @if (guestData) {
@@ -105,6 +113,7 @@
             <span>(swedish trains)</span>
             }
           </span>
+
         </span>
         <a mat-icon-button matTooltip="See directions on Google Maps" [href]="trainDirectionsUrl" target="_blank"
           rel="noreferrer"><mat-icon fontIcon="map"></mat-icon></a>
