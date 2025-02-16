@@ -2,7 +2,7 @@ import { ADMIN_UIDS } from "@/definitions";
 import { AuthService } from "@/services/auth.service";
 import { FormService } from "@/services/form.service";
 import { IStatsAttendee, PDefault } from "@/types";
-import { Component, HostBinding, Input, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-guest-info',

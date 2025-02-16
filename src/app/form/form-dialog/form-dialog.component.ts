@@ -18,6 +18,7 @@ import {
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { FakeHintComponent } from "@/app/form/fake-hint/fake-hint.component";
 import { comingOrInterested } from "@/functions";
+import { AuthService } from "@/services/auth.service";
 
 @Component({
   selector: 'app-form-dialog',
@@ -30,12 +31,13 @@ export class FormDialogComponent {
   public debug: boolean = false;
   public readonly noopComponent = NoopComponent;
 
-  public readonly minAllowedDate = EARLIEST_POSSIBLE_DATE;
-  public readonly maxAllowedDate = LATEST_POSSIBLE_DATE;
   public readonly midsommarDate = MIDSOMMAR_DATE;
   public readonly problematicFoods = PROBLEMATIC_FOODS;
   public readonly betterDates = BETTER_DATES;
   public readonly taskHelp = TASK_HELP;
+
+  public minAllowedDate!: Date;
+  public maxAllowedDate!: Date;
 
   public readonly comingOrInterested = comingOrInterested;
 
@@ -45,7 +47,14 @@ export class FormDialogComponent {
     public snackBar: MatSnackBar,
     public fs: FormService,
     private dialogRef: MatDialogRef<any, boolean>,
+    public auth: AuthService,
   ) {
+    console.log(auth.isAdmin, "is admin");
+    if (true) {
+    // if (!_auth.isAdmin) {
+      this.maxAllowedDate = LATEST_POSSIBLE_DATE;
+      this.minAllowedDate = EARLIEST_POSSIBLE_DATE;
+    }
 
   }
 
@@ -60,7 +69,10 @@ export class FormDialogComponent {
     if (this.userRegistrationForm.valid) {
       this.dialogRef.close(true);
     } else {
-      const _snackBarInstance = this.snackBar.open("please fix the errors");
+      console.error(this.userRegistrationForm.errors);
+      const _snackBarInstance = this.snackBar.open(
+        "There are some invalid fields. Please fix and save again",
+      );
     }
   }
 

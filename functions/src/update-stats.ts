@@ -3,11 +3,6 @@ import { IAttendee, IStats, IStatsAttendee, IStatsPerDay } from "../../src/types
 import { database } from "firebase-functions";
 import * as admin from 'firebase-admin';
 
-/**
- * Also change in /definitions/index.ts
- */
-const EARLIEST_POSSIBLE_DATE = new Date("2025-06-15T02:00:00.000Z");
-const LATEST_POSSIBLE_DATE = new Date("2025-06-22T02:00:00.000Z");
 const MS_PER_DAY = 86_400_000;
 const HOURS_AHEAD_TO_DEAL_WITH_TIMEZONES = 12;
 
@@ -97,12 +92,10 @@ export const updateStatsFactory = () => database.ref('/people/{uid}')
           uid,
         };
 
-        peopleList.push(attendee);
-
 
         for (
-          let i = +EARLIEST_POSSIBLE_DATE;
-          i <= +LATEST_POSSIBLE_DATE + MS_PER_DAY;
+          let i = +new Date(attendee.arrival);
+          i <= +new Date(attendee.departure) + MS_PER_DAY;
           i += MS_PER_DAY
         ) {
           const iDate = toDate(i);
@@ -129,7 +122,7 @@ export const updateStatsFactory = () => database.ref('/people/{uid}')
             day.freeCarSeats += person.freeCarSeats;
             day.amountHaveTent += Number(person.hasTent);
             day.amountSleepInTent += Number(person.hasTent && person.sleepsInTent);
-            day.people.push({
+            day.people!.push({
               ...attendee,
               arriving: arrivesToday,
               departing: isGoneTomorrow,
