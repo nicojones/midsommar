@@ -133,8 +133,8 @@
         <mat-datepicker #arrivalPicker [calendarHeaderComponent]="noopComponent" [dateClass]="dateClass"
           [disabled]="userRegistrationForm.controls.arrival.disabled"></mat-datepicker>
 
-        <mat-error *ngIf="hasError('arrival', 'arrivalTooEarly')">invalid date... if you want to arrive earlier, write
-          us</mat-error>
+        <mat-error *ngIf="!userRegistrationForm.controls.arrival.disabled && hasError('arrival', 'arrivalTooEarly')">
+          invalid date... if you want to arrive earlier, let Nico know</mat-error>
         <mat-error *ngIf="hasError('arrival', 'collision')">invalid date. Must be earlier than departure</mat-error>
       </mat-form-field>
 
@@ -153,8 +153,8 @@
         <mat-datepicker #departurePicker [calendarHeaderComponent]="noopComponent" [dateClass]="dateClass"
           [disabled]="userRegistrationForm.controls.departure.disabled"></mat-datepicker>
         <mat-error *ngIf="hasError('departure', 'collision')">invalid date. Must be later than arrival</mat-error>
-        <mat-error *ngIf="hasError('departure', 'departureTooLate')">invalid date... if you want to leave later, write
-          us</mat-error>
+        <mat-error *ngIf="!userRegistrationForm.controls.departure.disabled && hasError('departure', 'departureTooLate')">
+          invalid date... if you want to leave later, let Nico know</mat-error>
       </mat-form-field>
     </div>
     @if (!hasError('departure', 'collision') && !hasError('departure', 'departureTooLate') && !hasError('arrival',
