@@ -50,8 +50,7 @@ export class FormDialogComponent {
     public auth: AuthService,
   ) {
     console.log(auth.isAdmin, "is admin");
-    if (true) {
-    // if (!_auth.isAdmin) {
+    if (!auth.isAdmin) {
       this.maxAllowedDate = LATEST_POSSIBLE_DATE;
       this.minAllowedDate = EARLIEST_POSSIBLE_DATE;
     }
