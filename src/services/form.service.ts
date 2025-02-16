@@ -1,5 +1,5 @@
 import { FormDialogComponent } from "@/app/form/form-dialog/form-dialog.component";
-import { EXPECTED_ARRIVAL_DATE, EXPECTED_DEPARTURE_DATE, PROBLEMATIC_FOODS, TASK_HELP } from "@/definitions";
+import { EARLIEST_POSSIBLE_DATE, EXPECTED_ARRIVAL_DATE, EXPECTED_DEPARTURE_DATE, LATEST_POSSIBLE_DATE, PROBLEMATIC_FOODS, TASK_HELP } from "@/definitions";
 import { dbRef } from "@/firebase";
 import { addDatesToAttendee, daysStaying, formModalData, isoDatesToAttendee } from "@/functions";
 import { AuthService } from "@/services/auth.service";
@@ -88,6 +88,14 @@ export class FormService {
   }
 
   public createRegistrationForm(attendee: Partial<IAttendee<Date>>): void {
+    const canChangeDates = (
+      false
+        ? true
+        : (
+          new Date(attendee.arrival ?? 1e15) >= EARLIEST_POSSIBLE_DATE
+          && new Date(attendee.departure ?? 0) <= LATEST_POSSIBLE_DATE
+        )
+    );
     this.form = new FormGroup({
       uid: new FormControl(attendee.uid ?? ""),
       name: new FormControl(attendee.name ?? "", { validators: Validators.required }),
@@ -96,8 +104,18 @@ export class FormService {
       friendsWith: new FormControl(attendee.friendsWith ?? "", { validators: Validators.required }),
 
       attending: new FormControl(attendee.attending ?? true),
-      arrival: new FormControl(attendee.arrival ?? EXPECTED_ARRIVAL_DATE, [Validators.required]),
-      departure: new FormControl(attendee.departure ?? EXPECTED_DEPARTURE_DATE, [Validators.required]),
+      arrival: new FormControl({
+        value: attendee.arrival ?? EXPECTED_ARRIVAL_DATE,
+        disabled: !canChangeDates,
+      }, [Validators.required]),
+      // arrival: new FormControl(attendee.arrival ?? EXPECTED_ARRIVAL_DATE,
+      //  [Validators.required]),
+      // departure: new FormControl(attendee.departure ?? EXPECTED_DEPARTURE_DATE,
+      //  [Validators.required]),
+      departure: new FormControl({
+        value: attendee.departure ?? EXPECTED_DEPARTURE_DATE,
+        disabled: !canChangeDates,
+      }, [Validators.required]),
       comments: new FormControl(attendee.comments ?? ""),
       badDates: new FormControl(attendee.badDates ?? false),
       betterDates: new FormControl(attendee.betterDates ?? []),
@@ -113,7 +131,7 @@ export class FormService {
       editedOn: new FormControl(new Date(attendee.editedOn ?? new Date())),
       addedOn: new FormControl(attendee.addedOn),
       iWillBringNoDeadAnimals: new FormControl(attendee.iWillBringNoDeadAnimals ?? false, Validators.requiredTrue),
-    }, { validators: [DateLimitValidator.createValidator()] });
+    }, { validators: [DateLimitValidator.createValidator(false)] });
   }
 
   public async saveUserRegistration(): Promise<void> {
@@ -121,7 +139,7 @@ export class FormService {
     const snackBarInstance = this.snackBar.open("saving...", undefined, { duration: 2000 });
 
     // Update added/edited datetime stamps
-    if (!this.form.controls.addedOn.value) {
+    if (!this.form.controls.addedOn.getRawValue()) {
       this.form.controls.addedOn.setValue(new Date(), { emitEvent: false, onlySelf: true });
     }
     this.form.controls.editedOn.setValue(new Date(), { emitEvent: false, onlySelf: true });
@@ -148,6 +166,6 @@ export class FormService {
   }
 
   private updateDurationOfStay(): void {
-    this.timeStayingInWords$.next(daysStaying(this.form.value as IAttendee));
+    this.timeStayingInWords$.next(daysStaying(this.form.getRawValue() as IAttendee));
   }
 }
