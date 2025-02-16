@@ -89,7 +89,7 @@ export class FormService {
 
   public createRegistrationForm(attendee: Partial<IAttendee<Date>>): void {
     const canChangeDates = (
-      false
+      this.auth.isAdmin
         ? true
         : (
           new Date(attendee.arrival ?? 1e15) >= EARLIEST_POSSIBLE_DATE
@@ -108,10 +108,6 @@ export class FormService {
         value: attendee.arrival ?? EXPECTED_ARRIVAL_DATE,
         disabled: !canChangeDates,
       }, [Validators.required]),
-      // arrival: new FormControl(attendee.arrival ?? EXPECTED_ARRIVAL_DATE,
-      //  [Validators.required]),
-      // departure: new FormControl(attendee.departure ?? EXPECTED_DEPARTURE_DATE,
-      //  [Validators.required]),
       departure: new FormControl({
         value: attendee.departure ?? EXPECTED_DEPARTURE_DATE,
         disabled: !canChangeDates,
@@ -131,7 +127,7 @@ export class FormService {
       editedOn: new FormControl(new Date(attendee.editedOn ?? new Date())),
       addedOn: new FormControl(attendee.addedOn),
       iWillBringNoDeadAnimals: new FormControl(attendee.iWillBringNoDeadAnimals ?? false, Validators.requiredTrue),
-    }, { validators: [DateLimitValidator.createValidator(false)] });
+    }, { validators: [DateLimitValidator.createValidator(this.auth.isAdmin)] });
   }
 
   public async saveUserRegistration(): Promise<void> {
