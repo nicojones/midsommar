@@ -16,20 +16,7 @@
         (click)="confirm(info.name, 'email', $event)">📧</a>
     </td>
 
-    <ng-container *ngIf="showAllergies && info.problematicFoods?.length">
-      <td>
-        (<ng-container *ngFor="let food of info.problematicFoods">
-          <ng-container *ngTemplateOutlet="foodTemplate; context: { $implicit: food }"></ng-container>
-        </ng-container>
-
-        <ng-template #foodTemplate let-food>
-          <span [matTooltip]="fs.foodDetail(food).label">{{ fs.foodDetail(food).icon }}</span>
-        </ng-template>)
-      </td>
-    </ng-container>
-  </ng-container>
-
-  <ng-container *ngIf="showTaskHelp && info.taskHelp?.length">
+  <ng-container *ngIf="showTaskHelp && info.taskHelp?.length else na">
     <td>
       (<ng-container *ngFor="let task of info.taskHelp">
         <ng-container *ngTemplateOutlet="taskTemplate; context: { $implicit: task }"></ng-container>
@@ -41,4 +28,21 @@
     </td>
   </ng-container>
 
+  <td></td>
+
+  <ng-container *ngIf="showAllergies && info.problematicFoods?.length else na">
+    <td>
+      (<ng-container *ngFor="let food of info.problematicFoods">
+        <ng-container *ngTemplateOutlet="foodTemplate; context: { $implicit: food }"></ng-container>
+      </ng-container>
+
+      <ng-template #foodTemplate let-food>
+        <span [matTooltip]="fs.foodDetail(food).label">{{ fs.foodDetail(food).icon }}</span>
+      </ng-template>)
+    </td>
+  </ng-container>
+</ng-container>
+
 </ng-template>
+
+<ng-template #na><td>-</td></ng-template>
