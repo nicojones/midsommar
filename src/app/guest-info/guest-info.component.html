@@ -16,7 +16,7 @@
         (click)="confirm(info.name, 'email', $event)">📧</a>
     </td>
 
-    <ng-container *ngIf="showAllergies && info.problematicFoods.length">
+    <ng-container *ngIf="showAllergies && info.problematicFoods?.length">
       <td>
         (<ng-container *ngFor="let food of info.problematicFoods">
           <ng-container *ngTemplateOutlet="foodTemplate; context: { $implicit: food }"></ng-container>
@@ -29,7 +29,7 @@
     </ng-container>
   </ng-container>
 
-  <ng-container *ngIf="showTaskHelp && info.taskHelp.length">
+  <ng-container *ngIf="showTaskHelp && info.taskHelp?.length">
     <td>
       (<ng-container *ngFor="let task of info.taskHelp">
         <ng-container *ngTemplateOutlet="taskTemplate; context: { $implicit: task }"></ng-container>
