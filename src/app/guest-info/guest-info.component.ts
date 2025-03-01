@@ -18,7 +18,7 @@ export class GuestInfoComponent {
 
   @Input({ required: true }) public info!: IStatsAttendee<Date>;
   @Input() public showAllergies: boolean = false;
-  @Input() public showTaskHelp: boolean = false;
+  @Input() public showTaskHelp: boolean = true;
   @Input() public showContactDetails: boolean = false;
 
   public readonly hostIds = ADMIN_UIDS;

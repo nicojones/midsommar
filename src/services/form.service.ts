@@ -87,6 +87,18 @@ export class FormService {
     return TASK_HELP.find(food => food.value === value) ?? ({} as IValueLabel);
   }
 
+  public helpQuotas(value: string, numPeople: number, numPeopleWhoHelp: number): { val: string; color?: string; } {
+    const help = this.helpDetail(value);
+    if (!help.percent) {
+      return { val: 'N/A' };
+    }
+    const required = Math.round(help.percent * numPeople);
+    const signedUp = numPeopleWhoHelp;
+    const displayVal = `${signedUp} of ${required}`;
+
+    return { val: displayVal, color: signedUp >= required ? 'green' : 'orange' };
+  }
+
   public createRegistrationForm(attendee: Partial<IAttendee<Date>>): void {
     const canChangeDates = (
       this.auth.isAdmin
