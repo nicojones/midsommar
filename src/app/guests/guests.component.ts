@@ -16,7 +16,6 @@ export class GuestsComponent {
   public constructor(
     public auth: AuthService,
   ) {
-
   }
 
   public timeInWords (attendee: IStatsAttendee<Date>): string {

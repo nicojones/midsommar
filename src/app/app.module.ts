@@ -1,25 +1,26 @@
 import { AuthService } from "@/services/auth.service";
+import { FormService } from "@/services/form.service";
 import { AppGlobalRippleOptions } from "@/services/ripples.service";
 import { StoreService } from "@/services/store.service";
 import { CommonModule } from "@angular/common";
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MAT_RIPPLE_GLOBAL_OPTIONS } from "@angular/material/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { provideRouter, RouterLink, RouterOutlet, withComponentInputBinding } from "@angular/router";
+import { AdminGuestsComponent } from "./admin/admin-guests.component";
 import { AppComponent } from "./app.component";
 import { APP_ROUTES } from "./app.routes";
-import { HeaderComponent } from "./header/header.component";
-import { HomeComponent } from "./home/home.component";
-import { MaterialModule } from "./material/material.module";
 import { AttendingButtonComponent } from "./form/attending-button/attending-button.component";
-import { GuestsComponent } from "./guests/guests.component";
-import { AdminGuestsComponent } from "./admin/admin-guests.component";
-import { FormService } from "@/services/form.service";
 import { GalleryComponent } from "./gallery/gallery.component";
 import { GuestInfoComponent } from "./guest-info/guest-info.component";
+import { GuestsComponent } from "./guests/guests.component";
+import { HeaderComponent } from "./header/header.component";
+import { HomeComponent } from "./home/home.component";
 import { InfoComponent } from "./info/info.component";
+import { MaterialModule } from "./material/material.module";
+import { QuotasComponent } from "./quotas/quotas.component";
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { InfoComponent } from "./info/info.component";
     GalleryComponent,
     GuestInfoComponent,
     InfoComponent,
+    QuotasComponent,
   ],
   imports: [
     BrowserModule,

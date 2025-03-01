@@ -7,7 +7,7 @@ export * from "./store.definition";
 export const APP_PASSWORD = "swedishsummer";
 export const RIPPLES_ENABLED = true;
 
-export const TZ_OFFSET =  60000 * new Date().getTimezoneOffset();
+export const TZ_OFFSET = 60000 * new Date().getTimezoneOffset();
 
 /**
  * Also change in /functions/index.ts
@@ -38,18 +38,18 @@ export const PROBLEMATIC_FOODS: IValueLabel[] = [
 ];
 
 export const TASK_HELP: IValueLabel[] = [
-  { value: "house", label: "🏡 help with house tasks", icon: "🏡", description: "Mow the lawn, trim herbs here and there, clear paths, tidy the barn, paint something..."},
-  { value: "clean", label: "🧹 help with cleaning", icon: "🧹", description: "Help clean after meals, help tidy up. Least amount of work" },
-  { value: "cook", label: "👩‍🍳 help with cooking", icon: "👩‍🍳", description: "Help with cooking and preparing food. This takes more time, but might be fun for you" },
-  { value: "shopping", label: "🚛 help with shopping", icon: "🚛", description: "Implies potential trips to supermarkets or shops to buy food" },
-  { value: "prepare", label: "🍴 help with preparations", icon: "🍴", description: "prepare tables, organize spaces, assist kitchen" },
+  { value: "house", percent: 0.5, label: "🏡 help with house tasks", icon: "🏡", description: "Mow the lawn, trim herbs here and there, clear paths, tidy the barn, paint something..." },
+  { value: "clean", percent: 0.2, label: "🧹 help with cleaning", icon: "🧹", description: "Help clean after meals, help tidy up. Least amount of work" },
+  { value: "cook", percent: 0.2, label: "👩‍🍳 help with cooking", icon: "👩‍🍳", description: "Help with cooking and preparing food. This takes more time, but might be fun for you" },
+  { value: "shopping", percent: 0.1, label: "🚛 help with shopping", icon: "🚛", description: "Implies potential trips to supermarkets or shops to buy food" },
+  { value: "prepare", percent: 0.1, label: "🍴 help with preparations", icon: "🍴", description: "prepare tables, organize spaces, assist kitchen" },
 ];
 
 export const BETTER_DATES: IValueLabel[] = [
-  {value: "-2", label: "two weeks before (June 6th)", icon: ""},
-  {value: "-1", label: "one week before (June 13th)", icon: ""},
-  {value: "1", label: "one week later (June 27th)", icon: ""},
-  {value: "2", label: "two weeks later (July 4th)", icon: ""},
+  { value: "-2", label: "two weeks before (June 6th)", icon: "" },
+  { value: "-1", label: "one week before (June 13th)", icon: "" },
+  { value: "1", label: "one week later (June 27th)", icon: "" },
+  { value: "2", label: "two weeks later (July 4th)", icon: "" },
 ];
 
 export const HOUSE_COORDS: ICoords = { lat: 61.269927, lng: 16.850408 } as const;

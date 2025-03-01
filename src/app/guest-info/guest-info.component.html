@@ -15,8 +15,8 @@
       <a role="button" class="text-sm !cursor-pointer" [href]="'mailto:' + info.email"
         (click)="confirm(info.name, 'email', $event)">📧</a>
     </td>
-    <ng-container *ngIf="showAllergies">
 
+    <ng-container *ngIf="showAllergies && info.problematicFoods.length">
       <td>
         (<ng-container *ngFor="let food of info.problematicFoods">
           <ng-container *ngTemplateOutlet="foodTemplate; context: { $implicit: food }"></ng-container>
@@ -26,23 +26,19 @@
           <span [matTooltip]="fs.foodDetail(food).label">{{ fs.foodDetail(food).icon }}</span>
         </ng-template>)
       </td>
-
     </ng-container>
+  </ng-container>
 
-    <ng-container *ngIf="showTaskHelp">
+  <ng-container *ngIf="showTaskHelp && info.taskHelp.length">
+    <td>
+      (<ng-container *ngFor="let task of info.taskHelp">
+        <ng-container *ngTemplateOutlet="taskTemplate; context: { $implicit: task }"></ng-container>
+      </ng-container>
 
-      <td>
-        (<ng-container *ngFor="let task of info.taskHelp">
-          <ng-container *ngTemplateOutlet="taskTemplate; context: { $implicit: task }"></ng-container>
-        </ng-container>
-
-        <ng-template #taskTemplate let-task>
-          <span [matTooltip]="fs.helpDetail(task).label">{{ fs.helpDetail(task).icon }}</span>
-        </ng-template>)
-      </td>
-
-    </ng-container>
-
+      <ng-template #taskTemplate let-task>
+        <span [matTooltip]="fs.helpDetail(task).label">{{ fs.helpDetail(task).icon }}</span>
+      </ng-template>)
+    </td>
   </ng-container>
 
 </ng-template>

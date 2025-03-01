@@ -92,6 +92,7 @@ export const updateStatsFactory = () => database.ref('/people/{uid}')
           uid,
         };
 
+        peopleList.push(attendee);
 
         for (
           let i = +new Date(attendee.arrival);
@@ -145,6 +146,7 @@ export const updateStatsFactory = () => database.ref('/people/{uid}')
                 day.taskHelp[t] += 1;
               }
             });
+
           }
         }
       }

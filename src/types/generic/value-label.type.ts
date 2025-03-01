@@ -4,4 +4,5 @@ export interface IValueLabel<ValueType extends string | number = string> {
   icon: string;
   description?: string;
   disabled?: boolean;
+  percent?: number
 }
