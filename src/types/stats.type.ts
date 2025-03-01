@@ -6,7 +6,7 @@ export interface IStatsAttendeeArrival {
 }
 
 export type IStatsAttendee<DateType extends string | Date = Date> =
-  Pick<IAttendee<DateType>, "name" | "email" | "addedOn" | "editedOn" | "arrival" | "departure" | "freeCarSeats" | "attending" | "hasCar" | "hasTent" | "sleepsInTent" | "problematicFoods" | "taskHelp" | "phone"> & { uid: string; }
+  Pick<IAttendee<DateType>, "name" | "email" | "addedOn" | "editedOn" | "arrival" | "departure" | "freeCarSeats" | "attending" | "hasCar" | "hasTent" | "sleepsInTent" | "problematicFoods" | "taskHelp" | "phone" | "booked"> & { uid: string; }
   &
   IStatsAttendeeArrival;
 
@@ -41,7 +41,7 @@ export interface IStatsPerDay<DateType extends string | Date = Date> {
    */
   averageDuration: number;
   /**
-   * Summarized data of the people who come
+   * Summarized data of the people who have shown interest
    * @readonly
    */
   people?: IStatsAttendee<DateType>[];

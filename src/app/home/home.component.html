@@ -18,15 +18,15 @@
 
   <div class="flex flex-col space-y-4">
     <div *ngIf="fs.userHasRegistered; else notRegistered" class="flex flex-col items-center space-y-2 basis-1/2">
-      <div class="flex flex-row justify-between w-full">
-        <app-attending-button classes="w-64 h-64 rounded-full" [checked]="fs.userHasBooked"
+      <div class="flex flex-col justify-center items-center gap-y-4 w-full md:flex-row md:gap-x-4 md:gap-y-0 md:justify-between">
+        <app-attending-button classes="w-64 h-64 rounded-full" [checked]="fs.userIsComing"
           [text]="[
             comingOrInterested(['Interested!', 'Coming!']),
             comingOrInterested(['Not interested...', 'Can\'t come...'])
           ]"
-          (change)="changeBooked($event)"></app-attending-button>
-        <app-attending-button classes="w-64 h-64 rounded-full" [checked]="fs.userIsComing"
-          [text]="['I have booked', 'I haven\' t booked']" (change)="changeAttendance($event)"></app-attending-button>
+          (change)="changeAttendance($event)"></app-attending-button>
+        <app-attending-button classes="w-64 h-64 rounded-full" [checked]="fs.userHasBooked"
+          [text]="['I have booked flights/trains to Sweden', 'I haven\' t booked anything yet']" (change)="changeBooked($event)"></app-attending-button>
       </div>
       <button mat-button (click)="fs.openAttendeeModalForm()" class="inline-block w-24">EDIT</button>
     </div>
@@ -37,8 +37,7 @@
         </mat-card-header>
         <mat-card-content>
           <small>Register your attendance so we know who's {{comingOrInterested(["interested", "coming"])}}.<br />You
-            can always change this later {{comingOrInterested(["(and it's not definitive, we are just checking what the
-            interest is.)", ""])}}</small>
+            can always change this later {{comingOrInterested(["(and it's not definitive, we are just checking what the interest is.)", ""])}}</small>
         </mat-card-content>
         <mat-card-actions>
           <button mat-button (click)="fs.openAttendeeModalForm()" class="inline-block w-24">REGISTER</button>

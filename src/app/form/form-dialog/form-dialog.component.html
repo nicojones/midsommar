@@ -28,13 +28,19 @@
 
     <hr>
     <!-- ----------------------------------- -->
+    <div
+      class="flex flex-col justify-center items-center gap-y-4 w-full md:flex-row md:gap-x-4 md:gap-y-0 md:justify-between">
 
-    <app-attending-button classes="w-full h-20" [checked]="userRegistrationForm.controls.attending.value"
-      (change)="fs.toggleCheckbox('attending', $event)" [animateOnInit]="true"></app-attending-button>
-
+      <app-attending-button classes="w-64 h-64 rounded-full" [checked]="userRegistrationForm.controls.attending.value" [text]="[
+        comingOrInterested(['Interested!', 'Coming!']),
+        comingOrInterested(['Not interested...', 'Can\'t come...'])
+      ]" [animateOnInit]="true" (change)="fs.toggleCheckbox('attending', $event)"></app-attending-button>
+      <app-attending-button classes="w-64 h-64 rounded-full" [checked]="userRegistrationForm.controls.booked.value" [animateOnInit]="true"
+        [text]="['I have booked flights/trains to Sweden', 'I haven\' t booked anything yet']"
+        (change)="fs.toggleCheckbox('booked', $event)"></app-attending-button>
+    </div>
     <hr>
     <!-- ----------------------------------- -->
-
     <mat-form-field class="">
       <mat-label>full name</mat-label>
       <input placeholder="e.g. Céline" matInput type="text" [formControl]="userRegistrationForm.controls.name" />
@@ -122,13 +128,13 @@
         <input class="pointer-events-none" placeholder="when are you arriving?" matInput [min]="minAllowedDate"
           [max]="midsommarDate" [matDatepicker]="arrivalPicker" [readonly]="true"
           [formControl]="userRegistrationForm.controls.arrival" />
-          <mat-hint>
-            {{
-              userRegistrationForm.controls.departure.disabled
-                ? 'disabled: Please ask Nico to change the dates'
-                : 'arrival date'
-            }}
-          </mat-hint>
+        <mat-hint>
+          {{
+          userRegistrationForm.controls.departure.disabled
+          ? 'disabled: Please ask Nico to change the dates'
+          : 'arrival date'
+          }}
+        </mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="arrivalPicker"></mat-datepicker-toggle>
         <mat-datepicker #arrivalPicker [calendarHeaderComponent]="noopComponent" [dateClass]="dateClass"
           [disabled]="userRegistrationForm.controls.arrival.disabled"></mat-datepicker>
@@ -144,16 +150,17 @@
           [formControl]="userRegistrationForm.controls.departure" />
         <mat-hint>
           {{
-            userRegistrationForm.controls.departure.disabled
-              ? 'disabled: Please ask Nico to change the dates'
-              : 'departure date'
+          userRegistrationForm.controls.departure.disabled
+          ? 'disabled: Please ask Nico to change the dates'
+          : 'departure date'
           }}
         </mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="departurePicker"></mat-datepicker-toggle>
         <mat-datepicker #departurePicker [calendarHeaderComponent]="noopComponent" [dateClass]="dateClass"
           [disabled]="userRegistrationForm.controls.departure.disabled"></mat-datepicker>
         <mat-error *ngIf="hasError('departure', 'collision')">invalid date. Must be later than arrival</mat-error>
-        <mat-error *ngIf="!userRegistrationForm.controls.departure.disabled && hasError('departure', 'departureTooLate')">
+        <mat-error
+          *ngIf="!userRegistrationForm.controls.departure.disabled && hasError('departure', 'departureTooLate')">
           invalid date... if you want to leave later, let Nico know</mat-error>
       </mat-form-field>
     </div>

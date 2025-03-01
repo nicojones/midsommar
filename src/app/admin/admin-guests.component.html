@@ -4,6 +4,27 @@
 
   <mat-accordion>
     <mat-expansion-panel matRipple [expanded]="true">
+      <mat-expansion-panel-header>{{usersBooked.length}} booked</mat-expansion-panel-header>
+      <ul class="py-4">
+        @for (u of usersBooked; track u) {
+        <ng-container *ngTemplateOutlet="userTemplate; context: { $implicit: u }"></ng-container>
+        }
+      </ul>
+    </mat-expansion-panel>
+    <mat-expansion-panel matRipple *ngIf="usersNotBooked.length">
+      <mat-expansion-panel-header>{{ usersNotBooked.length}} who didn't book (yet?)</mat-expansion-panel-header>
+      <ul class="py-4">
+        @for (u of usersNotBooked; track u) {
+        <ng-container *ngTemplateOutlet="userTemplate; context: { $implicit: u }"></ng-container>
+        }
+      </ul>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <hr class="my-6" />
+
+  <mat-accordion>
+    <mat-expansion-panel matRipple>
       <mat-expansion-panel-header>{{users.length}} {{comingOrInterested(['interested', 'coming'])}}</mat-expansion-panel-header>
       <ul class="py-4">
         @for (u of users; track u) {
@@ -12,7 +33,7 @@
       </ul>
     </mat-expansion-panel>
     <mat-expansion-panel matRipple *ngIf="usersNotComing.length">
-      <mat-expansion-panel-header>{{ usersNotComing.length}} {{comingOrInterested(['signed up, but not interested', 'not coming'])}}</mat-expansion-panel-header>
+      <mat-expansion-panel-header>{{ usersNotComing.length}} {{comingOrInterested(['signed up, but not interested anymore', 'not coming for sure'])}}</mat-expansion-panel-header>
       <ul class="py-4">
         @for (u of usersNotComing; track u) {
         <ng-container *ngTemplateOutlet="userTemplate; context: { $implicit: u }"></ng-container>

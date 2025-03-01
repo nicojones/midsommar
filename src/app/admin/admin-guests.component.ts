@@ -14,6 +14,10 @@ export class AdminGuestsComponent {
 
   public users: IAttendee[] = [];
   public usersNotComing: IAttendee[] = [];
+
+  public usersBooked: IAttendee[] = [];
+  public usersNotBooked: IAttendee[] = [];
+
   public stats!: IStats;
   public dailyStats!: IDailyStats[];
   public readonly parseDate = toIsoDate;
@@ -34,6 +38,9 @@ export class AdminGuestsComponent {
       const allUsers = Object.values(attendees).map(addDatesToAttendee);
       this.users = allUsers.filter(u => u.attending);
       this.usersNotComing = allUsers.filter(u => !u.attending);
+
+      this.usersBooked = allUsers.filter(u => u.booked && u.attending);
+      this.usersNotBooked = allUsers.filter(u => !u.booked || !u.attending);
     });
 
     onValue(query(dbRef(`/stats`)), r => {

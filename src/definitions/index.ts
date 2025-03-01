@@ -55,4 +55,4 @@ export const BETTER_DATES: IValueLabel[] = [
 export const HOUSE_COORDS: ICoords = { lat: 61.269927, lng: 16.850408 } as const;
 export const AIRPORT_COORDS: ICoords = { lat: 59.64957359874774, lng: 17.929290658863916 } as const;
 
-export const BEFORE_THIS_DATE_WE_ARE_JUST_CHECKING_WHO_IS_INTERESTED = new Date("2025-01-01");
+export const BEFORE_THIS_DATE_WE_ARE_JUST_CHECKING_WHO_IS_INTERESTED = new Date("2025-05-01");
