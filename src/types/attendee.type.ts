@@ -51,6 +51,10 @@ export interface IAttendee<DateType extends string | Date = Date> {
    */
   sleepsInTent: boolean;
   /**
+   * Whether the user has confirmed they have booked
+   */
+  booked: boolean;
+  /**
    * Whether they are attending or not. An attendee might have signed up and later cancel it.
    */
   attending: boolean;

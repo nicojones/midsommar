@@ -37,6 +37,16 @@ export class HomeComponent {
 
   }
 
+
+  public changeBooked(newValue: boolean) {
+    this.fs.toggleCheckbox('booked', newValue, true);
+    // Allow changes to propagate through the form
+    setTimeout(() => {
+      this.fs.saveUserRegistration();
+    }, 50);
+
+  }
+
   //public ngOnDestroy(): void {
     //this.formListener$.complete();
   //}

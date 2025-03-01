@@ -79,6 +79,10 @@ export class FormService {
     return !!this.form?.value.attending;
   }
 
+  public get userHasBooked(): boolean {
+    return !!this.form?.value.booked;
+  }
+
   public foodDetail(value: string): IValueLabel {
     return PROBLEMATIC_FOODS.find(food => food.value === value) ?? ({} as IValueLabel);
   }
@@ -115,6 +119,7 @@ export class FormService {
       email: new FormControl(attendee.email ?? "", { validators: Validators.required }),
       friendsWith: new FormControl(attendee.friendsWith ?? "", { validators: Validators.required }),
 
+      booked: new FormControl(attendee.booked ?? true),
       attending: new FormControl(attendee.attending ?? true),
       arrival: new FormControl({
         value: attendee.arrival ?? EXPECTED_ARRIVAL_DATE,

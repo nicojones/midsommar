@@ -4,20 +4,30 @@
 
   <div class="flex flex-col space-y-6">
     <p>
-      As you know, we would love to spend together a wonderful <a href="https://en.wikipedia.org/wiki/Midsummer" class="link"
-        target="_blank" rel="noreferrer">&#x2600;&#xFE0F; Midsommar &#x2600;&#xFE0F;</a>  in 2025
-        <br/>
-        {{comingOrInterested(["And yes, it's a bit early for that!", ""])}}
+      As you know, we would love to spend together a wonderful <a href="https://en.wikipedia.org/wiki/Midsummer"
+        class="link" target="_blank" rel="noreferrer">&#x2600;&#xFE0F; Midsommar &#x2600;&#xFE0F;</a> in 2025
+      <br />
+      {{comingOrInterested(["And yes, it's a bit early for that!", ""])}}
     </p>
-    <p>This website is a way to track who's {{comingOrInterested(["interested", "coming"])}} and update you on the progress.</p>
-    <p>Have a look at the <a routerLink="/info" class="link">information</a> and <a routerLink="/gallery" class="link">pictures</a> as well</p>
+    <p>This website is a way to track who's {{comingOrInterested(["interested", "coming"])}} and update you on the
+      progress.</p>
+    <p>Have a look at the <a routerLink="/info" class="link">information</a> and <a routerLink="/gallery"
+        class="link">pictures</a> as well</p>
   </div>
 
 
   <div class="flex flex-col space-y-4">
     <div *ngIf="fs.userHasRegistered; else notRegistered" class="flex flex-col items-center space-y-2 basis-1/2">
-      <app-attending-button classes="w-64 h-64 rounded-full" [checked]="fs.userIsComing"
-        (change)="changeAttendance($event)"></app-attending-button>
+      <div class="flex flex-row justify-between w-full">
+        <app-attending-button classes="w-64 h-64 rounded-full" [checked]="fs.userHasBooked"
+          [text]="[
+            comingOrInterested(['Interested!', 'Coming!']),
+            comingOrInterested(['Not interested...', 'Can\'t come...'])
+          ]"
+          (change)="changeBooked($event)"></app-attending-button>
+        <app-attending-button classes="w-64 h-64 rounded-full" [checked]="fs.userIsComing"
+          [text]="['I have booked', 'I haven\' t booked']" (change)="changeAttendance($event)"></app-attending-button>
+      </div>
       <button mat-button (click)="fs.openAttendeeModalForm()" class="inline-block w-24">EDIT</button>
     </div>
     <ng-template #notRegistered>
@@ -27,7 +37,8 @@
         </mat-card-header>
         <mat-card-content>
           <small>Register your attendance so we know who's {{comingOrInterested(["interested", "coming"])}}.<br />You
-            can always change this later {{comingOrInterested(["(and it's not definitive, we are just checking what the interest is.)", ""])}}</small>
+            can always change this later {{comingOrInterested(["(and it's not definitive, we are just checking what the
+            interest is.)", ""])}}</small>
         </mat-card-content>
         <mat-card-actions>
           <button mat-button (click)="fs.openAttendeeModalForm()" class="inline-block w-24">REGISTER</button>

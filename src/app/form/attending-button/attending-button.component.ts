@@ -14,6 +14,7 @@ import { MatRipple } from "@angular/material/core";
 export class AttendingButtonComponent implements OnInit {
 
   @Input() public animateOnInit: boolean = false;
+  @Input() public text: [string, string] = ['', ''];
   @Input({ required: true }) public checked: boolean = true;
   @Output() public change = new EventEmitter<boolean>();
 
