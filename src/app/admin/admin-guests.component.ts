@@ -40,7 +40,7 @@ export class AdminGuestsComponent {
       this.usersNotComing = allUsers.filter(u => !u.attending);
 
       this.usersBooked = allUsers.filter(u => u.booked && u.attending);
-      this.usersNotBooked = allUsers.filter(u => !u.booked || !u.attending);
+      this.usersNotBooked = allUsers.filter(u => !u.booked && u.attending);
     });
 
     onValue(query(dbRef(`/stats`)), r => {
