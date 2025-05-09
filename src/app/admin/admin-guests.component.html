@@ -53,7 +53,7 @@
     <ng-container *ngFor="let day of dailyStats">
       <mat-expansion-panel matRipple>
         <mat-expansion-panel-header>
-          <mat-panel-title>on {{ day.day }}</mat-panel-title>
+          <mat-panel-title>on {{ day.day }} &nbsp;<span matTooltip="number of guests">({{day.stats.attending}})</span></mat-panel-title>
         </mat-expansion-panel-header>
         <div class="fric-2 text-xl">
           <small matTooltip="number of guests">{{day.stats.attending}}👯‍♂️</small>
