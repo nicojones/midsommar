@@ -1,4 +1,5 @@
 import { AuthService } from "@/services/auth.service";
+import { FormService } from "@/services/form.service";
 import { Component } from '@angular/core';
 
 @Component({
@@ -9,6 +10,7 @@ export class HeaderComponent {
 
     public constructor(
       public auth: AuthService,
+      public fs: FormService,
     ) {
 
     }

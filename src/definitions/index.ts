@@ -9,20 +9,22 @@ export const RIPPLES_ENABLED = true;
 
 export const TZ_OFFSET = 60000 * new Date().getTimezoneOffset();
 
+export const EVENT_YEAR = 2025;
+
 /**
  * Also change in /functions/index.ts
  */
-export const EARLIEST_POSSIBLE_DATE = new Date(+new Date("2025-06-16") + TZ_OFFSET);
-export const EXPECTED_ARRIVAL_DATE = new Date(+new Date("2025-06-18") + TZ_OFFSET);
+export const EARLIEST_POSSIBLE_DATE = new Date(+new Date(`${EVENT_YEAR}-06-16`) + TZ_OFFSET);
+export const EXPECTED_ARRIVAL_DATE = new Date(+new Date(`${EVENT_YEAR}-06-18`) + TZ_OFFSET);
 
-export const MIDSOMMAR_DATE = new Date(+new Date("2025-06-20") + TZ_OFFSET);
-export const SPIRITUAL_DATE = "2025-06-19" as const;
+export const MIDSOMMAR_DATE = new Date(+new Date(`${EVENT_YEAR}-06-20`) + TZ_OFFSET);
+export const SPIRITUAL_DATE = `${EVENT_YEAR}-06-19` as const;
 
-export const EXPECTED_DEPARTURE_DATE = new Date(+new Date("2025-06-21") + TZ_OFFSET);
+export const EXPECTED_DEPARTURE_DATE = new Date(+new Date(`${EVENT_YEAR}-06-21`) + TZ_OFFSET);
 /**
  * Also change in /functions/index.ts
  */
-export const LATEST_POSSIBLE_DATE = new Date(+new Date("2025-06-22 12:00") + TZ_OFFSET);
+export const LATEST_POSSIBLE_DATE = new Date(+new Date(`${EVENT_YEAR}-06-22 12:00`) + TZ_OFFSET);
 
 export const ADMIN_UIDS = [
   "I5LzPFdWFgYhyCTqFZPWQ5euYME2", // NICO

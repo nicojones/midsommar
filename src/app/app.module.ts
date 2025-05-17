@@ -21,6 +21,8 @@ import { HomeComponent } from "./home/home.component";
 import { InfoComponent } from "./info/info.component";
 import { MaterialModule } from "./material/material.module";
 import { QuotasComponent } from "./quotas/quotas.component";
+import { DayStatsComponent } from "./day-stats/day-stats.component";
+import { ConfirmationComponent } from "./confirmation/confirmation.component";
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { QuotasComponent } from "./quotas/quotas.component";
     GuestInfoComponent,
     InfoComponent,
     QuotasComponent,
+    DayStatsComponent,
+    ConfirmationComponent,
   ],
   imports: [
     BrowserModule,

@@ -56,26 +56,5 @@ export class AdminGuestsComponent {
     this.fs.openAttendeeModalForm();
   }
 
-  public allergies(foods: IStats["problematicFoods"]): Array<[string, string, number]> {
-    return Object.keys(foods ?? {}).map(food => [
-      this.fs.foodDetail(food).icon as string,
-      this.fs.foodDetail(food).label,
-      foods[food],
-    ]);
-  }
-
-  public taskHelp(tasks: IStats["taskHelp"]): Array<[string, string, number]> {
-    return Object.keys(tasks).map(t => [
-      this.fs.helpDetail(t).icon as string,
-      this.fs.helpDetail(t).label,
-      tasks[t],
-    ]);
-  }
-
-
-  public availableCarSeats (stats: IStatsPerDay): number {
-    return (stats.amountHaveCar + stats.freeCarSeats) - stats.attending;
-  }
-
 
 }

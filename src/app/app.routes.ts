@@ -9,6 +9,7 @@ import { NotFoundComponent } from "./not-found/not-found.component";
 import { GalleryComponent } from "@/app/gallery/gallery.component";
 import { AdminEmailsComponent } from "./admin/admin-emails/admin-emails.component";
 import { InfoComponent } from "./info/info.component";
+import { ConfirmationComponent } from "./confirmation/confirmation.component";
 
 export const APP_ROUTES: Routes = [
   {
@@ -21,6 +22,10 @@ export const APP_ROUTES: Routes = [
       {
         path: "",
         component: HomeComponent,
+      },
+      {
+        path: "confirmation",
+        component: ConfirmationComponent,
       },
       {
         path: "admin",
