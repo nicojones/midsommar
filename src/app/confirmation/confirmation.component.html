@@ -1,0 +1,21 @@
+<div class="flex flex-col space-y-8 c-fluid">
+  <h1 class="jumbo text-center uppercase">🎉 Confirmation 🎉</h1>
+
+  <div class="flex flex-col space-y-6">
+    <p>
+      Thank you for confirming your participation in our Midsommar celebration! 
+    </p>
+    <p>
+      Below you'll find the daily schedule (who's coming and leaving when) and details about the event.
+    </p>
+    <p>
+      Feel free to check out the <a routerLink="/info" class="link">information</a> and <a routerLink="/gallery"
+        class="link">pictures</a> as well.
+    </p>
+  </div>
+
+  <div class="flex flex-col space-y-4">
+    <h3 class="fancy text-xl text-center uppercase">🎉 Daily Attendance 🎉</h3>
+    <app-day-stats [stats]="dailyStats"></app-day-stats>
+  </div>
+</div>  

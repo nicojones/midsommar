@@ -1,0 +1,43 @@
+<mat-accordion>
+  <ng-container *ngFor="let day of stats">
+    <mat-expansion-panel matRipple>
+      <mat-expansion-panel-header>
+        <mat-panel-title>on {{ day.day }} &nbsp;<span matTooltip="number of guests">({{day.stats.attending}})</span></mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="fric-2 text-xl">
+        <small matTooltip="number of guests">{{day.stats.attending}}👯‍♂️</small>
+        <small matTooltip="number of free seats">{{day.stats.freeCarSeats + day.stats.amountHaveCar}}🚙</small>
+        <small *ngIf="availableCarSeats(day.stats) < 0" class="text-red-600"
+          matTooltip="not enough cars for eveyone to travel. This value indicates the shortage">
+          {{-availableCarSeats(day.stats)}}🚒
+        </small>
+        <small matTooltip="number of tents">{{day.stats.amountHaveTent}}⛺️</small>
+        <small matTooltip="own accommodation">{{day.stats.amountSleepInTent}}🏕️</small>
+        <small class="fric space-x-0.5">(
+          @for (a of allergies(day.stats.problematicFoods); track a[0]) {
+          <span [matTooltip]="'people with ' + a[1]">{{a[2]}}{{a[0]}}</span>
+          }
+          )
+        </small>
+        <small class="fric space-x-0.5">(
+          @for (a of taskHelp(day.stats.taskHelp); track a[0]) {
+          <span [matTooltip]=" a[2] + ' people will ' + a[1]">{{a[2]}}{{a[0]}}</span>
+          }
+          )
+        </small>
+      </div>
+      <hr>
+      <br>
+      <table class="pl-4">
+        <ng-container *ngFor="let p of day.stats?.people ?? []">
+          <tr
+            [class]="'cursor-help ' + (p.arriving ? 'text-green-600 ' : '') + (p.departing ? 'text-red-600' : '')">
+            <td>{{p.name}}</td>
+            <template [ngTemplateOutlet]="source.tmp"></template>
+          </tr>
+          <app-guest-info #source [info]="p" [showAllergies]="true" [showTaskHelp]="true" [showContactDetails]="showContactDetails"></app-guest-info>
+        </ng-container>
+      </table>
+    </mat-expansion-panel>
+  </ng-container>
+</mat-accordion>
